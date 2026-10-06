@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Délice Market — La visite du magasin</title>
+<meta name="description" content="Poussez la porte de Délice Market à Manosque : une visite immersive du magasin, rayon par rayon.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16130f">
+<meta property="og:title" content="Délice Market — La visite du magasin">
+<meta property="og:description" content="Poussez la porte : primeur, boucherie, rôtisserie, épicerie fine, fromagerie, surgelés.">
+<meta property="og:image" content="assets/video/film-magasin.jpg">
+<link rel="icon" href="../assets/img/logos/favicon-market.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter+Tight:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/v2.css">
+</head>
+<body>
+<div class="demo-bar">Maquette de démonstration réalisée par <strong>KingDream Digital</strong> · site non officiel, en cours de conception</div>
+
+<header class="top" id="top">
+  <a class="top__brand" href="#entree" aria-label="Délice Market — retour à l'entrée">
+    <img src="../assets/img/logos/logo_delice_market.svg" alt="Délice Market">
+  </a>
+  <span class="top__visit">La visite</span>
+  <nav class="top__actions" aria-label="Accès rapide">
+    <a class="pill" href="https://www.google.com/maps/dir/?api=1&amp;destination=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque" target="_blank" rel="noopener">Itinéraire</a>
+    <a class="pill pill--solid" href="tel:+33486905452">Appeler</a>
+  </nav>
+</header>
+
+<!-- « Vous êtes ici » : position dans le magasin, mise à jour pendant la visite -->
+<nav class="gps" aria-label="Votre position dans le magasin">
+  <button class="gps__btn" type="button" data-gps="prev" aria-label="Rayon précédent">‹</button>
+  <a class="gps__here" href="#plan"><span class="gps__pin" aria-hidden="true"></span><span class="gps__txt">Plan du magasin</span></a>
+  <button class="gps__btn" type="button" data-gps="next" aria-label="Rayon suivant">›</button>
+  <div class="gps__bar" aria-hidden="true"></div>
+</nav>
+
+<main>
+
+<!-- 1. ENTRÉE ============================================================ -->
+<section id="entree" class="entree" data-zone="entree" data-label="Devant le magasin">
+  <div class="entree__stage">
+  <div class="entree__sky" aria-hidden="true"><span class="entree__sun"></span><span class="entree__stars"></span></div>
+  <div class="entree__title">
+    <p class="entree__hours">Ouverture non stop · 8h30 — 21h · 7j/7</p>
+    <h1>Poussez la porte.</h1>
+    <p class="entree__lead"><span class="js-greeting">Bonjour</span> ! Faites le tour de Délice Market, rayon par rayon.</p>
+    <p class="entree__status"><span class="status" data-hours="08:30-21:00">Ouvert 7j/7</span></p>
+  </div>
+  <div class="entree__store">
+    <img src="../assets/img/market/delicemarket_3D.webp" alt="Le magasin Délice Market, avenue Frédéric Mistral à Manosque" fetchpriority="high">
+  </div>
+  <p class="scroll-hint" aria-hidden="true"><span>Faites défiler pour entrer</span><i></i></p>
+  </div>
+  <div class="entree__inside">
+    <video class="entree__film" muted loop playsinline autoplay preload="auto" poster="assets/video/film-magasin.jpg" aria-hidden="true">
+      <source src="assets/video/film-magasin.mp4" type="video/mp4">
+    </video>
+    <div class="entree__welcome">
+      <p class="kicker">Bienvenue chez</p>
+      <h2>Délice Market</h2>
+      <p>Le supermarché halal de proximité de Manosque, depuis 2021. Tous vos produits frais au même endroit.</p>
+      <ul class="chips">
+        <li>+5 000 produits</li><li>4,7/5 sur Google</li><li>Parking gratuit</li>
+      </ul>
+    </div>
+  </div>
+  <div class="entree__doors" aria-hidden="true">
+    <div class="door door--l"><span class="door__sticker">Entrée</span></div>
+    <div class="door door--r"><span class="door__sticker door__sticker--logo">Bienvenue</span></div>
+  </div>
+</section>
+
+<!-- 2. PLAN ============================================================== -->
+<section id="plan" class="plan" data-zone="plan" data-label="Plan du magasin">
+  <div class="wrap plan__grid">
+    <div class="plan__txt rv">
+      <span class="tag tag--slate">plan du magasin.</span>
+      <h2>Votre parcours</h2>
+      <p class="lead">Six rayons, plus de 5 000 produits, un seul passage. Suivez le guide : le petit repère en bas de l'écran vous dit toujours où vous êtes.</p>
+      <ol class="plan__list">
+        <li><a href="#primeur"><span class="tag tag--green">primeur.</span>Fruits &amp; légumes</a></li>
+        <li><a href="#boucherie"><span class="tag tag--red">boucherie.</span>Viande halal</a></li>
+        <li><a href="#rotisserie"><span class="tag tag--orange">rôtisserie.</span>Ven · sam · dim</a></li>
+        <li><a href="#epicerie"><span class="tag tag--black">épicerie fine.</span>Saveurs d'Orient</a></li>
+        <li><a href="#fromagerie"><span class="tag tag--yellow">fromagerie.</span>&amp; charcuterie halal</a></li>
+        <li><a href="#surgeles"><span class="tag tag--cyan">surgelés.</span>&amp; le quotidien</a></li>
+      </ol>
+    </div>
+    <div class="plan__map rv">
+      <svg viewBox="0 0 600 440" role="img" aria-label="Plan simplifié du magasin et parcours de la visite">
+        <rect class="pm-wall" x="12" y="12" width="576" height="396" rx="18"/>
+        <a href="#boucherie"><rect class="pm-zone pm-red" x="36" y="34" width="290" height="70" rx="10"/><text x="181" y="76">BOUCHERIE</text></a>
+        <a href="#rotisserie"><rect class="pm-zone pm-orange" x="340" y="34" width="110" height="70" rx="10"/><text x="395" y="76">RÔTISSERIE</text></a>
+        <a href="#fromagerie"><rect class="pm-zone pm-yellow" x="468" y="34" width="96" height="190" rx="10"/><text x="516" y="134" transform="rotate(-90 516 134)">FROMAGERIE</text></a>
+        <a href="#epicerie">
+          <rect class="pm-aisle" x="196" y="140" width="22" height="160" rx="6"/>
+          <rect class="pm-aisle" x="252" y="140" width="22" height="160" rx="6"/>
+          <rect class="pm-aisle" x="308" y="140" width="22" height="160" rx="6"/>
+          <rect class="pm-aisle" x="364" y="140" width="22" height="160" rx="6"/>
+          <text class="pm-small" x="291" y="128">ÉPICERIE FINE</text>
+        </a>
+        <a href="#primeur"><rect class="pm-zone pm-green" x="36" y="132" width="132" height="200" rx="10"/><text x="102" y="238" transform="rotate(-90 102 238)">PRIMEUR</text></a>
+        <a href="#surgeles"><rect class="pm-zone pm-cyan" x="468" y="244" width="96" height="88" rx="10"/><text x="516" y="294">SURGELÉS</text></a>
+        <rect class="pm-zone pm-slate" x="250" y="344" width="170" height="40" rx="8"/><text x="335" y="370">CAISSES</text>
+        <text class="pm-door" x="476" y="430">ENTRÉE ▲</text>
+        <text class="pm-door" x="64" y="430">▼ SORTIE</text>
+        <path class="pm-route" d="M505 410 L505 380 L190 380 L190 340 L110 340 L110 120 L180 120 L395 120 L440 120 L440 230 L450 230 L520 236 L520 340 L430 340 L430 364 L250 364 L120 364 L95 410"/>
+        <circle class="pm-you" cx="505" cy="410" r="9"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PRIMEUR =========================================================== -->
+<section id="primeur" class="zone zone--primeur" data-zone="primeur" data-label="primeur." data-color="green">
+  <div class="wrap zone__head">
+    <div class="rv">
+      <span class="tag tag--green">primeur.</span>
+      <h2>Le marché, tous les jours.</h2>
+      <p class="lead">Fruits et légumes frais, arrivages quotidiens, prix justes. Ici, on choisit à la main, comme au marché.</p>
+    </div>
+    <div class="sign-gold rv" aria-hidden="true"><span>Fruits<br>et<br>Légumes</span></div>
+  </div>
+  <div class="etal" aria-label="L'étal du primeur">
+    <div class="etal__track">
+      <figure class="etal__item"><img src="../assets/img/market/rayon-leg-2.webp" alt="Poivrons rouges, jaunes et verts sur l'étal" loading="lazy"><figcaption class="ardoise">Poivrons tricolores</figcaption></figure>
+      <figure class="etal__item"><img src="../assets/img/market/image_primeur_1x.webp" alt="Tomates charnues" loading="lazy"><figcaption class="ardoise">Tomates bien mûres</figcaption></figure>
+      <figure class="etal__item etal__item--video">
+        <video class="lazy-video" muted loop playsinline preload="none" poster="assets/video/primeur.jpg" data-src="assets/video/primeur.mp4" aria-hidden="true"></video>
+        <figcaption class="ardoise">Toutes les couleurs de la saison</figcaption>
+      </figure>
+      <figure class="etal__item"><img src="../assets/img/market/rayon-leg.webp" alt="Oignons nouveaux, poireaux et herbes fraîches" loading="lazy"><figcaption class="ardoise">Herbes &amp; légumes verts</figcaption></figure>
+      <figure class="etal__item"><img src="../assets/img/market/rayon_fruits.webp" alt="Le rayon fruits et légumes" loading="lazy"><figcaption class="ardoise">Fruits de saison</figcaption></figure>
+      <div class="etal__end">
+        <span class="stamp">Arrivage<br><b>du jour</b></span>
+        <p>Chaque matin, l'étal se remplit à nouveau. On continue ?</p>
+        <a class="next-link" href="#boucherie">Direction la boucherie →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. BOUCHERIE ========================================================= -->
+<section id="boucherie" class="zone zone--boucherie" data-zone="boucherie" data-label="boucherie." data-color="red">
+  <div class="zone__bg" aria-hidden="true"><img src="../assets/img/market/delicemarket_bg_11.webp" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="sign-wood rv" aria-hidden="true"><span>La Boucherie</span></div>
+    <div class="bouch__grid">
+      <div class="rv">
+        <span class="tag tag--red">boucherie.</span>
+        <h2>Au comptoir des bouchers.</h2>
+        <p class="lead">Viande française fraîche, préparations bouchères et conseils en magasin. 100 % halal, découpée à la demande.</p>
+        <ul class="badges"><li>100 % halal</li><li>Viande française</li><li>Découpe à la demande</li></ul>
+      </div>
+      <div class="ticket-zone rv">
+        <div class="ticket" aria-live="polite">
+          <small>Votre numéro</small>
+          <strong class="ticket__num" data-ticket>038</strong>
+          <span class="ticket__call">C'est à vous !</span>
+        </div>
+        <figure class="bouch__photo"><img src="../assets/img/market/rayon_boucherie.webp" alt="Poulet et brochettes marinés au comptoir boucherie" loading="lazy"><figcaption>Brochettes et marinades, prêtes à griller</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <div class="etal-boucher">
+    <p class="wrap etal-boucher__hint">L'étal du jour — faites glisser →</p>
+    <ul class="etal-boucher__list" tabindex="0" aria-label="Les pièces de l'étal">
+      <li><img src="../assets/img/boucherie/cote_de_boeuf_3_2x.webp" alt="" loading="lazy"><b>Côte de bœuf</b><span>France</span></li>
+      <li><img src="../assets/img/boucherie/ac1fsv804_cote_d_agneau_65e84b112bc7c_2x.webp" alt="" loading="lazy"><b>Côtelettes d'agneau</b><span>France</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_6.webp" alt="" loading="lazy"><b>Gigot d'agneau</b><span>France</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_13.webp" alt="" loading="lazy"><b>Épaule d'agneau</b><span>France</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_4.webp" alt="" loading="lazy"><b>Rôti de veau</b><span>France</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_11.webp" alt="" loading="lazy"><b>Poulet prêt à cuire</b><span>Europe</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_3.webp" alt="" loading="lazy"><b>Rôti de volaille farci</b><span>Europe</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_14.webp" alt="" loading="lazy"><b>Magret de canard</b><span>Europe</span></li>
+      <li><img src="../assets/img/boucherie/rectangle_12.webp" alt="" loading="lazy"><b>Canette</b><span>Europe</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. RÔTISSERIE ======================================================== -->
+<section id="rotisserie" class="zone zone--rotisserie" data-zone="rotisserie" data-label="rôtisserie." data-color="orange">
+  <video class="zone__video lazy-video" muted loop playsinline preload="none" poster="assets/video/flammes.jpg" data-src="assets/video/flammes.mp4" aria-hidden="true"></video>
+  <div class="wrap rot__grid">
+    <div class="rv">
+      <span class="tag tag--orange">rôtisserie.</span>
+      <h2>Ça sent bon le week-end.</h2>
+      <p class="lead">Poulets rôtis et accompagnements, le vendredi, le samedi et le dimanche. Le parfum qui vous accueille dès l'entrée.</p>
+      <p class="rot__live" data-rotisserie>La rôtisserie tourne du vendredi au dimanche.</p>
+    </div>
+    <div class="rot__four rv">
+      <div class="rot__glow" aria-hidden="true"></div>
+      <img class="rot__photo" src="../assets/img/market/image_rotisserie_1x.webp" alt="Poulets rôtis dorés à la broche" loading="lazy">
+      <img class="rot__icon" src="../assets/img/logos/icone_rotisserie-1.svg" alt="" aria-hidden="true">
+    </div>
+  </div>
+</section>
+
+<!-- 6. ÉPICERIE FINE ===================================================== -->
+<section id="epicerie" class="zone zone--epicerie" data-zone="epicerie" data-label="épicerie fine." data-color="black">
+  <div class="wrap zone__head">
+    <div class="rv">
+      <span class="tag tag--black">épicerie fine.</span>
+      <h2>Un voyage de saveurs.</h2>
+      <p class="lead">Huiles, sauces, épices, produits orientaux et méditerranéens : des rayons entiers pour cuisiner comme à la maison.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="loupe rv" data-img="../assets/img/market/rayon-epi.webp">
+      <img src="../assets/img/market/rayon-epi.webp" alt="Les rayons de l'épicerie : huiles, sauces, conserves" loading="lazy">
+      <span class="loupe__lens" aria-hidden="true"></span>
+      <span class="loupe__hint">Promenez le doigt ou la souris : regardez de plus près</span>
+    </div>
+  </div>
+  <div class="spices" aria-hidden="true">
+    <div class="spices__track"><span>Cumin</span><span>Ras el hanout</span><span>Paprika</span><span>Curcuma</span><span>Cannelle</span><span>Harissa</span><span>Gingembre</span><span>Coriandre</span><span>Safran</span><span>Piment</span><span>Cumin</span><span>Ras el hanout</span><span>Paprika</span><span>Curcuma</span><span>Cannelle</span><span>Harissa</span><span>Gingembre</span><span>Coriandre</span><span>Safran</span><span>Piment</span></div>
+  </div>
+  <div class="wrap epi__grid">
+    <figure class="epi__olives rv"><img src="../assets/img/market/rayon-olive.webp" alt="Olives vertes et noires au détail" loading="lazy"><figcaption class="ardoise">Olives au détail</figcaption></figure>
+    <figure class="rv"><img src="../assets/img/market/rayon_epicerie.webp" alt="Allée de l'épicerie" loading="lazy"></figure>
+    <figure class="rv"><img src="../assets/img/market/rayons-epi-2.webp" alt="Allée centrale du magasin" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- 7. FROMAGERIE & CHARCUTERIE ========================================== -->
+<section id="fromagerie" class="zone zone--fromagerie" data-zone="fromagerie" data-label="fromagerie." data-color="yellow">
+  <div class="wrap fro__grid">
+    <div class="fro__media rv">
+      <img class="fro__big" src="../assets/img/market/rayon-charcu.webp" alt="Charcuterie halal en rayon frais" loading="lazy">
+      <img class="fro__small" src="../assets/img/market/rayon_fromagerie.webp" alt="Charcuterie halal et fromages" loading="lazy">
+    </div>
+    <div class="rv">
+      <span class="tag tag--yellow">fromagerie.</span>
+      <h2>Fromages &amp; charcuterie halal.</h2>
+      <p class="lead">Fromages variés et charcuterie halal pour vos repas, vos sandwichs et vos plateaux du soir.</p>
+      <ul class="checks">
+        <li>Charcuterie halal</li>
+        <li>Fromages pour tous les goûts</li>
+        <li>Le rayon frais, du matin jusqu'à 21h</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. SURGELÉS ========================================================== -->
+<section id="surgeles" class="zone zone--surgeles" data-zone="surgeles" data-label="surgelés." data-color="cyan">
+  <video class="zone__video lazy-video" muted loop playsinline preload="none" poster="assets/video/froid.jpg" data-src="assets/video/froid.mp4" aria-hidden="true"></video>
+  <canvas class="snow" aria-hidden="true"></canvas>
+  <div class="wrap surg__grid">
+    <div class="rv">
+      <span class="tag tag--cyan">surgelés.</span>
+      <h2>Brrr… vous entrez dans le froid.</h2>
+      <div class="thermo" aria-hidden="true"><strong data-thermo>20</strong><span>°C</span></div>
+      <p class="lead">Surgelés, glaces, et tout ce qu'il faut au quotidien : boulangerie, hygiène, beauté, produits ménagers. Toutes vos courses en un seul passage.</p>
+    </div>
+    <div class="surg__photos rv">
+      <img src="../assets/img/market/image_surgele_1x.webp" alt="Le rayon surgelés" loading="lazy">
+      <img src="assets/img/rayons-surgeles.webp" alt="Les bacs de surgelés au centre du magasin" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 9. NOUVEAUTÉS ======================================================== -->
+<section id="nouveautes" class="zone zone--nouveautes" data-zone="nouveautes" data-label="nouveautés." data-color="purple">
+  <div class="wrap zone__head">
+    <div class="rv">
+      <span class="tag tag--purple">nouveautés.</span>
+      <h2>En tête de gondole.</h2>
+      <p class="lead">Les nouveautés de la semaine, à découvrir en magasin.</p>
+    </div>
+  </div>
+  <ul class="gondole" tabindex="0" aria-label="Nouveautés de la semaine">
+    <li><img src="../assets/img/market/d_lice_market_post_359_1x.webp" alt="Tartinables frais" loading="lazy"><b>Tartinables frais</b><span>Houmous, caviar d'aubergine, tzatziki…</span></li>
+    <li><img src="../assets/img/market/d_lice_market_post_364_1x.webp" alt="Smoothie by Soofty" loading="lazy"><b>Smoothie by Soofty</b><span>5 parfums à découvrir</span></li>
+    <li><img src="../assets/img/market/d_lice_market_post_381_1x.webp" alt="Mr.Freeze Classic" loading="lazy"><b>Mr.Freeze Classic</b><span>Le format géant de l'été</span></li>
+    <li><img src="../assets/img/market/produit-parfum-lpb.webp" alt="Eau de parfum by LPB" loading="lazy"><b>Eau de parfum by LPB</b><span>Plusieurs fragrances</span></li>
+  </ul>
+</section>
+
+<!-- 10. CAISSE =========================================================== -->
+<section id="caisse" class="zone zone--caisse" data-zone="caisse" data-label="caisse." data-color="slate">
+  <div class="wrap caisse__grid">
+    <div class="rv">
+      <span class="tag tag--slate">caisse.</span>
+      <h2>Merci de votre visite !</h2>
+      <p class="lead">Voici votre ticket. Rassurez-vous : la visite est offerte. Le reste vous attend en magasin, 7 jours sur 7.</p>
+      <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque" target="_blank" rel="noopener">Y aller pour de vrai →</a>
+    </div>
+    <div class="receipt" aria-label="Ticket de caisse de la visite">
+      <div class="receipt__paper">
+        <p class="r-c"><strong>DÉLICE MARKET</strong><br>544 Av. Frédéric Mistral<br>04100 Manosque</p>
+        <p class="r-c r-date" data-date>Visite virtuelle</p>
+        <ul class="r-lines">
+          <li data-line="primeur"><span>1 × Fruits &amp; légumes</span><b>—</b></li>
+          <li data-line="boucherie"><span>1 × Boucherie halal</span><b>—</b></li>
+          <li data-line="rotisserie"><span>1 × Rôtisserie</span><b>—</b></li>
+          <li data-line="epicerie"><span>1 × Épicerie fine</span><b>—</b></li>
+          <li data-line="fromagerie"><span>1 × Fromagerie</span><b>—</b></li>
+          <li data-line="surgeles"><span>1 × Surgelés</span><b>—</b></li>
+        </ul>
+        <p class="r-total"><span>TOTAL</span><span>VISITE OFFERTE</span></p>
+        <p class="r-c r-count" data-count>Rayons visités : 0/6</p>
+        <div class="barcode" aria-hidden="true"></div>
+        <p class="r-c">Ouvert 7j/7 · 8h30 – 21h<br>Parking gratuit<br><b>À très vite !</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. VENIR ============================================================ -->
+<section id="venir" class="zone zone--venir" data-zone="venir" data-label="infos pratiques." data-color="slate">
+  <div class="wrap venir__grid">
+    <div class="avis rv">
+      <p class="avis__note"><b>4,7</b><span class="stars" aria-hidden="true">★★★★★</span><small>+500 avis Google</small></p>
+      <blockquote>« Des bouchers très gentils et accueillants, même à l'heure de fermeture. La viande est de qualité, le magasin est très propre. »<cite>Jakatro</cite></blockquote>
+      <blockquote>« Magasin très bien rangé et organisé. Un large choix, une large gamme halal. Personnel très accueillant. »<cite>Mehdi Azedine</cite></blockquote>
+      <blockquote>« Très bon accueil. Magasin ouvert le dimanche et bien achalandé. »<cite>Carine Peloux</cite></blockquote>
+    </div>
+    <div class="infos rv">
+      <h2>Venir chez nous</h2>
+      <p><b>544 Av. Frédéric Mistral, 04100 Manosque</b></p>
+      <p>Ouvert 7j/7 de 8h30 à 21h · <span class="status" data-hours="08:30-21:00">Ouvert 7j/7</span></p>
+      <p>Parking gratuit · Rôtisserie du vendredi au dimanche</p>
+      <p><a href="tel:+33486905452">04 86 90 54 52</a></p>
+      <div class="map"><iframe title="Plan d'accès Délice Market" loading="lazy" src="https://maps.google.com/maps?q=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque&amp;z=15&amp;output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. LES AUTRES BOUTIQUES ============================================= -->
+<section id="boutiques" class="zone zone--boutiques">
+  <div class="wrap">
+    <div class="rv">
+      <span class="tag tag--slate">la famille délice.</span>
+      <h2>La visite continue…</h2>
+      <p class="lead">Quatre autres boutiques Délice à Manosque, Digne-les-Bains et Gap.</p>
+    </div>
+    <div class="shops">
+      <a class="shop rv" href="../boutiques/delice-market-gap.html"><img src="../assets/img/market/rayon-leg.webp" alt="" loading="lazy"><span class="shop__new">Nouveau</span><b>Délice Market</b><span>Gap · ZAC de Fontreyne</span></a>
+      <a class="shop rv" href="../boutiques/boucherie-delice-manosque.html"><img src="../assets/img/market/delicemarket_bg_11.webp" alt="" loading="lazy"><b>Boucherie Délice</b><span>Manosque · 8h – 19h</span></a>
+      <a class="shop rv" href="../boutiques/delice-boucherie-digne.html"><img src="../assets/img/boucherie/delice-boucherie-magasin.webp" alt="" loading="lazy"><b>Délice Boucherie</b><span>Digne-les-Bains · 8h30 – 19h</span></a>
+      <a class="shop rv" href="../boutiques/delice-primeur-manosque.html"><img src="../assets/img/market/image_primeur_1x.webp" alt="" loading="lazy"><b>Délice Primeur</b><span>Manosque · dès 6h</span></a>
+    </div>
+    <p class="v1-link"><a href="../index.html">Voir le site complet du réseau Délice →</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <img src="../assets/img/logos/logo_delice_market.svg" alt="Délice Market">
+  <p>Délice Market — 544 Av. Frédéric Mistral, 04100 Manosque · Ouvert 7j/7 de 8h30 à 21h</p>
+  <p class="foot__values"><span>Sourire</span><span>Partage</span><span>Générosité</span><span>Saveurs</span><span>Convivialité</span></p>
+  <p class="foot__demo">Maquette de démonstration réalisée par KingDream Digital · Vidéos d'ambiance : Mixkit (licence libre)</p>
+</footer>
+
+<!-- Effet de chaleur de la rôtisserie -->
+<svg class="sr-only" aria-hidden="true" focusable="false">
+  <filter id="heat"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.06" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="6s" values="0.012 0.06;0.016 0.09;0.012 0.06" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="9"/></filter>
+</svg>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/v2.js"></script>
+</body>
+</html>
