@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Créations & démos — KingDream Digital</title>
+<meta name="description" content="Les sites et démos réalisés par KingDream Digital pour ses clients.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/kingdream-digital.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0b57d0;
+    --navy: #0a2a7a;
+    --ink: #0f172a;
+    --muted: #5b6475;
+    --bg: #f4f7fd;
+    --card: #ffffff;
+    --line: #dfe6f3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 16px/1.6 "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { width: min(100% - 32px, 1080px); margin-inline: auto; }
+  header { padding: 40px 0 8px; }
+  header img { height: 44px; width: auto; display: block; }
+  .hero { padding: 40px 0 32px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 .4em; letter-spacing: -.02em; }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin: 0; max-width: 60ch; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 22px; padding-bottom: 64px; }
+  .card {
+    display: flex; flex-direction: column; background: var(--card); border-radius: 18px; overflow: hidden;
+    text-decoration: none; color: inherit; border: 1px solid var(--line);
+    box-shadow: 0 12px 30px -18px rgba(10, 42, 122, .35); transition: transform .25s, box-shadow .25s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -20px rgba(10, 42, 122, .45); }
+  .card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; background: #e6ecf7; }
+  .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+  .badge {
+    align-self: flex-start; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    color: #8a5a00; background: #fff3c4; padding: .3em .7em; border-radius: 6px;
+  }
+  .card h2 { margin: .2rem 0 0; font-size: 1.3rem; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .go { margin-top: auto; padding-top: 12px; font-weight: 700; color: var(--blue); }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+  <header class="wrap"><img src="assets/kingdream-digital.png" alt="KingDream Digital"></header>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Créations &amp; démos</h1>
+      <p>Les sites et les démos réalisés par KingDream Digital pour ses clients.</p>
+    </section>
+    <section class="grid" aria-label="Projets clients">
+      <!-- Un bloc <a class="card"> par démo : copier-coller et adapter pour en ajouter une.
+           Lien relatif (ex. delice-market/) pour un site publié par publier.py. -->
+      <a class="card" href="https://kingdream-digital.github.io/deep-clean/v2/">
+        <img src="assets/deep-clean-v2.jpg" alt="Aperçu de la V2 du site Deep Clean">
+        <div class="card-body">
+          <span class="badge">Démo · V2</span>
+          <h2>Deep Clean — « La Plongée »</h2>
+          <p>Proposition V2 du site vitrine : nettoyage, entretien et conciergerie à Manosque.</p>
+          <span class="go">Voir la démo →</span>
+        </div>
+      </a>
+      <a class="card" href="https://kingdream-digital.github.io/deep-clean/site/">
+        <img src="assets/deep-clean.jpg" alt="Aperçu du site Deep Clean">
+        <div class="card-body">
+          <span class="badge">Démo</span>
+          <h2>Deep Clean — site actuel</h2>
+          <p>Site vitrine : nettoyage haut de gamme, conciergerie et entretien à Manosque.</p>
+          <span class="go">Voir la démo →</span>
+        </div>
+      </a>
+      <a class="card" href="delice-market/">
+        <img src="assets/delice-market.jpg" alt="Aperçu de la démo du site Délice">
+        <div class="card-body">
+          <span class="badge">Démo</span>
+          <h2>Délice Market</h2>
+          <p>Site multi-boutiques : supermarchés, boucheries et primeur halal à Manosque, Digne-les-Bains et Gap.</p>
+          <span class="go">Voir la démo →</span>
+        </div>
+      </a>
+    </section>
+  </main>
+  <footer class="wrap">© KingDream Digital</footer>
+</body>
+</html>
