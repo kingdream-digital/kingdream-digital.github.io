@@ -1,10 +1,11 @@
 <!doctype html>
+<!-- Page de pub « climatisation » : générée depuis index.html par pages_pub.py (dossier projet). -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Le Bon Degré — Pompe à chaleur et climatisation : simulez vos aides</title>
-<meta name="description" content="Pompe à chaleur ou climatisation réversible : simulez gratuitement vos aides en 1 minute. Un seul artisan certifié RGE près de chez vous vous recontacte, jamais de démarchage.">
+<title>Le Bon Degré — Climatisation réversible : simulez vos aides</title>
+<meta name="description" content="Climatisation réversible : rafraîchir l’été, chauffer l’hiver. Simulez gratuitement vos aides, puis un seul artisan certifié RGE, que vous acceptez, vous rappelle. Jamais de démarchage.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAF6F0">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -14,7 +15,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Le Bon Degré">
 <meta property="og:title" content="Le Bon Degré — le bon degré chez vous, été comme hiver">
-<meta property="og:description" content="Simulez vos aides en 1 minute. Un seul artisan certifié RGE vous recontacte, jamais de démarchage.">
+<meta property="og:description" content="Climatisation réversible : rafraîchir l’été, chauffer l’hiver. Simulez gratuitement vos aides, puis un seul artisan certifié RGE, que vous acceptez, vous rappelle. Jamais de démarchage.">
 <meta property="og:image" content="https://kingdream-digital.github.io/le-bon-degre/assets/img/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
@@ -69,13 +70,7 @@
 <header class="entete" id="entete">
   <div class="wrap entete__barre">
     <a class="entete__logo" href="./" aria-label="Le Bon Degré, accueil"><img src="assets/img/logo.svg" alt="Le Bon Degré" width="229" height="40"></a>
-    <nav class="entete__nav" aria-label="Navigation principale">
-      <a href="#fonctionnement">Comment ça marche</a>
-      <a href="#aides">Les aides</a>
-      <a href="#qui-sommes-nous">Qui sommes-nous&#8239;?</a>
-      <a href="#questions">Questions</a>
-    </nav>
-    <button class="bouton bouton--petit" type="button" data-simulation><span>Simulation<span class="court"> gratuite</span></span></button>
+    <button class="bouton bouton--petit" type="button" data-simulation="climatisation"><span>Simulation<span class="court"> gratuite</span></span></button>
   </div>
 </header>
 
@@ -91,27 +86,11 @@
 
   <div class="wrap hero__grille">
     <div class="hero__texte">
-      <p class="surtitre">Pompe à chaleur · Climatisation réversible</p>
-      <h1 id="titre-principal">Le bon degré chez vous, <em class="degrade-texte">été comme hiver.</em></h1>
-      <p class="hero__chapo">Estimez vos aides en 1&nbsp;minute. Ensuite, <strong>un seul artisan certifié RGE</strong> près de chez vous vous rappelle. Personne d’autre.</p>
+      <p class="surtitre">Climatisation réversible · Été comme hiver</p>
+      <h1 id="titre-principal">Fini les nuits à 30&nbsp;° dans la maison. <em class="degrade-texte">Découvrez vos aides en 1&nbsp;minute.</em></h1>
+      <p class="hero__chapo">Une climatisation réversible rafraîchit l’été et chauffe l’hiver. Estimez vos aides en quelques questions. Ensuite, <strong>un seul artisan certifié RGE</strong>, que vous aurez accepté, vous rappelle. Personne d’autre.</p>
 
-      <div class="choix" role="group" aria-labelledby="choix-titre">
-        <p class="choix__titre" id="choix-titre">Quel est votre projet&#8239;?</p>
-        <div class="choix__grille">
-          <button class="choix__carte choix__carte--chaud" type="button" data-simulation="chauffage">
-            <span class="choix__icone"><svg class="icone" aria-hidden="true"><use href="#i-radiateur"/></svg></span>
-            <span class="choix__nom">Chauffage</span>
-            <span class="choix__desc">Remplacer ma chaudière par une pompe à chaleur</span>
-            <span class="choix__action"><span>Simuler<span class="mobile-cache"> mes aides</span></span><svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg></span>
-          </button>
-          <button class="choix__carte choix__carte--froid" type="button" data-simulation="climatisation">
-            <span class="choix__icone"><svg class="icone" aria-hidden="true"><use href="#i-clim"/></svg></span>
-            <span class="choix__nom">Climatisation</span>
-            <span class="choix__desc">Rafraîchir l’été, chauffer l’hiver avec une clim réversible</span>
-            <span class="choix__action"><span>Simuler<span class="mobile-cache"> mes aides</span></span><svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg></span>
-          </button>
-        </div>
-      </div>
+      <div class="etapes__suite" style="justify-content:flex-start;margin-top:32px"><button class="bouton" type="button" data-simulation="climatisation"><svg class="icone" aria-hidden="true"><use href="#i-clim"/></svg>Simuler mes aides climatisation <svg class="icone icone--fleche" aria-hidden="true"><use href="#i-fleche"/></svg></button></div>
 
       <ul class="rassurance" aria-label="Nos garanties">
         <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Gratuit et sans engagement</li>
@@ -195,56 +174,6 @@
   </div>
 </section>
 
-<!-- PROMESSE : UN SEUL APPEL ============================================== -->
-<section class="section section--sable" id="promesse" aria-labelledby="promesse-titre">
-  <div class="wrap promesse__grille">
-    <div class="apparait">
-      <p class="surtitre">Notre promesse</p>
-      <h2 id="promesse-titre" class="titre" style="font-size:clamp(2.1rem, 1.35rem + 2.7vw, 3.4rem);margin-top:16px">Un seul appel. <span class="degrade-texte">Le bon.</span></h2>
-      <p style="margin-top:18px;font-size:1.1875rem;color:var(--encre-2)">Sur beaucoup de sites, une demande de devis part chez plusieurs entreprises à la fois&nbsp;: le téléphone ne s’arrête plus de sonner. Chez Le Bon Degré, votre demande est confiée à <strong style="color:var(--encre)">un seul artisan partenaire</strong>, choisi près de chez vous. C’est lui, et lui seul, qui vous rappelle.</p>
-      <ul class="promesse__points">
-        <li><span class="puce"><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg></span>C’est vous qui demandez à être rappelé, et vous choisissez le créneau.</li>
-        <li><span class="puce"><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg></span>Vous connaissez le nom de l’artisan et vous l’acceptez avant qu’il ait votre numéro.</li>
-        <li><span class="puce"><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg></span>Vos coordonnées ne sont ni revendues, ni partagées.</li>
-        <li><span class="puce"><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg></span>Aucun appel commercial, aucun SMS publicitaire de notre part.</li>
-        <li><span class="puce"><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg></span>Vous pouvez demander la suppression de vos données à tout moment.</li>
-      </ul>
-    </div>
-
-    <div class="telephones" data-telephones>
-      <figure class="telephone-bloc" style="margin:0">
-        <div class="telephone telephone--ailleurs" aria-hidden="true">
-          <div class="telephone__ecran">
-            <span class="telephone__heure">10:42</span>
-            <div class="notif" style="transition-delay:.1s"><span class="notif__ico"><svg class="icone"><use href="#i-combine"/></svg></span><strong>Appel manqué</strong><span>Numéro inconnu</span></div>
-            <div class="notif" style="transition-delay:.45s"><span class="notif__ico"><svg class="icone"><use href="#i-combine"/></svg></span><strong>Appel manqué</strong><span>Numéro masqué</span></div>
-            <div class="notif" style="transition-delay:.8s"><span class="notif__ico notif__ico--sms"><svg class="icone"><use href="#i-message"/></svg></span><strong>Nouveau SMS</strong><span>« Offre exceptionnelle, rappelez… »</span></div>
-            <div class="notif" style="transition-delay:1.15s"><span class="notif__ico"><svg class="icone"><use href="#i-combine"/></svg></span><strong>Messagerie vocale</strong><span>« Suite à votre demande… »</span></div>
-            <div class="notif" style="transition-delay:1.5s"><span class="notif__ico"><svg class="icone"><use href="#i-combine"/></svg></span><strong>Appel manqué</strong><span>Numéro inconnu</span></div>
-            <div class="notif" style="transition-delay:1.85s"><span class="notif__ico notif__ico--sms"><svg class="icone"><use href="#i-message"/></svg></span><strong>Nouveau SMS</strong><span>« Dernier jour pour en profiter »</span></div>
-            <span class="telephone__compteur">Et ça continue…</span>
-          </div>
-        </div>
-        <figcaption class="telephone-bloc__titre">Ailleurs<small>Votre demande part chez plusieurs entreprises</small></figcaption>
-      </figure>
-      <figure class="telephone-bloc" style="margin:0">
-        <div class="telephone telephone--nous" aria-hidden="true">
-          <div class="telephone__ecran">
-            <span class="telephone__heure">10:42</span>
-            <div class="notif notif--calme">
-              <span class="notif__entete"><img src="assets/img/symbole.svg" alt="">Le Bon Degré · maintenant</span>
-              <p>Nous vous proposons <strong>l’entreprise Martin</strong>, artisan RGE à 8&nbsp;km. Elle peut vous appeler <strong>mardi entre 9&nbsp;h et 12&nbsp;h</strong>. Vous acceptez&#8239;?</p>
-              <span class="pastille-ok"><svg class="icone"><use href="#i-check"/></svg>Un seul appel</span>
-            </div>
-            <p class="telephone__calme">Aucune autre sollicitation.</p>
-          </div>
-        </div>
-        <figcaption class="telephone-bloc__titre">Avec Le Bon Degré<small>Un seul artisan vous rappelle</small></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- COMMENT ÇA MARCHE ===================================================== -->
 <section class="section" id="fonctionnement" aria-labelledby="fonctionnement-titre">
   <div class="wrap">
@@ -273,101 +202,8 @@
       </li>
     </ol>
     <div class="etapes__suite apparait">
-      <button class="bouton" type="button" data-simulation>Commencer ma simulation <svg class="icone icone--fleche" aria-hidden="true"><use href="#i-fleche"/></svg></button>
+      <button class="bouton" type="button" data-simulation="climatisation">Commencer ma simulation <svg class="icone icone--fleche" aria-hidden="true"><use href="#i-fleche"/></svg></button>
       <p>Gratuit, sans engagement, sans inscription.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CHAUFFAGE OU CLIMATISATION ============================================ -->
-<section class="section section--sable" id="solutions" aria-labelledby="solutions-titre">
-  <div class="wrap">
-    <div class="section__tete apparait">
-      <p class="surtitre">Chauffage ou climatisation</p>
-      <h2 id="solutions-titre">Deux projets, un même objectif&nbsp;: votre confort.</h2>
-      <p>Pompe à chaleur pour remplacer une vieille chaudière, ou climatisation réversible pour passer l’été au frais&nbsp;: dans les deux cas, l’artisan dimensionne l’installation pour votre maison.</p>
-    </div>
-    <div class="solutions">
-      <article class="solution apparait">
-        <span class="solution__etiquette"><svg class="icone" aria-hidden="true"><use href="#i-flocon"/></svg>Pour l’hiver</span>
-        <h3>Pompe à chaleur air/eau</h3>
-        <p>Elle remplace votre chaudière fioul ou gaz, ou un chauffage électrique ancien, et se raccorde à vos radiateurs ou à votre plancher chauffant.</p>
-        <ul>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Chauffe toute la maison, même en plein hiver</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Peut aussi produire votre eau chaude</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Puise les calories gratuites de l’air extérieur</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Parmi les projets les mieux aidés en 2026</li>
-        </ul>
-        <p class="solution__aides"><strong>Aides possibles&nbsp;:</strong> MaPrimeRénov’ (3&#8239;000 à 5&#8239;000&nbsp;€ selon vos revenus), prime énergie, TVA à 5,5&nbsp;%, éco-prêt à taux zéro.</p>
-        <button class="bouton" type="button" data-simulation="chauffage">Simuler mes aides <svg class="icone icone--fleche" aria-hidden="true"><use href="#i-fleche"/></svg></button>
-      </article>
-      <article class="solution solution--froid apparait" data-delai="1">
-        <span class="solution__etiquette"><svg class="icone" aria-hidden="true"><use href="#i-soleil"/></svg>Été comme hiver</span>
-        <h3>Climatisation réversible</h3>
-        <p>Une pompe à chaleur air/air&nbsp;: elle rafraîchit vos pièces l’été et les chauffe à la mi-saison comme en hiver.</p>
-        <ul>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Un seul appareil pour les deux saisons</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Une pièce ou plusieurs, avec un seul groupe extérieur</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Des modèles discrets, adaptés aux chambres</li>
-          <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Une pose sans gros travaux</li>
-        </ul>
-        <p class="solution__aides"><strong>Aides possibles&nbsp;:</strong> prime énergie, et TVA à 5,5&nbsp;% pour les modèles les plus performants depuis juillet 2026. MaPrimeRénov’ ne finance pas la climatisation&nbsp;: nous préférons vous le dire.</p>
-        <button class="bouton" type="button" data-simulation="climatisation">Simuler mes aides <svg class="icone icone--fleche" aria-hidden="true"><use href="#i-fleche"/></svg></button>
-      </article>
-    </div>
-    <div class="fait apparait">
-      <p class="fait__chiffres">
-        <span class="visuellement-cache">1 kilowattheure d’électricité consommé donne 3 à 4 kilowattheures de chaleur restituée.</span>
-        <span aria-hidden="true">1&nbsp;kWh<small>d’électricité consommé</small></span>
-        <svg class="icone fleche" aria-hidden="true"><use href="#i-fleche"/></svg>
-        <span aria-hidden="true"><span class="chaud">3 à 4&nbsp;kWh</span><small>de chaleur restituée</small></span>
-      </p>
-      <p class="fait__texte"><strong>Le principe de la pompe à chaleur&nbsp;:</strong> elle puise la chaleur gratuite de l’air extérieur et en restitue en moyenne 3 à 4 fois plus qu’elle ne consomme d’électricité. Le rendement réel dépend du modèle, de la maison et du climat.</p>
-    </div>
-  </div>
-</section>
-
-<!-- LES AIDES ============================================================= -->
-<section class="section" id="aides" aria-labelledby="aides-titre">
-  <div class="wrap">
-    <div class="section__tete apparait">
-      <p class="surtitre">Les aides en 2026</p>
-      <h2 id="aides-titre">Des aides pour alléger la facture. <span class="degrade-texte">Sans promesse en l’air.</span></h2>
-      <p>Plusieurs aides peuvent se cumuler selon vos revenus, votre logement et l’équipement choisi. Notre simulation vous indique celles qui peuvent vous concerner&nbsp;; votre artisan les confirme dans son devis.</p>
-    </div>
-    <ul class="aides">
-      <li class="aide apparait">
-        <span class="aide__type">Aide publique</span>
-        <h3>MaPrimeRénov’</h3>
-        <p class="aide__montant">3&#8239;000 à 5&#8239;000&nbsp;€<small>pour une pompe à chaleur air/eau, selon vos revenus</small></p>
-        <p>Pour les propriétaires d’un logement de plus de 15&nbsp;ans, aux revenus modestes à intermédiaires.</p>
-        <p class="aide__pour"><span class="pastille pastille--chaud">Chauffage</span></p>
-      </li>
-      <li class="aide apparait" data-delai="1">
-        <span class="aide__type">Prime énergie</span>
-        <h3>Certificats d’économies d’énergie</h3>
-        <p class="aide__montant">Variable<small>selon le fournisseur d’énergie et vos revenus</small></p>
-        <p>Accessible à tous les foyers, pour un logement de plus de 2&nbsp;ans.</p>
-        <p class="aide__pour"><span class="pastille pastille--chaud">Chauffage</span><span class="pastille pastille--froid">Climatisation</span></p>
-      </li>
-      <li class="aide apparait" data-delai="2">
-        <span class="aide__type">Fiscalité</span>
-        <h3>TVA à 5,5&nbsp;%</h3>
-        <p class="aide__montant">au lieu de 20&nbsp;%<small>sur le matériel et la pose</small></p>
-        <p>Pour les pompes à chaleur air/eau et, depuis juillet 2026, les climatisations réversibles les plus performantes. Logement de plus de 2&nbsp;ans.</p>
-        <p class="aide__pour"><span class="pastille pastille--chaud">Chauffage</span><span class="pastille pastille--froid">Climatisation</span></p>
-      </li>
-      <li class="aide apparait" data-delai="3">
-        <span class="aide__type">Financement</span>
-        <h3>Éco-prêt à taux zéro</h3>
-        <p class="aide__montant">Sans intérêts<small>pour financer le reste à payer</small></p>
-        <p>Pour les propriétaires, sans condition de revenus. Pour une climatisation, uniquement dans le cadre d’une rénovation globale.</p>
-        <p class="aide__pour"><span class="pastille pastille--chaud">Chauffage</span></p>
-      </li>
-    </ul>
-    <div class="aides__notes">
-      <p class="note apparait"><svg class="icone" aria-hidden="true"><use href="#i-info"/></svg><span><strong>Le Bon Degré ne verse aucune aide.</strong> Elles sont attribuées par les organismes et fournisseurs compétents, selon les règles en vigueur au moment de votre demande. Montants 2026, susceptibles d’évoluer.</span></p>
-      <p class="note note--alerte apparait" data-delai="1"><svg class="icone" aria-hidden="true"><use href="#i-alerte"/></svg><span><strong>Méfiez-vous des offres «&nbsp;à 1&nbsp;€&nbsp;».</strong> Une installation sérieuse a toujours un coût, même avec des aides. Exigez un devis détaillé, établi par un artisan RGE.</span></p>
     </div>
   </div>
 </section>
@@ -475,10 +311,7 @@
   <div class="final apparait">
     <h2 id="final-titre">Trouvons ensemble le bon degré pour votre maison.</h2>
     <p>Une minute pour connaître vos aides, un seul artisan pour vous accompagner.</p>
-    <div class="final__choix">
-      <button class="bouton bouton--clair" type="button" data-simulation="chauffage"><svg class="icone" aria-hidden="true"><use href="#i-radiateur"/></svg>Chauffage</button>
-      <button class="bouton bouton--clair" type="button" data-simulation="climatisation"><svg class="icone" aria-hidden="true"><use href="#i-clim"/></svg>Climatisation</button>
-    </div>
+    <div class="final__choix"><button class="bouton bouton--clair" type="button" data-simulation="climatisation"><svg class="icone" aria-hidden="true"><use href="#i-clim"/></svg>Simuler mes aides climatisation</button></div>
     <ul class="rassurance" aria-label="Nos garanties">
       <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Gratuit et sans engagement</li>
       <li><svg class="icone" aria-hidden="true"><use href="#i-check"/></svg>Un seul artisan RGE</li>

@@ -374,7 +374,7 @@
     return '<form class="sim__vue" data-etape="coordonnees" novalidate>' +
       '<p class="sim__compteur">Dernière étape</p>' +
       '<h2 class="sim__question" tabindex="-1">À qui l’artisan doit-il s’adresser&#8239;?</h2>' +
-      '<p class="sim__aide">Vos coordonnées seront transmises à un seul artisan partenaire certifié RGE, et à personne d’autre.</p>' +
+      '<p class="sim__aide">Nous vous proposerons par SMS un seul artisan partenaire certifié RGE de votre secteur. Vos coordonnées ne lui seront transmises qu’après votre accord.</p>' +
       '<div class="grille-champs">' +
       champ("prenom", "Prénom", "text", "given-name", c.prenom) +
       champ("nom", "Nom", "text", "family-name", c.nom) + "</div>" +
@@ -385,7 +385,7 @@
         return '<label class="creneau"><input type="radio" name="creneau" value="' + x[0] + '"' + (x[0] === choisi ? " checked" : "") + "><span>" + x[1] + "<small>" + x[2] + "</small></span></label>";
       }).join("") + "</fieldset>" +
       '<div data-champ="accord"><label class="case"><input type="checkbox" name="accord" aria-describedby="sim-accord-erreur"' + (c.accord ? " checked" : "") + ">" +
-      "<span>J’accepte que mes coordonnées soient transmises à <strong>un seul artisan partenaire certifié RGE</strong> de mon secteur, pour être recontacté au sujet de ce projet. Elles ne seront ni revendues, ni utilisées pour du démarchage. " +
+      "<span>J’accepte d’être recontacté au sujet de ce projet par <strong>Le Bon Degré</strong>, service de King Dream Digital, qui me proposera par SMS <strong>un seul artisan partenaire certifié RGE</strong> de mon secteur. Mes coordonnées ne lui seront transmises qu’après mon accord. Elles ne seront ni revendues, ni utilisées pour du démarchage. " +
       '<a href="confidentialite.html" target="_blank" rel="noopener">En savoir plus</a></span></label>' +
       '<p class="champ__erreur" id="sim-accord-erreur" role="alert"></p></div>' +
       '<div class="sim__actions"><button class="bouton" type="submit">Demander à être rappelé ' + icone("i-fleche", "icone--fleche") + "</button></div></form>";
@@ -408,9 +408,9 @@
       '<h2 class="sim__question" tabindex="-1">Merci ' + echapper(c.prenom) + "&#8239;!</h2>" +
       '<p class="sim__aide">Voici ce qui se passerait ensuite, avec le service en ligne&nbsp;:</p>' +
       '<ol class="frise">' +
-      "<li><b>1</b><span>Nous confions votre demande à <strong>un seul artisan partenaire certifié RGE</strong> qui intervient près de chez vous (" + echapper(rep.cp) + ").</span></li>" +
-      "<li><b>2</b><span>Il vous appelle " + libelles[c.creneau] + ", au " + echapper(c.tel) + ". Personne d’autre ne vous contacte.</span></li>" +
-      "<li><b>3</b><span>Il étudie votre maison et vous remet un devis détaillé, avec les aides. Vous décidez, sans engagement.</span></li></ol>" +
+      "<li><b>1</b><span>Vous recevez un SMS avec le nom d’<strong>un seul artisan partenaire certifié RGE</strong> qui intervient près de chez vous (" + echapper(rep.cp) + ").</span></li>" +
+      "<li><b>2</b><span>Vous l’acceptez en un clic&nbsp;: lui seul reçoit vos coordonnées. Personne d’autre ne vous contacte.</span></li>" +
+      "<li><b>3</b><span>Il vous appelle " + libelles[c.creneau] + ", au " + echapper(c.tel) + ", étudie votre maison et vous remet un devis détaillé, avec les aides. Vous décidez, sans engagement.</span></li></ol>" +
       '<p class="demo-note">' + icone("i-info") + "<span><strong>Version de démonstration&nbsp;:</strong> aucune donnée n’a été envoyée ni enregistrée.</span></p>" +
       '<div class="sim__actions"><button class="bouton" type="button" data-fermer-fin>Fermer</button></div></div>';
   }
