@@ -5641,10 +5641,9 @@ Views.security = {
     const b = S.state.backups || {};
     const recent = b.last && (Date.now() - new Date(b.last).getTime()) < 7 * 86400000;
     const hostOk = S.state.servers.every(s => s.hostFingerprint || !(s.metrics && s.metrics.lastSeen));
-    const hidden = !LIVE || !!(S.state.access && S.state.access.stealth);
     const checks = [
       [LIVE ? location.protocol === 'https:' : true, 'HTTPS et HSTS', LIVE ? (location.protocol === 'https:' ? 'Connexion chiffrée.' : 'Active HTTPS (Caddy) avant toute mise en ligne.') : 'Fourni par Caddy dans la version installée.'],
-      [hidden, 'Cockpit masqué (mode furtif)', !LIVE ? 'Dans la version installée : invisible sans le lien d’entrée secret.' : hidden ? 'Sans le lien d’entrée secret, toute visite reçoit une page « 404 » vide.' : 'Active le mode furtif (KDC_GATE) avant la mise en ligne.'],
+      
       [!!me.twoFactor, '2FA obligatoire', 'Mot de passe + code TOTP à chaque connexion.'],
       [true, 'Politique de sécurité du contenu', 'Scripts limités au serveur lui-même, pas de CDN tiers, cadres interdits.'],
       [true, 'Clés SSH hors du navigateur', 'Chiffrées au repos, console relayée par le serveur.'],
@@ -5732,6 +5731,7 @@ Views.security = {
 /* ===== Réglages : entreprise, TVA et mentions, numérotation, emails, Kingo, apparence, données ===== */
 // le bleu du logo KingDream d’abord, puis un bleu ciel et des teintes sobres qui s’impriment bien
 const DOC_COLORS = ['#0058d0', '#2f80f5', '#0f8a5f', '#b8860b', '#cf2540', '#1d1d1f'];
+const SMTP_GATE_HINT =  '';
 
 Views.settings = {
   render(page, params) {
@@ -5873,7 +5873,7 @@ Views.settings = {
         <label class="field"><span>Utilisateur</span><input id="sm-user" value="${esc(s.user || '')}" autocomplete="off"></label>
         <label class="field"><span>Mot de passe</span><input id="sm-pass" type="password" placeholder="${s.hasPassword ? '•••••••• (enregistré)' : ''}" autocomplete="new-password"><small>Laisse vide pour garder l’actuel.</small></label>
         <label class="field span-2"><span>Expéditeur</span><input id="sm-from" value="${esc(s.from || '')}" placeholder="KingDream Digital <contact@kingdream.fr>"></label>
-        <label class="check span-2"><input type="checkbox" id="sm-alerts"${s.alertEmails ? ' checked' : ''}><span>M’alerter par email quand un serveur passe au rouge<small>Et quand un nouvel appareil ouvre ton lien d’entrée (mode furtif). En plus de Kingo, pour ne rien rater loin du cockpit.</small></span></label>
+        <label class="check span-2"><input type="checkbox" id="sm-alerts"${s.alertEmails ? ' checked' : ''}><span>M’alerter par email quand un serveur passe au rouge<small>${SMTP_GATE_HINT}En plus de Kingo, pour ne rien rater loin du cockpit.</small></span></label>
         <label class="field span-2"><span>Adresse des alertes (facultatif)</span><input id="sm-alertto" type="email" value="${esc(s.alertTo || '')}" placeholder="Par défaut : l’email de l’entreprise"></label>
         <div class="toolbar span-2"><button class="btn btn-primary" type="button" data-set="smtpsave">Enregistrer le SMTP</button><button class="btn" type="button" data-set="smtptest">Envoyer un email de test</button></div></form>`;
     } catch (e) { $('#smtpBox').innerHTML = `<p class="field-error">${esc(e.message)}</p>`; }
