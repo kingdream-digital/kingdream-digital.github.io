@@ -74,11 +74,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px;
     padding: max(22px, env(safe-area-inset-top)) clamp(18px, 3.4vw, 48px) 0; transition: opacity .5s;
   }
-  .logo-mark, .ink-logo {
-    display: block; aspect-ratio: 640 / 129;
-    -webkit-mask: url("assets/logo-dorure.png") center / contain no-repeat; mask: url("assets/logo-dorure.png") center / contain no-repeat;
-  }
-  .logo-mark { height: 22px; background: #f4efe6; }
+  .logo img { height: 26px; width: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,.7)); }
   .head-links { display: flex; align-items: center; gap: 6px; }
   .ghost { position: relative; text-decoration: none; font-size: .8rem; font-weight: 500; color: rgba(239,233,222,.7); padding: .7em 1em; transition: color .3s; }
   .ghost::after { content: ""; position: absolute; left: 1em; right: 1em; bottom: .45em; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--out); }
@@ -224,19 +220,13 @@
   }
   .emboss { position: absolute; inset: 5cqi 5cqi 5cqi 7cqi; border-radius: 2px; pointer-events: none; box-shadow: inset 1px 1px 0 rgba(0,0,0,.45), inset -1px -1px 0 rgba(255,255,255,.06), 1px 1px 0 rgba(255,255,255,.05); }
   .pg-back.side-l .emboss { inset: 5cqi 7cqi 5cqi 5cqi; }
-  .emboss::before { content: ""; position: absolute; inset: 1.6cqi; border: 1px solid rgba(217,191,127,.28); }
+  .emboss::before { content: ""; position: absolute; inset: 1.6cqi; border: 1px solid rgba(239,231,214,.14); }
   .cover-in { position: relative; display: grid; justify-items: center; gap: 3.4cqb; padding: 0 10cqi; }
-  .foil { background: var(--gold); background-size: 220% 100%; background-position: 0 0; transition: background-position 2.4s var(--out); filter: drop-shadow(0 1px 0 rgba(0,0,0,.6)); }
-  .book:hover .foil, .reading .foil { background-position: 100% 0; }
-  .foil-logo {
-    width: min(50cqi, 320px); aspect-ratio: 640 / 129;
-    -webkit-mask: url("assets/logo-dorure.png") center / contain no-repeat; mask: url("assets/logo-dorure.png") center / contain no-repeat;
-  }
-  .foil-text { -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .pg-cover .t { font: italic 400 clamp(20px, min(6.6cqi, 10cqb), 46px)/1.1 var(--serif); padding: 0 .1em; }
-  .pg-cover .rule, .pg-back .rule { width: 9cqi; height: 1px; background: rgba(217,191,127,.45); }
-  .pg-cover .s, .pg-back .s { font-size: clamp(8px, 1.45cqi, 11px); letter-spacing: .5em; text-transform: uppercase; color: rgba(217,191,127,.7); padding-left: .5em; }
-  .pg-back .foil-logo { width: min(26cqi, 160px); }
+  .cover-logo { width: min(58cqi, 380px); height: auto; filter: drop-shadow(0 3px 8px rgba(0,0,0,.6)); }
+  .pg-cover .t { font: italic 400 clamp(20px, min(6.6cqi, 10cqb), 46px)/1.1 var(--serif); color: #efe7d6; padding: 0 .1em; }
+  .pg-cover .rule, .pg-back .rule { width: 9cqi; height: 1px; background: rgba(239,231,214,.32); }
+  .pg-cover .s, .pg-back .s { font-size: clamp(8px, 1.45cqi, 11px); letter-spacing: .5em; text-transform: uppercase; color: rgba(239,231,214,.55); padding-left: .5em; }
+  .pg-back .cover-logo { width: min(30cqi, 190px); }
   .pg-back .blurb { max-width: 36ch; font: italic 400 clamp(13px, 2.6cqi, 18px)/1.35 var(--serif); color: rgba(233,223,198,.62); }
 
   /* Page de garde */
@@ -247,7 +237,7 @@
     box-shadow: 0 0 0 1.2cqi #f3ecdc, 0 0 0 calc(1.2cqi + 1px) rgba(217,191,127,.7), 0 20px 40px -20px rgba(0,0,0,.8);
   }
   .exlibris small { font-size: clamp(7px, 1.3cqi, 10px); letter-spacing: .4em; text-transform: uppercase; color: var(--muted); padding-left: .4em; }
-  .exlibris .ink-logo { width: 78%; background: var(--ink); }
+  .exlibris img { width: 80%; height: auto; }
   .exlibris em { font: italic 400 clamp(14px, 3.6cqi, 26px)/1 var(--serif); }
 
   /* Sommaire */
@@ -271,36 +261,33 @@
   .toc button:hover { color: var(--accent); }
   .toc button:hover .k { transform: translateX(4px); }
 
-  /* Page création : la capture du site imprimée sur la page, légende dessous */
+  /* Page création : grand titre, la capture imprimée sur la page, légende dessous */
   .pg-project { background: var(--noise), linear-gradient(160deg, var(--paper), var(--paper-2)); }
-  .pg-project .shot {
-    position: absolute; left: 6.5cqi; right: 6.5cqi; top: 12.5cqb; height: 63cqb; border-radius: 2px;
-    background: #e8e3d8 top center / cover no-repeat; box-shadow: 0 0 0 1px rgba(22,19,14,.1);
+  .proj { position: absolute; inset: 11.5cqb 6.5cqi 6.5cqb; display: flex; flex-direction: column; gap: 2.8cqb; }
+  .proj .ttl { margin: 0; font: 400 clamp(26px, min(7.6cqi, 11cqb), 64px)/.95 var(--serif); letter-spacing: -.02em; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .proj .ttl .num { position: relative; top: -.85em; margin-right: .3em; font: italic 400 .4em/1 var(--serif); letter-spacing: 0; color: #b08d4a; }
+  .proj .shot {
+    flex: 1; min-height: 0; border-radius: 2px; background: #e8e3d8 top center / cover no-repeat; box-shadow: 0 0 0 1px rgba(22,19,14,.1);
     transition: transform .6s var(--out), box-shadow .6s var(--out);
   }
-  .slot:hover .pg-project .shot { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(22,19,14,.06), 0 22px 36px -20px rgba(22,19,14,.55); }
-  .legend { position: absolute; left: 6.5cqi; right: 6.5cqi; bottom: 6.5cqb; display: flex; align-items: flex-end; gap: 3cqi; }
-  .legend .num { font: italic 400 clamp(24px, min(7.4cqi, 11.5cqb), 54px)/.78 var(--serif); color: #b89a5a; }
-  .legend .t { flex: 1; min-width: 0; }
-  .legend h3 { margin: 0; font: 400 clamp(17px, min(4.4cqi, 7cqb), 32px)/1 var(--serif); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .legend .t span { display: block; margin-top: .55em; font-size: clamp(8px, 1.35cqi, 10.5px); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
-  .legend .desc { display: none; }
-  .legend .view {
+  .slot:hover .proj .shot { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(22,19,14,.06), 0 22px 36px -20px rgba(22,19,14,.55); }
+  .proj .cap { display: flex; align-items: flex-end; justify-content: space-between; gap: 4cqi; }
+  .proj .desc { margin: 0; max-width: 64ch; font-size: clamp(11px, min(1.75cqi, 2.6cqb), 13.5px); line-height: 1.5; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .proj .desc b { font-weight: 600; color: var(--ink); }
+  .proj .view {
     flex: none; display: inline-flex; align-items: center; gap: .5em; text-decoration: none; padding-bottom: .3em;
     font-size: clamp(10px, 1.6cqi, 12.5px); font-weight: 600; color: var(--ink);
     background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: color .3s;
   }
-  .legend .view .ar { transition: transform .35s var(--out); }
-  .legend .view:hover { color: var(--accent); }
-  .legend .view:hover .ar { transform: translate(2px, -2px); }
+  .proj .view .ar { transition: transform .35s var(--out); }
+  .proj .view:hover { color: var(--accent); }
+  .proj .view:hover .ar { transform: translate(2px, -2px); }
   @container (max-aspect-ratio: 1/1) {
-    .pg-project .shot { left: 7cqi; right: 7cqi; top: 11cqb; height: 52cqb; }
-    .legend { left: 7cqi; right: 7cqi; bottom: 6cqb; flex-wrap: wrap; align-items: flex-start; gap: 2.4cqb 3.5cqi; }
-    .legend .num { font-size: 13cqi; }
-    .legend h3 { font-size: 7.2cqi; white-space: normal; }
-    .legend .t span { font-size: 2.7cqi; }
-    .legend .desc { display: block; flex-basis: 100%; margin: 0; font-size: 3.4cqi; line-height: 1.5; color: var(--ink-2); }
-    .legend .view { font-size: 3.4cqi; }
+    .proj { inset: 11cqb 7cqi 6cqb; gap: 2.4cqb; }
+    .proj .ttl { font-size: 9.6cqi; line-height: 1; white-space: normal; }
+    .proj .cap { flex-direction: column; align-items: flex-start; gap: 1.8cqb; }
+    .proj .desc { font-size: 3.4cqi; -webkit-line-clamp: 4; }
+    .proj .view { font-size: 3.4cqi; }
   }
 
   /* Pages de texte */
@@ -405,7 +392,7 @@
   /* ================= Téléphone ================= */
   @media (max-width: 760px) {
     .head-links .ghost { display: none; }
-    .logo-mark { height: 18px; }
+    .logo img { height: 21px; }
     .pill { font-size: .74rem; padding: .62em 1em; }
     .intro { top: 88px; right: 18px; }
     .eyebrow { margin-bottom: 12px; }
@@ -427,7 +414,7 @@
   <div class="vignette" aria-hidden="true"></div>
 
   <header>
-    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><span class="logo-mark"></span></a>
+    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><img src="../assets/kingdream-digital.png" alt="KingDream Digital"></a>
     <nav class="head-links">
       <a class="ghost" href="../">Version classique</a>
       <a class="pill" href="mailto:contact@kingdream.fr">Nous contacter</a>
@@ -564,10 +551,10 @@
     const P = PAGES[i];
     let h = "";
     if (P.kind === "cover") {
-      h = `<div class="emboss"></div><div class="cover-in"><div class="foil foil-logo" role="img" aria-label="KingDream Digital"></div>
-        <div class="rule"></div><div class="t foil foil-text">Créations &amp; démos</div><div class="s">Édition ${YEAR}</div></div>`;
+      h = `<div class="emboss"></div><div class="cover-in"><img class="cover-logo" src="../assets/kingdream-digital.png" alt="KingDream Digital" draggable="false">
+        <div class="rule"></div><div class="t">Créations &amp; démos</div><div class="s">Édition ${YEAR}</div></div>`;
     } else if (P.kind === "endpaper") {
-      h = `<div class="exlibris"><small>Ex libris</small><span class="ink-logo" role="img" aria-label="KingDream Digital"></span><em>Créations &amp; démos</em></div>`;
+      h = `<div class="exlibris"><small>Ex libris</small><img src="../assets/kingdream-digital.png" alt="KingDream Digital" draggable="false"><em>Créations &amp; démos</em></div>`;
     } else if (P.kind === "toc") {
       h = `<div class="runhead"><span>Sommaire</span><i></i><span>${pad(PROJETS.length)} créations</span></div>
         <div class="toc"><h2>Au <em>sommaire</em></h2><ol>${PROJETS.map((p, k) => `
@@ -577,11 +564,13 @@
     } else if (P.kind === "project") {
       const p = PROJETS[P.k];
       h = `<div class="runhead"><span>Création ${pad(P.k + 1)}</span><i></i><span>${p.format}</span></div>
-        <span class="shot"${live ? ` role="img" aria-label="Aperçu : ${p.court}"` : ""} style="background-image:url('${poster(P.k)}')"></span>
-        <div class="legend"><span class="num">${pad(P.k + 1)}</span>
-          <div class="t"><h3>${p.court}</h3><span>${p.type}</span></div>
-          <p class="desc">${p.texte}</p>
-          <a class="view" href="${p.href}" data-proj="${P.k}">Voir le projet <span class="ar" aria-hidden="true">↗</span></a>
+        <div class="proj">
+          <h3 class="ttl"><span class="num">${pad(P.k + 1)}</span>${p.court}</h3>
+          <span class="shot"${live ? ` role="img" aria-label="Aperçu : ${p.court}"` : ""} style="background-image:url('${poster(P.k)}')"></span>
+          <div class="cap">
+            <p class="desc"><b>${p.type}</b> — ${p.texte}</p>
+            <a class="view" href="${p.href}" data-proj="${P.k}">Voir le projet <span class="ar" aria-hidden="true">↗</span></a>
+          </div>
         </div>`;
     } else if (P.kind === "contact") {
       h = `<div class="runhead"><span>Et ensuite ?</span><i></i><span>Votre projet</span></div>
@@ -595,7 +584,7 @@
           <div class="row"><button type="button" class="soft" data-close>Refermer le livre</button><a class="soft" href="../">Version classique</a><a class="soft" href="https://kingdream.fr/">kingdream.fr ↗</a></div>
         </div><span class="folio">${i}</span>`;
     } else if (P.kind === "back") {
-      h = `<div class="emboss"></div><div class="cover-in"><div class="foil foil-logo" role="img" aria-label="KingDream Digital"></div><div class="rule"></div>
+      h = `<div class="emboss"></div><div class="cover-in"><img class="cover-logo" src="../assets/kingdream-digital.png" alt="KingDream Digital" draggable="false"><div class="rule"></div>
         <div class="blurb">Sites, démos et outils sur mesure, pensés et réalisés par KingDream Digital.</div><div class="s">kingdream.fr</div></div>`;
     }
     return `<div class="pg pg-${P.kind} side-${side}"${P.kind === "project" ? ` data-k="${P.k}"` : ""}>${h}<i class="gut"></i></div>`;
@@ -1118,7 +1107,7 @@
     const W = innerWidth, H = innerHeight, was = single;
     single = W < 760 || H > W * 1.05;
     if (single) { pw = Math.min(W - 36, (H - 196) * .7, 520); ph = pw / .7; }
-    else { pw = Math.min(W * .44, (H - 180) * 1.6, 780); ph = pw / 1.6; }
+    else { pw = Math.min(W * .44, (H - 180) * 1.3, 760); ph = pw / 1.3; }
     pw = Math.round(pw); ph = Math.round(ph);
     document.documentElement.style.setProperty("--pw", pw + "px");
     document.documentElement.style.setProperty("--ph", ph + "px");
