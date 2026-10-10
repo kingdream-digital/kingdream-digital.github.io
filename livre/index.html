@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le livre des créations — KingDream Digital</title>
+<meta name="description" content="Les sites et démos réalisés par KingDream Digital, à feuilleter comme un livre.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0c0907">
+<link rel="icon" href="../assets/kingdream-digital.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0b57d0;
+    --navy: #0a2a7a;
+    --ink: #17140f;
+    --muted: #6b6457;
+    --paper: #f5f1e8;
+    --paper-2: #ebe5d8;
+    --line: rgba(23, 20, 15, .12);
+    --cover: #0e1424;
+    --pw: 520px;          /* largeur d'une page (calculée en JS) */
+    --ph: 366px;          /* hauteur d'une page */
+    --lx: 50%;            /* position de la lampe */
+    --ly: 46%;
+    --ease: cubic-bezier(.65, .05, .36, 1);
+    --sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; overflow: hidden; background: #0c0907; color: #f3efe7;
+    font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Le bureau ---------- */
+  .desk {
+    position: fixed; inset: -6%; z-index: 0;
+    transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1800' height='1200'><filter id='w' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.004 0.12' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.26  0 0 0 0 0.19  0 0 0 .75 -0.22'/></filter><rect width='100%' height='100%' filter='url(%23w)'/></svg>") center / cover no-repeat,
+      repeating-linear-gradient(180deg, rgba(0,0,0,.16) 0 1px, transparent 1px 6px, rgba(255,255,255,.012) 6px 7px, transparent 7px 17px),
+      linear-gradient(180deg, #19130f, #100b09 60%, #0b0806);
+  }
+  .reading .desk { transform: scale(1.12); filter: blur(1.5px) brightness(.75); }
+  .lamp {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 46% 52% at var(--lx) var(--ly), rgba(255, 236, 205, .17), transparent 70%),
+      radial-gradient(ellipse 85% 80% at var(--lx) var(--ly), transparent 30%, rgba(4, 3, 2, .82) 78%, rgba(2, 1, 1, .95));
+    transition: background .2s linear;
+  }
+  .prop { position: absolute; display: block; filter: drop-shadow(0 18px 18px rgba(0,0,0,.55)); }
+  .cup { width: 230px; right: 13%; top: 30%; }
+  .plant { width: 150px; left: 9%; top: 52%; }
+  .pencil { width: 260px; left: 20%; top: 72%; transform: rotate(-52deg); }
+  .card { width: 150px; right: 15%; top: 66%; transform: rotate(14deg); }
+  .phone { width: 130px; right: 4%; bottom: 4%; transform: rotate(-18deg); }
+
+  /* ---------- Entête ---------- */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 44px) 0;
+  }
+  .logo img { height: 30px; width: auto; display: block; filter: drop-shadow(0 2px 10px rgba(0,0,0,.6)); }
+  .head-links { display: flex; align-items: center; gap: 10px; }
+  .ghost, .pill {
+    display: inline-flex; align-items: center; gap: .45em; text-decoration: none; white-space: nowrap;
+    font-size: .86rem; font-weight: 600; border-radius: 999px; padding: .62em 1.1em; transition: background .25s, transform .25s, color .25s;
+  }
+  .ghost { color: rgba(243,239,231,.72); }
+  .ghost:hover { color: #fff; background: rgba(255,255,255,.07); }
+  .pill { background: #f3efe7; color: #14110d; box-shadow: 0 8px 24px -8px rgba(0,0,0,.6); }
+  .pill:hover { transform: translateY(-1px); background: #fff; }
+
+  /* ---------- Texte d'accueil ---------- */
+  .intro {
+    position: fixed; z-index: 20; left: clamp(16px, 4vw, 44px); top: clamp(86px, 13vh, 130px); max-width: 520px;
+    transition: opacity .6s, transform .9s var(--ease);
+  }
+  .intro h1 {
+    margin: 0 0 .35em; font-weight: 700; letter-spacing: -.035em; line-height: 1.02;
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem); text-shadow: 0 4px 30px rgba(0,0,0,.6);
+  }
+  .intro h1 em { font: italic 400 1.08em/1 var(--serif); letter-spacing: -.01em; color: #e9d9bd; }
+  .intro p { margin: 0; color: rgba(243,239,231,.68); font-size: clamp(.92rem, 1.2vw, 1.02rem); max-width: 42ch; }
+  .reading .intro { opacity: 0; transform: translateY(-24px); pointer-events: none; }
+
+  .cta-open {
+    position: fixed; z-index: 20; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: .6em; border: 0; cursor: pointer;
+    background: rgba(243,239,231,.1); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: .8em 1.3em; font-weight: 600; font-size: .9rem;
+    transition: opacity .5s, transform .5s var(--ease), background .25s;
+  }
+  .cta-open:hover { background: rgba(243,239,231,.18); }
+  .cta-open .dot { width: 8px; height: 8px; border-radius: 50%; background: #e9d9bd; box-shadow: 0 0 0 0 rgba(233,217,189,.7); animation: ping 2s infinite; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(233,217,189,0); } 100% { box-shadow: 0 0 0 0 rgba(233,217,189,0); } }
+  .reading .cta-open { opacity: 0; transform: translate(-50%, 20px); pointer-events: none; }
+
+  /* ---------- Scène 3D ---------- */
+  .stage {
+    position: fixed; inset: 0; z-index: 10; overflow: hidden;
+    perspective: 1800px; perspective-origin: 50% 35%;
+  }
+  .cam, .tilt, .pos { position: absolute; width: 0; height: 0; }
+  .cam {
+    left: 50%; top: 50%;
+    transform-style: preserve-3d; transition: transform 1.3s var(--ease);
+    transform: translateY(13vh) scale(.5) rotateX(34deg) rotateZ(-5deg);
+  }
+  .reading .cam { transform: translateY(-2vh) scale(1) rotateX(9deg) rotateZ(0deg); }
+  .tilt { transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.7,.2,1); transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+  .pos { transform-style: preserve-3d; transition: transform 1s var(--ease); }
+  .desk-mode .pos { cursor: pointer; }
+  .desk-mode .pos:hover { transform: translateX(calc(var(--pw) * -.5)) translateZ(30px) !important; }
+
+  .book { position: absolute; left: calc(var(--pw) * -1); top: calc(var(--ph) * -.5); width: calc(var(--pw) * 2); height: var(--ph); perspective: 2600px; }
+  .shadow {
+    position: absolute; top: 4%; height: 96%; left: 50%; width: 50%; border-radius: 6px;
+    box-shadow: 0 50px 90px 10px rgba(0,0,0,.75), 0 12px 30px rgba(0,0,0,.6);
+    transition: left 1s var(--ease), width 1s var(--ease);
+  }
+  .book.open .shadow { left: 0; width: 100%; }
+  .book.back .shadow { left: 0; width: 50%; }
+  /* épaisseur des pages, de chaque côté */
+  .stack { position: absolute; top: 0; height: var(--ph); width: var(--pw); border-radius: 3px; transition: transform 1s var(--ease), opacity .4s; }
+  .stack::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background: repeating-linear-gradient(180deg, #e8e1d1 0 1px, #cfc6b2 1px 2px);
+  }
+  .stack-l { left: 0; }
+  .stack-r { left: 50%; }
+
+  .leaf {
+    position: absolute; top: 0; left: 50%; width: var(--pw); height: var(--ph);
+    transform-origin: 0 50%; transform-style: preserve-3d;
+    transition: transform .45s cubic-bezier(.3,.7,.3,1);
+  }
+  .leaf.flipped { transform: rotateY(-180deg); }
+  .leaf.turning { transition: transform 1s var(--ease); }
+  .leaf.peek:not(.flipped) { transform: rotateY(-9deg); }
+  .leaf.peek.flipped { transform: rotateY(-171deg); }
+  .leaf.buried { visibility: hidden; }
+
+  .face {
+    position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    container-type: size; background: var(--paper); color: var(--ink);
+    border-radius: 0 4px 4px 0;
+  }
+  .face.back { transform: rotateY(180deg); border-radius: 4px 0 0 4px; }
+  /* creux de la reliure */
+  .face::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
+    background: linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,.06) 4%, transparent 10%, transparent 96%, rgba(0,0,0,.04));
+  }
+  .face.back::after { background: linear-gradient(270deg, rgba(0,0,0,.24), rgba(0,0,0,.07) 4%, transparent 10%, transparent 96%, rgba(0,0,0,.04)); }
+  .face::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: 0; background: #000;
+  }
+  .leaf.turning .face::before { animation: shade 1s var(--ease); }
+  @keyframes shade { 50% { opacity: .28; } }
+
+  .paper {
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>"),
+      linear-gradient(135deg, var(--paper), var(--paper-2));
+  }
+  .folio { position: absolute; bottom: 4.5cqb; font-size: clamp(10px, 1.7cqi, 12px); color: var(--muted); letter-spacing: .08em; z-index: 4; }
+  .front .folio { right: 6cqi; }
+  .back .folio { left: 6cqi; }
+  .runhead {
+    position: absolute; top: 5cqb; left: 7cqi; right: 7cqi; display: flex; justify-content: space-between;
+    font-size: clamp(9px, 1.6cqi, 11px); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); z-index: 4;
+  }
+
+  /* Couvertures */
+  .cover {
+    color: #e7e9ef; display: grid; place-items: center; text-align: center; border-radius: 3px 6px 6px 3px;
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='l'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .06 0'/></filter><rect width='100%' height='100%' filter='url(%23l)'/></svg>"),
+      radial-gradient(ellipse at 30% 20%, #1c2640, transparent 60%),
+      linear-gradient(160deg, #141c31, var(--cover) 55%, #090d18);
+  }
+  .cover::after { background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(255,255,255,.06) 2.2%, rgba(0,0,0,.15) 3.4%, transparent 7%) !important; }
+  .cover.back { border-radius: 6px 3px 3px 6px; }
+  .cover.back::after { background: linear-gradient(270deg, rgba(0,0,0,.55), rgba(255,255,255,.06) 2.2%, rgba(0,0,0,.15) 3.4%, transparent 7%) !important; }
+  .cover-in { display: grid; justify-items: center; gap: 3.2cqb; padding: 8cqi; }
+  .cover img { width: min(52cqi, 300px); height: auto; filter: drop-shadow(0 1px 0 rgba(255,255,255,.12)) drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+  .cover .t { font: italic 400 clamp(18px, 6.2cqi, 40px)/1 var(--serif); color: #e9d9bd; }
+  .cover .s { font-size: clamp(9px, 1.7cqi, 12px); letter-spacing: .32em; text-transform: uppercase; color: rgba(231,233,239,.55); }
+  .cover .frame { position: absolute; inset: 4.5cqi; border: 1px solid rgba(233,217,189,.18); border-radius: 2px; pointer-events: none; }
+  .back-cover .cover-in { gap: 2cqb; }
+  .back-cover img { width: min(30cqi, 170px); opacity: .9; }
+
+  /* Pages de garde */
+  .endpaper {
+    color: #e9ecf4; display: grid; place-items: center; text-align: center;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1px, transparent 1.4px) 0 0 / 14px 14px,
+      linear-gradient(150deg, #0d2a72, #0a2160 60%, #081a4c);
+  }
+  .endpaper .inner { padding: 9cqi; display: grid; gap: 2.6cqb; justify-items: center; max-width: 88cqi; }
+  .endpaper img { width: min(46cqi, 260px); filter: drop-shadow(0 4px 12px rgba(0,0,0,.35)); }
+  .endpaper h2 { margin: 0; font: italic 400 clamp(22px, 7cqi, 46px)/1.05 var(--serif); }
+  .endpaper p { margin: 0; font-size: clamp(12px, 2.3cqi, 15px); color: rgba(233,236,244,.75); max-width: 40ch; }
+
+  /* Sommaire */
+  .toc { padding: 13cqb 8cqi 10cqb; display: flex; flex-direction: column; }
+  .toc h2 { margin: 0 0 3cqb; font: 400 clamp(26px, 8cqi, 52px)/1 var(--serif); letter-spacing: -.01em; }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: grid; }
+  .toc li + li { border-top: 1px solid var(--line); }
+  .toc button {
+    width: 100%; display: grid; grid-template-columns: 2.4em 1fr auto; align-items: baseline; gap: .6em; text-align: left;
+    background: none; border: 0; padding: clamp(5px, 1.7cqb, 11px) 0; cursor: pointer; color: var(--ink);
+    font-size: clamp(12px, min(2.6cqi, 3.9cqb), 16px); transition: padding .25s, color .25s;
+  }
+  .toc button:hover { padding-left: .5em; color: var(--blue); }
+  .toc .n { font: italic 400 1.15em/1 var(--serif); color: var(--muted); }
+  .toc .k { font-weight: 600; }
+  .toc .p { color: var(--muted); font-size: .85em; font-variant-numeric: tabular-nums; }
+
+  /* Pages création : capture */
+  .shot { background: #0b0b0d; }
+  .sp { position: absolute; inset: 0; background: #0b0b0d; }
+  .shot .img { position: absolute; inset: 0; overflow: hidden; }
+  .shot img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
+    transform: scale(1.01); transition: transform 7s cubic-bezier(.2,.6,.2,1), filter .6s;
+    filter: saturate(.95);
+  }
+  .shot:hover img { transform: scale(1.13) translateY(-4%); filter: saturate(1.08); }
+  .shot .img::after { /* reflet */
+    content: ""; position: absolute; inset: -40% auto -40% -60%; width: 40%; transform: rotate(18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); opacity: 0; transition: none;
+  }
+  .shot:hover .img::after { opacity: 1; left: 130%; transition: left 1.3s ease, opacity .2s; }
+  .shot .grad { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.78), rgba(0,0,0,.1) 46%, transparent 70%); z-index: 2; }
+  .shot .cap { position: absolute; left: 7cqi; right: 7cqi; bottom: 6cqb; z-index: 3; color: #fff; display: flex; align-items: flex-end; justify-content: space-between; gap: 4cqi; }
+  .shot .num { font: italic 400 clamp(34px, 13cqi, 84px)/.8 var(--serif); color: #f3e6cf; }
+  .shot .lbl { font-size: clamp(9px, 1.8cqi, 12px); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.8); text-align: right; }
+  .shot .live {
+    position: absolute; top: 5cqb; z-index: 4; display: inline-flex; align-items: center; gap: .4em;
+    font-size: clamp(10px, 1.8cqi, 12px); font-weight: 600; color: #fff; text-decoration: none;
+    background: rgba(10,10,12,.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: .45em .85em;
+    opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .3s;
+  }
+  .back.shot .live { right: 6cqi; }
+  .front.shot .live { left: 6cqi; }
+  .shot:hover .live, .shot .live:focus-visible { opacity: 1; transform: none; }
+  @container (max-aspect-ratio: 1/1) {
+    .sp { background: linear-gradient(135deg, var(--paper), var(--paper-2)); }
+    .shot .img { inset: 9cqb 7cqi auto; height: auto; aspect-ratio: 16 / 10; border-radius: 6px; box-shadow: 0 14px 30px -12px rgba(0,0,0,.45); }
+    .shot .grad { display: none; }
+    .shot .cap { color: var(--ink); bottom: 12cqb; flex-direction: column; align-items: flex-start; gap: 2cqb; }
+    .shot .num { color: var(--ink); font-size: 34cqi; }
+    .shot .lbl { color: var(--muted); text-align: left; }
+    .shot .live { opacity: 1; transform: none; top: auto; bottom: 6cqb; left: auto !important; right: 7cqi !important; background: var(--ink); }
+  }
+
+  /* Pages création : texte */
+  .info { padding: 12cqb 8cqi 10cqb; display: flex; flex-direction: column; gap: clamp(6px, 2.4cqb, 16px); }
+  .badge {
+    align-self: flex-start; font-size: clamp(9px, 1.65cqi, 11px); font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: #8a5a00; background: #fbe9b2; padding: .35em .75em; border-radius: 5px;
+  }
+  .info h2 { margin: 0; font: 400 clamp(24px, min(7cqi, 11cqb), 50px)/1 var(--serif); letter-spacing: -.01em; }
+  .info h2 em { font-style: italic; color: var(--navy); }
+  .info p { margin: 0; color: #4d473d; font-size: clamp(12.5px, min(2.45cqi, 3.7cqb), 16px); max-width: 52ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips span { font-size: clamp(10.5px, min(1.9cqi, 2.9cqb), 12.5px); font-weight: 600; color: var(--ink); border: 1px solid var(--line); background: rgba(255,255,255,.5); padding: .32em .75em; border-radius: 999px; }
+  .actions { margin-top: auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .go {
+    display: inline-flex; align-items: center; gap: .5em; text-decoration: none; font-weight: 700;
+    font-size: clamp(12.5px, min(2.3cqi, 3.5cqb), 15px); color: #fff; background: var(--ink); border-radius: 999px; padding: .75em 1.25em;
+    box-shadow: 0 10px 22px -12px rgba(0,0,0,.6); transition: background .25s, transform .25s;
+  }
+  .go:hover { background: var(--blue); transform: translateY(-1px); }
+  .go .arr { transition: transform .25s; }
+  .go:hover .arr { transform: translateX(3px); }
+  .hint-turn { font-size: clamp(10px, 1.8cqi, 12px); color: var(--muted); }
+
+  /* Fin */
+  .end { padding: 12cqb 8cqi 10cqb; display: flex; flex-direction: column; justify-content: center; gap: clamp(8px, 2.6cqb, 18px); }
+  .end h2 { margin: 0; font: 400 clamp(28px, min(8.5cqi, 12cqb), 60px)/.98 var(--serif); }
+  .end h2 em { color: var(--navy); }
+  .end p { margin: 0; color: #4d473d; font-size: clamp(12.5px, min(2.45cqi, 3.7cqb), 16px); max-width: 44ch; }
+  .end .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .soft {
+    display: inline-flex; align-items: center; gap: .5em; text-decoration: none; font-weight: 600; cursor: pointer;
+    font-size: clamp(12.5px, min(2.3cqi, 3.5cqb), 15px); color: var(--ink); background: rgba(255,255,255,.6);
+    border: 1px solid var(--line); border-radius: 999px; padding: .72em 1.15em; transition: border-color .25s, background .25s;
+  }
+  .soft:hover { border-color: var(--ink); background: #fff; }
+  .thanks { text-align: center; align-items: center; }
+
+  /* ---------- Barre de navigation ---------- */
+  .controls {
+    position: fixed; z-index: 30; left: 50%; bottom: max(20px, env(safe-area-inset-bottom));
+    display: flex; align-items: center; gap: 4px; padding: 6px;
+    background: rgba(24, 20, 16, .62); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid rgba(255,255,255,.1); border-radius: 999px; box-shadow: 0 20px 40px -16px rgba(0,0,0,.7);
+    transform: translate(-50%, 30px); opacity: 0; pointer-events: none; transition: opacity .5s .3s, transform .7s .3s var(--ease);
+  }
+  .reading .controls { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .controls button {
+    display: inline-grid; place-items: center; min-width: 42px; height: 42px; border: 0; border-radius: 999px; cursor: pointer;
+    background: transparent; color: #f3efe7; transition: background .2s, opacity .2s;
+  }
+  .controls button:hover { background: rgba(255,255,255,.1); }
+  .controls button:disabled { opacity: .3; cursor: default; background: transparent; }
+  .controls .txt { padding: 0 14px; font-size: .84rem; font-weight: 600; }
+  .controls .count { white-space: nowrap; min-width: 104px; text-align: center; font-size: .82rem; color: rgba(243,239,231,.7); font-variant-numeric: tabular-nums; }
+  .controls svg { width: 18px; height: 18px; }
+  .sep { width: 1px; height: 22px; background: rgba(255,255,255,.12); margin: 0 4px; }
+  :focus-visible { outline: 2px solid #e9d9bd; outline-offset: 2px; }
+
+  /* ---------- Téléphone ---------- */
+  @media (max-width: 760px) {
+    .logo img { height: 24px; }
+    .head-links .ghost { display: none; }
+    .pill { font-size: .8rem; padding: .55em .95em; }
+    .intro { top: 84px; right: 16px; }
+    .cam { transform: translateY(14vh) scale(.62) rotateX(28deg) rotateZ(-4deg); }
+    .cup { width: 150px; right: -6%; top: 52%; }
+    .plant { width: 100px; left: -2%; top: 58%; }
+    .pencil { width: 180px; left: 2%; top: 86%; }
+    .card { width: 110px; right: 6%; top: 88%; }
+    .phone { display: none; }
+    .controls .txt { padding: 0 10px; }
+    .controls .count { min-width: 64px; }
+    .controls .opt { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body class="desk-mode">
+
+  <!-- Décor : bureau en bois, lampe, objets -->
+  <div class="desk" aria-hidden="true">
+    <svg class="prop plant" viewBox="0 0 200 200">
+      <defs>
+        <radialGradient id="pot" cx="40%" cy="35%"><stop offset="0" stop-color="#6b6b68"/><stop offset=".75" stop-color="#3a3a38"/><stop offset="1" stop-color="#232322"/></radialGradient>
+        <radialGradient id="soil" cx="50%" cy="50%"><stop offset="0" stop-color="#2a1d14"/><stop offset="1" stop-color="#140d08"/></radialGradient>
+        <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe3da"/><stop offset=".6" stop-color="#7fa79a"/><stop offset="1" stop-color="#46695f"/></linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="94" fill="url(#pot)"/>
+      <circle cx="100" cy="100" r="80" fill="url(#soil)"/>
+      <g id="rosette" fill="url(#leaf)" stroke="rgba(20,40,34,.35)" stroke-width="1"></g>
+    </svg>
+
+    <svg class="prop cup" viewBox="0 0 260 220">
+      <defs>
+        <radialGradient id="saucer" cx="45%" cy="40%"><stop offset="0" stop-color="#fbfaf7"/><stop offset=".8" stop-color="#e3e0da"/><stop offset="1" stop-color="#bdb8ae"/></radialGradient>
+        <radialGradient id="coffee" cx="50%" cy="50%"><stop offset="0" stop-color="#b7773f"/><stop offset=".7" stop-color="#7a4520"/><stop offset="1" stop-color="#4a2810"/></radialGradient>
+      </defs>
+      <ellipse cx="120" cy="112" rx="104" ry="100" fill="url(#saucer)"/>
+      <ellipse cx="120" cy="112" rx="78" ry="75" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="2"/>
+      <path d="M176 120 q58 4 56 -22 q-2 -20 -40 -16" fill="none" stroke="#f1efea" stroke-width="15" stroke-linecap="round"/>
+      <circle cx="120" cy="108" r="62" fill="#f6f4ef" stroke="#dcd8d0" stroke-width="2"/>
+      <circle cx="120" cy="108" r="50" fill="url(#coffee)"/>
+      <path d="M120 132 C94 112 98 90 112 90 C118 90 120 96 120 99 C120 96 122 90 128 90 C142 90 146 112 120 132 Z" fill="#f3e3cc" opacity=".92"/>
+      <rect x="18" y="168" width="94" height="9" rx="4.5" fill="#c9c6c0" transform="rotate(-24 60 172)"/>
+      <ellipse cx="20" cy="196" rx="16" ry="11" fill="#d6d3cd" transform="rotate(-24 20 196)"/>
+    </svg>
+
+    <svg class="prop pencil" viewBox="0 0 300 20">
+      <polygon points="0,10 22,3 22,17" fill="#e6c8a0"/><polygon points="0,10 8,7.6 8,12.4" fill="#2b2b2b"/>
+      <rect x="22" y="3" width="246" height="14" fill="#2f3440"/><rect x="22" y="3" width="246" height="4" fill="#4a5162"/>
+      <rect x="268" y="2.5" width="16" height="15" fill="#b9b9b9"/><rect x="284" y="2.5" width="14" height="15" rx="3" fill="#c96f6f"/>
+    </svg>
+
+    <svg class="prop card" viewBox="0 0 170 100">
+      <rect width="170" height="100" rx="5" fill="#f4f1ea"/>
+      <rect x="14" y="16" width="62" height="7" rx="2" fill="#0b57d0"/>
+      <rect x="14" y="30" width="40" height="4" rx="2" fill="#0a2a7a" opacity=".6"/>
+      <rect x="14" y="70" width="90" height="4" rx="2" fill="#17140f" opacity=".35"/>
+      <rect x="14" y="79" width="70" height="4" rx="2" fill="#17140f" opacity=".25"/>
+    </svg>
+
+    <svg class="prop phone" viewBox="0 0 120 240">
+      <rect x="2" y="2" width="116" height="236" rx="22" fill="#141518" stroke="#2c2e33" stroke-width="3"/>
+      <rect x="10" y="10" width="100" height="220" rx="16" fill="#08090b"/>
+      <rect x="44" y="18" width="32" height="9" rx="4.5" fill="#000"/>
+    </svg>
+  </div>
+  <div class="lamp" aria-hidden="true"></div>
+
+  <header>
+    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><img src="../assets/kingdream-digital.png" alt="KingDream Digital"></a>
+    <nav class="head-links">
+      <a class="ghost" href="../">Version classique</a>
+      <a class="pill" href="mailto:contact@kingdream.fr">Nous contacter</a>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h1>Un portfolio <em>à feuilleter</em>, page après page.</h1>
+    <p>Cliquez sur le livre pour l’ouvrir, puis sur les pages pour les tourner. Survolez une création pour la voir s’animer.</p>
+  </section>
+
+  <button class="cta-open" type="button" id="open"><span class="dot"></span>Ouvrir le livre</button>
+
+  <main class="stage" aria-label="Livre des créations">
+    <div class="cam">
+      <div class="tilt" id="tilt">
+        <div class="pos" id="pos">
+          <div class="book" id="book" role="region" aria-roledescription="livre" aria-label="Créations & démos KingDream Digital">
+            <div class="shadow"></div>
+            <div class="stack stack-l" id="stackL"></div>
+            <div class="stack stack-r" id="stackR"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="controls" aria-label="Navigation dans le livre">
+    <button type="button" id="prev" aria-label="Page précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <span class="count" id="count" aria-live="polite">Couverture</span>
+    <button type="button" id="next" aria-label="Page suivante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    <span class="sep opt"></span>
+    <button type="button" class="txt" id="toToc">Sommaire</button>
+    <button type="button" class="txt" id="close">Fermer</button>
+  </nav>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---------- Contenu du livre : une entrée par création ----------
+  // Pour ajouter une démo : ajouter un objet ici (vignette 960 × 600 dans ../assets/).
+  const PROJETS = [
+    {
+      titre: "KingDream <em>Control</em>", court: "KingDream Control",
+      badge: "Démo · Dashboard", label: "Le cockpit",
+      img: "../assets/kingdream-control.jpg", href: "../dashboard/", cta: "Ouvrir le dashboard",
+      texte: "Clients, serveurs, factures et alertes réunis dans un tableau de bord façon Apple. Données fictives : tout est cliquable.",
+      points: ["Tableau de bord", "Clients & factures", "Serveurs & alertes"]
+    },
+    {
+      titre: "Le Bon <em>Degré</em>", court: "Le Bon Degré",
+      badge: "Démo · Service KingDream", label: "Pompe à chaleur & clim",
+      img: "../assets/le-bon-degre.jpg", href: "../le-bon-degre/", cta: "Voir la démo",
+      texte: "Pompe à chaleur et climatisation réversible : aides simulées en 1 minute, un seul artisan RGE rappelle.",
+      points: ["Simulateur d’aides", "Prise de contact", "Artisan RGE"]
+    },
+    {
+      titre: "Deep Clean — <em>La Plongée</em>", court: "Deep Clean — V2",
+      badge: "Démo · V2", label: "Proposition V2",
+      img: "../assets/deep-clean-v2.jpg", href: "https://kingdream-digital.github.io/deep-clean/v2/", cta: "Voir la démo",
+      texte: "Proposition V2 du site vitrine : nettoyage, entretien et conciergerie à Manosque.",
+      points: ["Site vitrine", "Nettoyage & conciergerie", "Manosque"]
+    },
+    {
+      titre: "Deep Clean — <em>site actuel</em>", court: "Deep Clean — site actuel",
+      badge: "Démo", label: "Site vitrine",
+      img: "../assets/deep-clean.jpg", href: "https://kingdream-digital.github.io/deep-clean/site/", cta: "Voir la démo",
+      texte: "Site vitrine : nettoyage haut de gamme, conciergerie et entretien à Manosque.",
+      points: ["Nettoyage haut de gamme", "Conciergerie", "Entretien"]
+    },
+    {
+      titre: "Délice Market — <em>La visite</em>", court: "Délice Market — V2",
+      badge: "Démo · V2 immersive", label: "Visite en 3D",
+      img: "../assets/delice-market-v2.jpg", href: "../delice-market/v2/", cta: "Faire la visite",
+      texte: "Poussez la porte du magasin en 3D, puis visite rayon par rayon, avec vidéos.",
+      points: ["Entrée en 3D", "Rayon par rayon", "Vidéos"]
+    },
+    {
+      titre: "Délice <em>Market</em>", court: "Délice Market",
+      badge: "Démo", label: "Multi-boutiques",
+      img: "../assets/delice-market.jpg", href: "../delice-market/", cta: "Voir la démo",
+      texte: "Site multi-boutiques : supermarchés, boucheries et primeur halal à Manosque, Digne-les-Bains et Gap.",
+      points: ["Supermarchés", "Boucheries & primeur", "3 villes"]
+    }
+  ];
+
+  const ARROW = '<span class="arr" aria-hidden="true">→</span>';
+  const pad = n => String(n).padStart(2, "0");
+
+  // Pages, dans l'ordre (page 0 = couverture, dernière = 4e de couverture).
+  // Chaque feuille porte 2 pages : recto (page paire, à droite) et verso (page impaire, à gauche).
+  const pages = [];
+  pages.push({ cls: "cover", html: `
+    <div class="frame"></div>
+    <div class="cover-in">
+      <img src="../assets/kingdream-digital.png" alt="">
+      <div class="t">Créations &amp; démos</div>
+      <div class="s">Édition ${new Date().getFullYear()}</div>
+    </div>` });
+  pages.push({ cls: "endpaper", html: `
+    <div class="inner">
+      <img src="../assets/kingdream-digital.png" alt="KingDream Digital">
+      <h2>Créations &amp; démos</h2>
+      <p>Les sites et les démos réalisés par KingDream Digital pour ses clients. Chaque double page présente une création : tournez les pages ou ouvrez la démo en direct.</p>
+    </div>` });
+  pages.push({ cls: "paper", html: `
+    <div class="toc">
+      <h2>Sommaire</h2>
+      <ol>${PROJETS.map((p, i) => `
+        <li><button type="button" data-goto="${i + 2}"><span class="n">${pad(i + 1)}</span><span class="k">${p.court}</span><span class="p">p. ${3 + 2 * i}</span></button></li>`).join("")}
+        <li><button type="button" data-goto="${PROJETS.length + 2}"><span class="n">${pad(PROJETS.length + 1)}</span><span class="k">Votre projet</span><span class="p">p. ${3 + 2 * PROJETS.length}</span></button></li>
+      </ol>
+    </div>` });
+  PROJETS.forEach((p, i) => {
+    pages.push({ cls: "shot", html: `
+      <div class="sp">
+        <div class="img"><img src="${p.img}" alt="Aperçu : ${p.court}" draggable="false"></div>
+        <div class="grad"></div>
+        <a class="live" href="${p.href}">${p.cta} ↗</a>
+        <div class="cap"><span class="num">${pad(i + 1)}</span><span class="lbl">${p.label}</span></div>
+      </div>` });
+    pages.push({ cls: "paper", html: `
+      <div class="runhead"><span>KingDream Digital</span><span>Création ${pad(i + 1)}</span></div>
+      <div class="info">
+        <span class="badge">${p.badge}</span>
+        <h2>${p.titre}</h2>
+        <p>${p.texte}</p>
+        <div class="chips">${p.points.map(t => `<span>${t}</span>`).join("")}</div>
+        <div class="actions">
+          <a class="go" href="${p.href}">${p.cta} ${ARROW}</a>
+          <span class="hint-turn">ou tournez la page</span>
+        </div>
+      </div>` });
+  });
+  pages.push({ cls: "paper", html: `
+    <div class="end">
+      <span class="badge">Et ensuite ?</span>
+      <h2>La prochaine page, <em>c’est la vôtre.</em></h2>
+      <p>Site vitrine, démo immersive, tableau de bord : parlons de votre projet.</p>
+      <div class="row">
+        <a class="go" href="mailto:contact@kingdream.fr">contact@kingdream.fr ${ARROW}</a>
+        <a class="soft" href="tel:+33627205597">06 27 20 55 97</a>
+      </div>
+    </div>` });
+  pages.push({ cls: "paper", html: `
+    <div class="end thanks">
+      <h2>Merci <em>d’avoir feuilleté.</em></h2>
+      <p>Toutes nos créations sont aussi listées sur la version classique.</p>
+      <div class="row">
+        <button type="button" class="soft" data-goto="0">Refermer le livre</button>
+        <a class="soft" href="../">Version classique</a>
+        <a class="soft" href="https://kingdream.fr/">kingdream.fr ↗</a>
+      </div>
+    </div>` });
+  pages.push({ cls: "cover back-cover", html: `
+    <div class="frame"></div>
+    <div class="cover-in">
+      <img src="../assets/kingdream-digital.png" alt="">
+      <div class="s">kingdream.fr</div>
+    </div>` });
+
+  // Folios (numéros de page) sur les pages papier
+  pages.forEach((p, i) => {
+    if (i > 0 && i < pages.length - 1 && p.cls === "paper") p.html += `<span class="folio">${i}</span>`;
+  });
+
+  // ---------- Construction des feuilles ----------
+  const book = document.getElementById("book");
+  const L = pages.length / 2;            // nombre de feuilles
+  const leaves = [];
+  for (let i = 0; i < L; i++) {
+    const leaf = document.createElement("div");
+    leaf.className = "leaf";
+    leaf.innerHTML =
+      `<div class="face front ${pages[2 * i].cls}">${pages[2 * i].html}</div>` +
+      `<div class="face back ${pages[2 * i + 1].cls}">${pages[2 * i + 1].html}</div>`;
+    book.appendChild(leaf);
+    leaves.push(leaf);
+  }
+
+  // Rosette de la plante (décor)
+  const ros = document.getElementById("rosette");
+  [[0, 62, 15], [40, 50, 13], [80, 34, 11], [120, 22, 9]].forEach(([off, len, w], ring) => {
+    const n = 9 - ring;
+    for (let k = 0; k < n; k++) {
+      const e = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      e.setAttribute("cx", 100); e.setAttribute("cy", 100 - len / 2);
+      e.setAttribute("rx", w); e.setAttribute("ry", len / 2);
+      e.setAttribute("transform", `rotate(${off + k * 360 / n} 100 100)`);
+      ros.appendChild(e);
+    }
+  });
+
+  // ---------- État ----------
+  const body = document.body;
+  const pos = document.getElementById("pos");
+  const stackL = document.getElementById("stackL");
+  const stackR = document.getElementById("stackR");
+  const count = document.getElementById("count");
+  const btnPrev = document.getElementById("prev");
+  const btnNext = document.getElementById("next");
+  let current = 0;                       // nombre de feuilles tournées
+  let focus = "right";                   // page affichée sur téléphone
+  let reading = false;
+  let single = false;                    // une page à la fois (téléphone en portrait)
+  let pw = 520, ph = 366;
+  let queue = Promise.resolve();
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const FLIP_MS = reduce ? 30 : 1000;
+
+  function layout() {
+    const W = innerWidth, H = innerHeight;
+    single = W < 760 && H > W;
+    if (single) {
+      pw = Math.min(W - 32, 460);
+      ph = Math.min(pw * 1.42, H - 190);
+      pw = Math.min(pw, ph / 1.12);
+    } else {
+      const r = 1.42;
+      pw = Math.min((W * .88) / 2, (H - 190) * r, 720);
+      ph = pw / r;
+    }
+    pw = Math.round(pw); ph = Math.round(ph);
+    document.documentElement.style.setProperty("--pw", pw + "px");
+    document.documentElement.style.setProperty("--ph", ph + "px");
+    render();
+  }
+
+  function shift() {
+    if (single) return focus === "right" ? -pw / 2 : pw / 2;
+    if (current === 0) return -pw / 2;
+    if (current === L) return pw / 2;
+    return 0;
+  }
+
+  function render() {
+    leaves.forEach((leaf, i) => {
+      const flipped = i < current;
+      leaf.classList.toggle("flipped", flipped);
+      if (!leaf.classList.contains("turning")) leaf.style.zIndex = flipped ? i + 1 : L - i;
+      const near = i >= current - 2 && i <= current + 1;
+      leaf.classList.toggle("buried", !near && !leaf.classList.contains("turning"));
+      const [front, back] = leaf.children;
+      // seules les deux pages visibles sont actives (clavier, lecteurs d'écran)
+      front.inert = !(reading && !flipped && i === current && (!single || focus === "right"));
+      back.inert = !(reading && flipped && i === current - 1 && (!single || focus === "left"));
+    });
+    book.classList.toggle("open", current > 0 && current < L);
+    book.classList.toggle("back", current === L);
+    pos.style.transform = `translateX(${shift()}px)`;
+
+    // épaisseur du papier de chaque côté
+    const t = n => Math.min(n * 1.4, 10);
+    stackL.style.opacity = current > 1 ? 1 : 0;
+    stackR.style.opacity = current < L - 1 ? 1 : 0;
+    stackL.style.transform = `translate(${-t(current)}px, ${t(current)}px)`;
+    stackR.style.transform = `translate(${t(L - current)}px, ${t(L - current)}px)`;
+
+    // compteur
+    let label;
+    if (current === 0) label = "Couverture";
+    else if (current === L) label = "Dos";
+    else if (single) label = `Page ${focus === "left" ? 2 * current - 1 : 2 * current} / ${2 * L - 2}`;
+    else label = `Pages ${2 * current - 1}–${2 * current} / ${2 * L - 2}`;
+    count.textContent = label;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === L && (!single || focus === "left");
+  }
+
+  // Tourne une feuille (dir = 1 : en avant, -1 : en arrière)
+  function turn(dir) {
+    const i = dir > 0 ? current : current - 1;
+    const leaf = leaves[i];
+    if (!leaf) return Promise.resolve();
+    clearTimeout(leaf._done);
+    leaf.classList.remove("peek", "buried");
+    leaf.classList.add("turning");
+    leaf.style.zIndex = L + 5;
+    current += dir;
+    render();
+    // fin de l'animation : la feuille reprend sa place dans la pile
+    leaf._done = setTimeout(() => { leaf.classList.remove("turning"); render(); }, FLIP_MS);
+    // on rend la main un peu avant la fin pour enchaîner les pages sans attendre
+    return new Promise(res => setTimeout(res, FLIP_MS * .55));
+  }
+
+  function enqueue(fn) { queue = queue.then(fn).catch(() => {}); return queue; }
+
+  function next() {
+    if (!reading) return openBook();
+    enqueue(async () => {
+      if (single) {
+        if (current === 0) { focus = "left"; await turn(1); }
+        else if (focus === "left" && current < L) { focus = "right"; render(); }
+        else if (focus === "right" && current < L) { focus = "left"; await turn(1); }
+      } else if (current < L) await turn(1);
+    });
+  }
+
+  function prev() {
+    enqueue(async () => {
+      if (single) {
+        if (focus === "right" && current > 0 && current < L) { focus = "left"; render(); }
+        else if (current > 0) { focus = "right"; await turn(-1); }
+      } else if (current > 0) await turn(-1);
+    });
+  }
+
+  // Va directement à une double page (les feuilles défilent l'une après l'autre)
+  function goTo(target) {
+    enqueue(async () => {
+      target = Math.max(0, Math.min(L, target));
+      const dir = target > current ? 1 : -1;
+      focus = target === 0 ? "right" : "left";
+      while (current !== target) {
+        turn(dir);
+        await new Promise(r => setTimeout(r, reduce ? 0 : 110));
+      }
+      await new Promise(r => setTimeout(r, FLIP_MS * .6));
+      render();
+    });
+  }
+
+  function openBook() {
+    if (reading) return;
+    reading = true;
+    body.classList.remove("desk-mode");
+    body.classList.add("reading");
+    focus = "right";
+    render();
+    setTimeout(() => { focus = "left"; enqueue(() => turn(1)); }, reduce ? 0 : 650);
+  }
+
+  function closeBook() {
+    if (!reading) return;
+    enqueue(async () => {
+      if (current !== 0) {
+        focus = "right";
+        while (current > 0) { turn(-1); await new Promise(r => setTimeout(r, reduce ? 0 : 90)); }
+        await new Promise(r => setTimeout(r, FLIP_MS * .7));
+      }
+      reading = false;
+      body.classList.remove("reading");
+      body.classList.add("desk-mode");
+      document.documentElement.style.setProperty("--rx", "0deg");
+      document.documentElement.style.setProperty("--ry", "0deg");
+      render();
+    });
+  }
+
+  // ---------- Interactions ----------
+  document.getElementById("open").addEventListener("click", openBook);
+  document.getElementById("close").addEventListener("click", closeBook);
+  document.getElementById("toToc").addEventListener("click", () => goTo(1));
+  btnNext.addEventListener("click", next);
+  btnPrev.addEventListener("click", prev);
+
+  book.addEventListener("click", e => {
+    const go = e.target.closest("[data-goto]");
+    if (go) { e.preventDefault(); const t = +go.dataset.goto; return t === 0 ? closeBook() : goTo(t); }
+    if (e.target.closest("a, button")) return;          // liens « Voir la démo »
+    if (!reading) return openBook();
+    if (single) {
+      return (e.clientX < innerWidth * .28) ? prev() : next();
+    }
+    const r = book.getBoundingClientRect();
+    (e.clientX < r.left + r.width / 2) ? prev() : next();
+  });
+
+  // Coin de page qui se soulève au survol (souris uniquement)
+  const fine = matchMedia("(hover: hover) and (pointer: fine)");
+  book.addEventListener("pointermove", e => {
+    if (!fine.matches || !reading || single) return;
+    const r = book.getBoundingClientRect();
+    const right = e.clientX > r.left + r.width / 2;
+    leaves.forEach(l => l.classList.remove("peek"));
+    const leaf = right ? leaves[current] : leaves[current - 1];
+    if (leaf && !leaf.classList.contains("turning")) leaf.classList.add("peek");
+  });
+  book.addEventListener("pointerleave", () => leaves.forEach(l => l.classList.remove("peek")));
+
+  // Glisser du doigt
+  let sx = null, sy = null;
+  addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  addEventListener("touchend", e => {
+    if (sx === null || !reading) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+      dx < 0 ? next() : prev();
+      suppressClick = true; setTimeout(() => suppressClick = false, 350);
+    }
+  });
+  let suppressClick = false;
+  book.addEventListener("click", e => { if (suppressClick) e.stopImmediatePropagation(); }, true);
+
+  // Clavier
+  addEventListener("keydown", e => {
+    if (e.target.closest && e.target.closest("input, textarea")) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
+    else if (e.key === "Escape") closeBook();
+    else if ((e.key === "Enter" || e.key === " ") && !reading && e.target === body) { e.preventDefault(); openBook(); }
+  });
+
+  // Lampe et léger mouvement du livre qui suivent la souris
+  let raf = 0;
+  addEventListener("pointermove", e => {
+    if (!fine.matches || raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const x = e.clientX / innerWidth, y = e.clientY / innerHeight;
+      const root = document.documentElement.style;
+      root.setProperty("--lx", (42 + x * 16).toFixed(1) + "%");
+      root.setProperty("--ly", (38 + y * 16).toFixed(1) + "%");
+      if (reading && !reduce) {
+        root.setProperty("--ry", ((x - .5) * 6).toFixed(2) + "deg");
+        root.setProperty("--rx", ((.5 - y) * 4).toFixed(2) + "deg");
+      }
+    });
+  });
+
+  addEventListener("resize", layout);
+  layout();
+})();
+</script>
+</body>
+</html>
