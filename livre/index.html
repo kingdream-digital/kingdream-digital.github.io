@@ -21,7 +21,7 @@
     --paper: #f6f2e9;
     --paper-2: #ece6d8;
     --hair: rgba(22, 19, 14, .14);
-    --blue: #0b57d0;
+    --accent: #9a7a35;
     --gold: linear-gradient(115deg, #7d5e28 0%, #d9bf7f 22%, #a8853f 38%, #f3e2ae 52%, #b08b43 68%, #e7cf8f 84%, #85642b 100%);
     --pw: 600px;          /* largeur d'une page (calculée en JS) */
     --ph: 375px;          /* hauteur d'une page */
@@ -31,9 +31,9 @@
     --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
     --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .15  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
     --endpaper:
-      repeating-linear-gradient(45deg, rgba(217,191,127,.06) 0 1px, transparent 1px 11px),
-      repeating-linear-gradient(-45deg, rgba(217,191,127,.06) 0 1px, transparent 1px 11px),
-      linear-gradient(160deg, #10204a, #0b1736);
+      radial-gradient(circle, rgba(217,191,127,.17) 0 .8px, transparent 1.3px) 0 0 / 14px 14px,
+      radial-gradient(ellipse 80% 70% at 30% 20%, rgba(255,240,210,.05), transparent 70%),
+      linear-gradient(160deg, #1b1a18, #0f0e0d);
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -74,7 +74,11 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px;
     padding: max(22px, env(safe-area-inset-top)) clamp(18px, 3.4vw, 48px) 0; transition: opacity .5s;
   }
-  .logo img { height: 26px; width: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,.7)); }
+  .logo-mark, .ink-logo {
+    display: block; aspect-ratio: 640 / 129;
+    -webkit-mask: url("assets/logo-dorure.png") center / contain no-repeat; mask: url("assets/logo-dorure.png") center / contain no-repeat;
+  }
+  .logo-mark { height: 22px; background: #f4efe6; }
   .head-links { display: flex; align-items: center; gap: 6px; }
   .ghost { position: relative; text-decoration: none; font-size: .8rem; font-weight: 500; color: rgba(239,233,222,.7); padding: .7em 1em; transition: color .3s; }
   .ghost::after { content: ""; position: absolute; left: 1em; right: 1em; bottom: .45em; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--out); }
@@ -140,7 +144,7 @@
   .book.back .shadow { left: 0; width: 50%; }
   .board {
     position: absolute; top: -1.6%; height: 103.2%; left: 50%; width: 51.2%; border-radius: 3px 7px 7px 3px;
-    background: #0a1430; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); transition: left 1.1s var(--ease), width 1.1s var(--ease);
+    background: #100f0e; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), inset 0 1px 0 rgba(255,255,255,.06); transition: left 1.1s var(--ease), width 1.1s var(--ease);
   }
   .book.open .board { left: -1.2%; width: 102.4%; border-radius: 7px; }
   .book.back .board { left: -1.2%; width: 51.2%; border-radius: 7px 3px 3px 7px; }
@@ -202,10 +206,11 @@
   .pg-cover, .pg-back {
     display: grid; place-items: center; text-align: center; color: #e9dfc6;
     background:
-      repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px),
-      radial-gradient(ellipse 80% 70% at 35% 25%, #1b2c5c, transparent 70%),
-      linear-gradient(160deg, #132453, #0b1838 55%, #070f26);
+      radial-gradient(ellipse 85% 65% at 28% 16%, rgba(255,242,215,.075), transparent 62%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px),
+      linear-gradient(160deg, #1d1c1a, #131211 55%, #0b0a09);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 0 0 1px rgba(255,255,255,.035);
   }
   .pg-cover.side-r, .pg-back.side-r { border-radius: 2px 6px 6px 2px; }
   .pg-back.side-l { border-radius: 6px 2px 2px 6px; }
@@ -242,7 +247,7 @@
     box-shadow: 0 0 0 1.2cqi #f3ecdc, 0 0 0 calc(1.2cqi + 1px) rgba(217,191,127,.7), 0 20px 40px -20px rgba(0,0,0,.8);
   }
   .exlibris small { font-size: clamp(7px, 1.3cqi, 10px); letter-spacing: .4em; text-transform: uppercase; color: var(--muted); padding-left: .4em; }
-  .exlibris img { width: 78%; height: auto; }
+  .exlibris .ink-logo { width: 78%; background: var(--ink); }
   .exlibris em { font: italic 400 clamp(14px, 3.6cqi, 26px)/1 var(--serif); }
 
   /* Sommaire */
@@ -263,49 +268,39 @@
   .toc .th.blank { background: var(--ink); display: grid; place-items: center; color: var(--paper); font: italic 400 1em/1 var(--serif); }
   .toc .p { font: italic 400 1.1em/1 var(--serif); color: var(--muted); }
   .toc .dots { height: 1px; background: repeating-linear-gradient(90deg, rgba(22,19,14,.3) 0 1px, transparent 1px 5px); }
-  .toc button:hover { color: var(--blue); }
+  .toc button:hover { color: var(--accent); }
   .toc button:hover .k { transform: translateX(4px); }
 
-  /* Page création : le site en pleine page */
-  .pg-project {
-    --shade: linear-gradient(0deg, rgba(7,7,10,.93), rgba(7,7,10,.66) 22%, rgba(7,7,10,.18) 42%, transparent 56%);
-    --gloss: linear-gradient(112deg, rgba(255,255,255,.12), rgba(255,255,255,0) 30%, rgba(255,255,255,0) 72%, rgba(255,255,255,.05));
-    background: #0b0b0d; color: #fff;
+  /* Page création : la capture du site imprimée sur la page, légende dessous */
+  .pg-project { background: var(--noise), linear-gradient(160deg, var(--paper), var(--paper-2)); }
+  .pg-project .shot {
+    position: absolute; left: 6.5cqi; right: 6.5cqi; top: 12.5cqb; height: 63cqb; border-radius: 2px;
+    background: #e8e3d8 top center / cover no-repeat; box-shadow: 0 0 0 1px rgba(22,19,14,.1);
+    transition: transform .6s var(--out), box-shadow .6s var(--out);
   }
-  .pg-project .art { position: absolute; inset: 0; background-position: 0 0, 0 0, top center; background-size: 100% 100%, 100% 100%, cover; background-repeat: no-repeat; }
-  .pg-project .poster, .pg-project .clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-  .pg-project .clip { opacity: 0; transition: opacity .45s; }
-  .pg-project .clip.on { opacity: 1; }
-  .pg-project .shade { position: absolute; inset: 0; z-index: 2; background: var(--shade); }
-  .pg-project .gloss { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: var(--gloss); }
-  .pg-project.side-r > .gut { background: linear-gradient(90deg, rgba(0,0,0,.6), rgba(0,0,0,.2) 3%, rgba(0,0,0,.05) 8%, transparent 14%); }
-  .pg-project.side-l > .gut { background: linear-gradient(270deg, rgba(0,0,0,.6), rgba(0,0,0,.2) 3%, rgba(0,0,0,.05) 8%, transparent 14%); }
-  .cap { position: absolute; left: 6cqi; right: 5cqi; bottom: 5.5cqb; z-index: 4; display: flex; align-items: flex-end; gap: 2.6cqi; }
-  .cap .num { font: italic 400 clamp(26px, min(9cqi, 15cqb), 64px)/.78 var(--serif); color: #f1e3c4; }
-  .cap .txt { min-width: 0; display: grid; gap: .3em; }
-  .cap b { font-weight: 600; font-size: clamp(13px, min(2.6cqi, 4.2cqb), 20px); letter-spacing: -.01em; line-height: 1.15; }
-  .cap .txt > span { font-size: clamp(8px, 1.35cqi, 10.5px); letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.66); }
-  /* description + bouton : repliés, ils se déplient au survol de la page */
-  .cap .more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .55s var(--out), opacity .4s; }
-  .cap .more > div { overflow: hidden; display: grid; gap: .6em; justify-items: start; }
-  .slot:hover .cap .more, .cap .more:focus-within { grid-template-rows: 1fr; opacity: 1; }
-  .cap em { display: block; padding-top: .25em; font-style: normal; font-size: clamp(11px, min(1.9cqi, 3cqb), 14px); line-height: 1.5; color: rgba(255,255,255,.82); max-width: 46ch; }
-  .cap .view {
-    display: inline-flex; align-items: center; gap: .45em; text-decoration: none;
-    font-size: clamp(10px, 1.7cqi, 12.5px); font-weight: 600; color: #16130e; background: rgba(246,242,233,.94);
-    border-radius: 999px; padding: .6em 1.05em; margin-bottom: .1em; box-shadow: 0 10px 24px -10px rgba(0,0,0,.7); transition: background .25s;
+  .slot:hover .pg-project .shot { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(22,19,14,.06), 0 22px 36px -20px rgba(22,19,14,.55); }
+  .legend { position: absolute; left: 6.5cqi; right: 6.5cqi; bottom: 6.5cqb; display: flex; align-items: flex-end; gap: 3cqi; }
+  .legend .num { font: italic 400 clamp(24px, min(7.4cqi, 11.5cqb), 54px)/.78 var(--serif); color: #b89a5a; }
+  .legend .t { flex: 1; min-width: 0; }
+  .legend h3 { margin: 0; font: 400 clamp(17px, min(4.4cqi, 7cqb), 32px)/1 var(--serif); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .legend .t span { display: block; margin-top: .55em; font-size: clamp(8px, 1.35cqi, 10.5px); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .legend .desc { display: none; }
+  .legend .view {
+    flex: none; display: inline-flex; align-items: center; gap: .5em; text-decoration: none; padding-bottom: .3em;
+    font-size: clamp(10px, 1.6cqi, 12.5px); font-weight: 600; color: var(--ink);
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: color .3s;
   }
-  .cap .view:hover { background: #fff; }
+  .legend .view .ar { transition: transform .35s var(--out); }
+  .legend .view:hover { color: var(--accent); }
+  .legend .view:hover .ar { transform: translate(2px, -2px); }
   @container (max-aspect-ratio: 1/1) {
-    .pg-project .shade, .pg-project .art { --shade: linear-gradient(0deg, rgba(8,8,11,.97), rgba(8,8,11,.9) 30%, rgba(8,8,11,.55) 45%, transparent 62%); }
-    .cap { flex-wrap: wrap; left: 7cqi; right: 7cqi; bottom: 6cqb; gap: 3cqi; }
-    .cap .num { font-size: 15cqi; }
-    .cap .txt { flex: 1 1 60%; }
-    .cap b { font-size: 5.8cqi; }
-    .cap .txt > span { font-size: 2.9cqi; }
-    .cap .more { grid-template-rows: 1fr; opacity: 1; }
-    .cap em { font-size: 3.4cqi; }
-    .cap .view { font-size: 3.5cqi; }
+    .pg-project .shot { left: 7cqi; right: 7cqi; top: 11cqb; height: 52cqb; }
+    .legend { left: 7cqi; right: 7cqi; bottom: 6cqb; flex-wrap: wrap; align-items: flex-start; gap: 2.4cqb 3.5cqi; }
+    .legend .num { font-size: 13cqi; }
+    .legend h3 { font-size: 7.2cqi; white-space: normal; }
+    .legend .t span { font-size: 2.7cqi; }
+    .legend .desc { display: block; flex-basis: 100%; margin: 0; font-size: 3.4cqi; line-height: 1.5; color: var(--ink-2); }
+    .legend .view { font-size: 3.4cqi; }
   }
 
   /* Pages de texte */
@@ -410,7 +405,7 @@
   /* ================= Téléphone ================= */
   @media (max-width: 760px) {
     .head-links .ghost { display: none; }
-    .logo img { height: 21px; }
+    .logo-mark { height: 18px; }
     .pill { font-size: .74rem; padding: .62em 1em; }
     .intro { top: 88px; right: 18px; }
     .eyebrow { margin-bottom: 12px; }
@@ -432,7 +427,7 @@
   <div class="vignette" aria-hidden="true"></div>
 
   <header>
-    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><img src="../assets/kingdream-digital.png" alt="KingDream Digital"></a>
+    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><span class="logo-mark"></span></a>
     <nav class="head-links">
       <a class="ghost" href="../">Version classique</a>
       <a class="pill" href="mailto:contact@kingdream.fr">Nous contacter</a>
@@ -442,7 +437,7 @@
   <section class="intro reveal">
     <p class="eyebrow">KingDream Digital — Portfolio</p>
     <h1>Un portfolio interactif à <em>explorer.</em></h1>
-    <p class="sub" id="sub">Cliquez sur les pages pour découvrir nos créations, survolez-les pour les voir en mouvement.</p>
+    <p class="sub" id="sub">Cliquez sur une création pour l’ouvrir en direct, tournez les pages pour découvrir la suite.</p>
   </section>
 
   <button class="open-btn" type="button" id="open">Ouvrir le livre <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
@@ -497,8 +492,8 @@
   "use strict";
 
   // ---------- Créations : une entrée par démo ----------
-  // Pour en ajouter une : un objet ici + ses fichiers dans assets/ (id.jpg 1200×750, id-m.jpg 700×1000,
-  // id-t.jpg 240×150, id.mp4 et id-m.mp4) ; le livre se recompose tout seul.
+  // Pour en ajouter une : un objet ici + ses captures dans assets/ (id.jpg 1200×750, id-m.jpg 700×1000,
+  // id-t.jpg 240×150) ; le livre se recompose tout seul.
   const PROJETS = [
     { id: "p1", court: "KingDream Control", type: "Tableau de bord", format: "Démo interactive", href: "../dashboard/",
       texte: "Clients, serveurs, factures et alertes réunis dans un tableau de bord façon Apple. Données fictives : tout est cliquable." },
@@ -559,7 +554,6 @@
   const rightOf = v => single ? v : (v === NP / 2 ? null : 2 * v);
   const viewOfPage = p => single ? p : (p === 0 ? 0 : Math.floor((p + 1) / 2));
   const poster = k => `assets/${PROJETS[k].id}${single ? "-m" : ""}.jpg`;
-  const clipSrc = k => `assets/${PROJETS[k].id}${single ? "-m" : ""}.mp4`;
   const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
   const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const easeOut = t => 1 - Math.pow(1 - t, 3);
@@ -573,7 +567,7 @@
       h = `<div class="emboss"></div><div class="cover-in"><div class="foil foil-logo" role="img" aria-label="KingDream Digital"></div>
         <div class="rule"></div><div class="t foil foil-text">Créations &amp; démos</div><div class="s">Édition ${YEAR}</div></div>`;
     } else if (P.kind === "endpaper") {
-      h = `<div class="exlibris"><small>Ex libris</small><img src="../assets/kingdream-digital.png" alt="KingDream Digital" draggable="false"><em>Créations &amp; démos</em></div>`;
+      h = `<div class="exlibris"><small>Ex libris</small><span class="ink-logo" role="img" aria-label="KingDream Digital"></span><em>Créations &amp; démos</em></div>`;
     } else if (P.kind === "toc") {
       h = `<div class="runhead"><span>Sommaire</span><i></i><span>${pad(PROJETS.length)} créations</span></div>
         <div class="toc"><h2>Au <em>sommaire</em></h2><ol>${PROJETS.map((p, k) => `
@@ -582,17 +576,13 @@
         </ol></div><span class="folio">${i}</span>`;
     } else if (P.kind === "project") {
       const p = PROJETS[P.k];
-      // dans la page qui tourne, image et dégradés ne forment qu'un seul calque (sinon des lignes apparaissent entre les bandes)
-      h = live
-        ? `<img class="poster" src="${poster(P.k)}" alt="Aperçu : ${p.court}" draggable="false">
-           <video class="clip" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" data-src="${clipSrc(P.k)}"></video>
-           <span class="shade"></span><span class="gloss"></span>`
-        : `<span class="art" style="background-image:var(--gloss),var(--shade),url('${poster(P.k)}')"></span>`;
-      h += `
-        <div class="cap"><span class="num">${pad(P.k + 1)}</span>
-          <div class="txt"><b>${p.court}</b><span>${p.type} · ${p.format}</span>
-            <div class="more"><div><em>${p.texte}</em><a class="view" href="${p.href}" data-proj="${P.k}">Voir le projet <span aria-hidden="true">↗</span></a></div></div>
-          </div></div>`;
+      h = `<div class="runhead"><span>Création ${pad(P.k + 1)}</span><i></i><span>${p.format}</span></div>
+        <span class="shot"${live ? ` role="img" aria-label="Aperçu : ${p.court}"` : ""} style="background-image:url('${poster(P.k)}')"></span>
+        <div class="legend"><span class="num">${pad(P.k + 1)}</span>
+          <div class="t"><h3>${p.court}</h3><span>${p.type}</span></div>
+          <p class="desc">${p.texte}</p>
+          <a class="view" href="${p.href}" data-proj="${P.k}">Voir le projet <span class="ar" aria-hidden="true">↗</span></a>
+        </div>`;
     } else if (P.kind === "contact") {
       h = `<div class="runhead"><span>Et ensuite ?</span><i></i><span>Votre projet</span></div>
         <div class="txtpage"><h2>La prochaine page,<br><em>c’est la vôtre.</em></h2>
@@ -615,29 +605,9 @@
   function setSlot(slot, idx, force) {
     if (!force && slot._idx === idx) return;
     slot._idx = idx;
-    const c = slot.querySelector(".content");
-    stopSlot(slot);
-    c.innerHTML = idx == null ? "" : pageHTML(idx, slot === slotL ? "l" : "r", true);
+    slot.querySelector(".content").innerHTML = idx == null ? "" : pageHTML(idx, slot === slotL ? "l" : "r", true);
     slot.classList.toggle("blank", idx == null);
-    const v = c.querySelector("video");
-    if (v) v.addEventListener("playing", () => v.classList.add("on"));
   }
-
-  function playSlot(slot) {
-    const v = slot.querySelector("video.clip");
-    if (!v || !reading || viewerOpen || active.length) return;
-    if (!v.getAttribute("src")) { v.src = v.dataset.src; v.preload = "auto"; }
-    const p = v.play();
-    if (p) p.catch(() => {});
-  }
-  function stopSlot(slot) {
-    const v = slot.querySelector("video.clip");
-    if (!v) return;
-    v.pause();
-    v.classList.remove("on");
-    if (v.getAttribute("src")) { try { v.currentTime = 0; } catch (e) {} }
-  }
-  const pauseAll = () => { stopSlot(slotL); stopSlot(slotR); };
 
   // Décor du livre selon la vue : position, couverture, épaisseur des pages, barre
   function chrome(v) {
@@ -646,7 +616,7 @@
     book.classList.toggle("back", !single && v === S);
     const sh = single ? 0 : v === 0 ? -pw / 2 : v === S ? pw / 2 : 0;
     pos.style.transform = `translateX(${sh}px)`;
-    const t = n => Math.min(n * 1.4, 9);
+    const t = n => Math.min(n * 1.8, 12);
     const l = single ? 0 : v - 1, r = single ? NP - 1 - v : S - v - 1;
     stackL.style.opacity = l > 0 ? 1 : 0;
     stackR.style.opacity = r > 0 ? 1 : 0;
@@ -748,7 +718,6 @@
     if (spec.startR !== undefined) setSlot(slotR, spec.startR);
     if (!interactive) chrome(spec.nv);
     active.push(S);
-    pauseAll();
     apply(S);
     return S;
   }
@@ -851,10 +820,6 @@
   function onIdle() {
     if (active.length || queue.length) return;
     preloadAround(view);
-    if (reading && !viewerOpen && !document.hidden) {
-      if (!fine) { playSlot(slotR); if (!single) playSlot(slotL); }
-      else [slotL, slotR].forEach(s => { if (s.matches(":hover")) playSlot(s); });
-    }
     idleWaiters.splice(0).forEach(r => r());
   }
   const idle = () => active.length || queue.length ? new Promise(r => idleWaiters.push(r)) : Promise.resolve();
@@ -916,7 +881,6 @@
     body.classList.add("desk-mode");
     document.documentElement.style.setProperty("--rx", "0deg");
     document.documentElement.style.setProperty("--ry", "0deg");
-    pauseAll();
   }
 
   const toastEl = $("#toast");
@@ -938,7 +902,6 @@
     lastFocus = document.activeElement;
     body.classList.add("viewing");
     setPeek(0);
-    pauseAll();
     $("#vTitle").innerHTML = `${p.court}<small>${p.type}</small>`;
     $("#vOpen").href = p.href;
     vPoster.src = poster(k);
@@ -1100,11 +1063,6 @@
     }
   });
 
-  [slotL, slotR].forEach(s => {
-    s.addEventListener("pointerenter", () => { if (fine) playSlot(s); });
-    s.addEventListener("pointerleave", () => { if (fine) stopSlot(s); });
-  });
-
   $("#open").addEventListener("click", openBook);
   $("#close").addEventListener("click", closeBook);
   $("#toToc").addEventListener("click", () => goTo(viewOfPage(2)));
@@ -1117,7 +1075,6 @@
     else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
     else if (e.key === "Escape") closeBook();
   });
-  document.addEventListener("visibilitychange", () => { if (document.hidden) pauseAll(); else onIdle(); });
 
   // ---------- Curseur, lumière, léger mouvement du livre ----------
   const cursor = $("#cursor"), light = document.querySelector(".light");
@@ -1171,8 +1128,8 @@
     active.slice().forEach(S => { if (!S.committed) rollback(S); teardown(S); });
     peekS = null; drag = null; ptr = null;
     if (was !== single) view = single ? (view === 0 ? 0 : 2 * view - 1) : viewOfPage(view);
-    $("#sub").textContent = fine ? "Cliquez sur les pages pour découvrir nos créations, survolez-les pour les voir en mouvement."
-                                 : "Touchez une page pour découvrir la création, glissez pour tourner les pages.";
+    $("#sub").textContent = fine ? "Cliquez sur une création pour l’ouvrir en direct, tournez les pages pour découvrir la suite."
+                                 : "Touchez une création pour l’ouvrir en direct, glissez pour tourner les pages.";
     renderAll();
   }
   let rt = 0;
