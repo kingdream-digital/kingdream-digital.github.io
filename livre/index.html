@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le livre des créations — KingDream Digital</title>
+<meta name="description" content="Les sites et démos réalisés par KingDream Digital, à feuilleter comme un livre.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#070504">
+<link rel="icon" href="../assets/kingdream-digital.png">
+<link rel="preload" as="image" href="assets/bureau.jpg" media="(min-aspect-ratio: 1/1)">
+<link rel="preload" as="image" href="assets/bureau-m.jpg" media="(max-aspect-ratio: 1/1)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16130e;
+    --ink-2: #4a443a;
+    --muted: #8a8273;
+    --paper: #f6f2e9;
+    --paper-2: #ece6d8;
+    --hair: rgba(22, 19, 14, .14);
+    --blue: #0b57d0;
+    --gold: linear-gradient(115deg, #7d5e28 0%, #d9bf7f 22%, #a8853f 38%, #f3e2ae 52%, #b08b43 68%, #e7cf8f 84%, #85642b 100%);
+    --pw: 600px;          /* largeur d'une page (calculée en JS) */
+    --ph: 375px;          /* hauteur d'une page */
+    --ease: cubic-bezier(.65, .05, .36, 1);
+    --out: cubic-bezier(.16, 1, .3, 1);
+    --sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .15  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+    --endpaper:
+      repeating-linear-gradient(45deg, rgba(217,191,127,.06) 0 1px, transparent 1px 11px),
+      repeating-linear-gradient(-45deg, rgba(217,191,127,.06) 0 1px, transparent 1px 11px),
+      linear-gradient(160deg, #10204a, #0b1736);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; overflow: hidden; overscroll-behavior: none; background: #070504; color: #efe9de;
+    font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  img { -webkit-user-drag: none; }
+  ::selection { background: #e7cf8f; color: #16130e; }
+  :focus-visible { outline: 1.5px solid #e7cf8f; outline-offset: 3px; }
+
+  /* ================= Décor (image pré-rendue : bois + objets) ================= */
+  .desk {
+    position: fixed; inset: 0; z-index: 0; background: #0d0907 url("assets/bureau.jpg") center / cover no-repeat;
+    transform-origin: 50% 56%; transition: transform 1.6s var(--ease);
+  }
+  @media (max-aspect-ratio: 1/1) { .desk { background-image: url("assets/bureau-m.jpg"); } }
+  .reading .desk { transform: scale(1.12); }
+  .light {
+    position: fixed; left: 50%; top: 46%; z-index: 1; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 228, 186, .16) 0, rgba(255, 228, 186, .05) 20%, transparent 40%);
+    transition: transform 1.4s var(--out);
+  }
+  .vignette {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+    background: radial-gradient(ellipse 74% 72% at 50% 47%, transparent 30%, rgba(5, 3, 2, .78) 74%, rgba(2, 1, 1, .96) 100%);
+  }
+  .vignette::after { content: ""; position: absolute; inset: 0; background: rgba(4, 3, 2, .5); opacity: 0; transition: opacity 1.4s var(--ease); }
+  .reading .vignette::after { opacity: 1; }
+  .curtain { position: fixed; inset: 0; z-index: 70; background: #050302; pointer-events: none; }
+  .loaded .curtain { animation: lampOn 1.5s steps(1, end) forwards; }
+  @keyframes lampOn { 0% { opacity: 1 } 10% { opacity: .5 } 14% { opacity: .95 } 22% { opacity: .2 } 27% { opacity: .65 } 36%, 100% { opacity: 0 } }
+
+  /* ================= Interface ================= */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: max(22px, env(safe-area-inset-top)) clamp(18px, 3.4vw, 48px) 0; transition: opacity .5s;
+  }
+  .logo img { height: 26px; width: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,.7)); }
+  .head-links { display: flex; align-items: center; gap: 6px; }
+  .ghost { position: relative; text-decoration: none; font-size: .8rem; font-weight: 500; color: rgba(239,233,222,.7); padding: .7em 1em; transition: color .3s; }
+  .ghost::after { content: ""; position: absolute; left: 1em; right: 1em; bottom: .45em; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--out); }
+  .ghost:hover { color: #fff; }
+  .ghost:hover::after { transform: scaleX(1); transform-origin: left; }
+  .pill {
+    display: inline-flex; align-items: center; gap: .6em; text-decoration: none; white-space: nowrap;
+    font-size: .8rem; font-weight: 600; color: #16130e; background: #efe9de; border-radius: 999px; padding: .72em 1.2em;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.7); transition: transform .35s var(--out), background .3s;
+  }
+  .pill:hover { transform: translateY(-1px); background: #fff; }
+  .viewing header { opacity: 0; pointer-events: none; }
+
+  .intro { position: fixed; z-index: 20; left: clamp(18px, 3.4vw, 48px); top: clamp(92px, 14vh, 140px); max-width: 540px; transition: opacity .7s, transform 1s var(--ease); }
+  .eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(239,233,222,.55); }
+  .eyebrow::before { content: ""; width: 30px; height: 1px; background: rgba(239,233,222,.4); }
+  .intro h1 { margin: 0 0 18px; font: 600 clamp(2.2rem, 4.2vw, 3.7rem)/1.03 var(--sans); letter-spacing: -.035em; color: #f5f0e8; text-shadow: 0 6px 40px rgba(0,0,0,.6); }
+  .intro h1 em { font: italic 400 1.14em/1 var(--serif); letter-spacing: -.01em; background: var(--gold); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .06em; text-shadow: none; }
+  .intro .sub { margin: 0; color: rgba(239,233,222,.62); font-size: clamp(.88rem, 1.05vw, .98rem); line-height: 1.6; max-width: 38ch; font-weight: 300; }
+  .reveal > * { opacity: 0; transform: translateY(16px); transition: opacity 1s var(--out), transform 1.2s var(--out); }
+  .loaded .reveal > * { opacity: 1; transform: none; transition-delay: .7s; }
+  .loaded .reveal > :nth-child(2) { transition-delay: .82s; }
+  .loaded .reveal > :nth-child(3) { transition-delay: .94s; }
+  .reading .intro { opacity: 0; transform: translateY(-24px); pointer-events: none; }
+
+  .open-btn {
+    position: fixed; z-index: 20; left: 50%; bottom: max(26px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 14px; border: 0; cursor: pointer; padding: 8px 8px 8px 22px; border-radius: 999px;
+    background: rgba(239,233,222,.08); backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 20px 40px -18px rgba(0,0,0,.9);
+    font-size: .84rem; font-weight: 500; color: #efe9de; transition: background .3s, opacity .5s, transform .6s var(--out);
+  }
+  .open-btn:hover { background: rgba(239,233,222,.14); }
+  .open-btn span { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #efe9de; color: #16130e; transition: transform .4s var(--out); }
+  .open-btn:hover span { transform: rotate(-45deg); }
+  .open-btn svg { width: 15px; height: 15px; }
+  .reading .open-btn { opacity: 0; transform: translate(-50%, 16px); pointer-events: none; }
+
+  /* ================= Scène 3D ================= */
+  .stage { position: fixed; inset: 0; z-index: 10; overflow: hidden; perspective: 1800px; perspective-origin: 50% 26%; touch-action: none; }
+  .cam, .tilt, .pos { position: absolute; width: 0; height: 0; transform-style: preserve-3d; }
+  .cam { left: 50%; top: 52%; transition: transform 1.5s var(--ease); transform: translateY(11vh) scale(.5) rotateX(34deg) rotateZ(-6deg); }
+  .reading .cam { transform: translateY(1vh) scale(1) rotateX(21deg) rotateZ(0deg); }
+  .single .cam { transform: translateY(13vh) scale(.6) rotateX(28deg) rotateZ(-5deg); }
+  .single.reading .cam { transform: translateY(-1vh) scale(1) rotateX(7deg) rotateZ(0deg); }
+  .tilt { transition: transform 1s var(--out); transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+  .pos { transition: transform 1.1s var(--ease); }
+  .desk-mode:not(.single) .pos:hover { transform: translateX(calc(var(--pw) * -.5)) translateY(-12px) !important; }
+  .desk-mode.single .pos:hover { transform: translateY(-10px) !important; }
+
+  .book {
+    position: absolute; left: calc(var(--pw) * -1); top: calc(var(--ph) * -.5); width: calc(var(--pw) * 2); height: var(--ph);
+    perspective: 2400px; user-select: none; -webkit-user-select: none;
+  }
+  .single .book { left: calc(var(--pw) * -.5); width: var(--pw); }
+  .desk-mode .book { cursor: pointer; }
+  .shadow {
+    position: absolute; top: 3%; height: 97%; left: 50%; width: 50%; border-radius: 6px;
+    box-shadow: 30px 60px 80px -10px rgba(0,0,0,.8), 10px 18px 26px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.6);
+    transition: left 1.1s var(--ease), width 1.1s var(--ease);
+  }
+  .book.open .shadow { left: -1%; width: 102%; }
+  .book.back .shadow { left: 0; width: 50%; }
+  .board {
+    position: absolute; top: -1.6%; height: 103.2%; left: 50%; width: 51.2%; border-radius: 3px 7px 7px 3px;
+    background: #0a1430; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); transition: left 1.1s var(--ease), width 1.1s var(--ease);
+  }
+  .book.open .board { left: -1.2%; width: 102.4%; border-radius: 7px; }
+  .book.back .board { left: -1.2%; width: 51.2%; border-radius: 7px 3px 3px 7px; }
+  .single .shadow { left: 0; width: 100%; }
+  .single .board { left: 0; width: 102.4%; border-radius: 3px 7px 7px 3px; }
+  .stack { position: absolute; top: 0; height: var(--ph); width: var(--pw); transition: transform 1.1s var(--ease), opacity .4s; }
+  .stack::before { content: ""; position: absolute; inset: 0; border-radius: 2px; background: repeating-linear-gradient(180deg, #efe8d8 0 1px, #cdc3ad 1px 2px); }
+  .stack-l { left: 0; }
+  .stack-r { left: var(--pw); }
+  .single .stack-r { left: 0; }
+  .ribbon {
+    position: absolute; left: calc(50% + 34px); top: calc(100% - 6px); width: 13px; height: 64px; z-index: 50; pointer-events: none;
+    background: linear-gradient(90deg, #6e5322, #c9a85f 35%, #e6cd8e 50%, #b18d45 70%, #6e5322);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+    transform-origin: top center; transform: rotate(4deg); opacity: 0; transition: opacity .6s .5s, transform 1.2s var(--out);
+  }
+  .book.open .ribbon { opacity: 1; }
+  .single .ribbon { display: none; }
+
+  .slot { position: absolute; top: 0; width: var(--pw); height: var(--ph); z-index: 5; }
+  .slot.left { left: 0; }
+  .slot.right { left: var(--pw); }
+  .single .slot.left { display: none; }
+  .single .slot.right { left: 0; }
+  .slot.blank { visibility: hidden; }
+  .cast { position: absolute; inset: 0; z-index: 20; pointer-events: none; opacity: 0; }
+  .slot.right .cast { background: linear-gradient(90deg, rgba(0,0,0,.62), rgba(0,0,0,.2) 35%, transparent 70%); }
+  .slot.left .cast { background: linear-gradient(270deg, rgba(0,0,0,.62), rgba(0,0,0,.2) 35%, transparent 70%); }
+
+  /* Page qui tourne : découpée en bandes pour se courber */
+  .flipper { position: absolute; top: 0; left: var(--pw); width: var(--pw); height: var(--ph); transform-style: preserve-3d; pointer-events: none; }
+  .single .flipper { left: 0; }
+  .strip { position: absolute; top: 0; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; }
+  .sf { position: absolute; top: 0; left: 0; height: 100%; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .sf.b { transform: rotateY(180deg); }
+  .sf.boardback { background: var(--endpaper); }
+  .sf .wrap { position: absolute; top: 0; width: var(--pw); height: var(--ph); }
+  .sf .mir { position: absolute; inset: 0; transform: scaleX(-1); opacity: .12; }
+  .sf > .sh { position: absolute; inset: 0; z-index: 40; }
+
+  /* ================= Pages ================= */
+  .pg { position: absolute; top: 0; left: 0; width: var(--pw); height: var(--ph); overflow: hidden; container-type: size; color: var(--ink); }
+  .pg.side-r { border-radius: 0 3px 3px 0; }
+  .pg.side-l { border-radius: 3px 0 0 3px; }
+  .pg > .gut { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
+  .pg.side-r > .gut { background: linear-gradient(90deg, rgba(40,28,10,.32), rgba(40,28,10,.1) 3%, rgba(40,28,10,.03) 8%, transparent 14%, transparent 97%, rgba(0,0,0,.05)); }
+  .pg.side-l > .gut { background: linear-gradient(270deg, rgba(40,28,10,.34), rgba(40,28,10,.11) 3%, rgba(40,28,10,.03) 8%, transparent 14%, transparent 97%, rgba(0,0,0,.05)); }
+  .paper, .pg-toc, .pg-contact, .pg-end { background: var(--noise), linear-gradient(160deg, var(--paper), var(--paper-2)); }
+  .folio { position: absolute; bottom: 5cqb; z-index: 6; font: italic 400 clamp(11px, 1.9cqi, 14px)/1 var(--serif); color: var(--muted); }
+  .side-r .folio { right: 6.5cqi; }
+  .side-l .folio { left: 6.5cqi; }
+  .runhead {
+    position: absolute; top: 5.5cqb; left: 7cqi; right: 7cqi; z-index: 6; display: flex; justify-content: space-between; align-items: center; gap: 2cqi;
+    font-size: clamp(8.5px, 1.45cqi, 10.5px); letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
+  }
+  .runhead i { flex: 1; height: 1px; background: var(--hair); }
+
+  /* Couvertures : toile + dorure */
+  .pg-cover, .pg-back {
+    display: grid; place-items: center; text-align: center; color: #e9dfc6;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse 80% 70% at 35% 25%, #1b2c5c, transparent 70%),
+      linear-gradient(160deg, #132453, #0b1838 55%, #070f26);
+  }
+  .pg-cover.side-r, .pg-back.side-r { border-radius: 2px 6px 6px 2px; }
+  .pg-back.side-l { border-radius: 6px 2px 2px 6px; }
+  .pg-cover > .gut, .pg-back.side-r > .gut {
+    background: linear-gradient(90deg, rgba(0,0,0,.6), rgba(255,255,255,.07) 1.6%, rgba(0,0,0,.35) 2.6%, rgba(255,255,255,.04) 4%, transparent 7%),
+                linear-gradient(180deg, rgba(255,255,255,.05), transparent 30%, transparent 70%, rgba(0,0,0,.25));
+  }
+  .pg-back.side-l > .gut {
+    background: linear-gradient(270deg, rgba(0,0,0,.6), rgba(255,255,255,.07) 1.6%, rgba(0,0,0,.35) 2.6%, transparent 7%),
+                linear-gradient(180deg, rgba(255,255,255,.05), transparent 30%, transparent 70%, rgba(0,0,0,.25));
+  }
+  .emboss { position: absolute; inset: 5cqi 5cqi 5cqi 7cqi; border-radius: 2px; pointer-events: none; box-shadow: inset 1px 1px 0 rgba(0,0,0,.45), inset -1px -1px 0 rgba(255,255,255,.06), 1px 1px 0 rgba(255,255,255,.05); }
+  .pg-back.side-l .emboss { inset: 5cqi 7cqi 5cqi 5cqi; }
+  .emboss::before { content: ""; position: absolute; inset: 1.6cqi; border: 1px solid rgba(217,191,127,.28); }
+  .cover-in { position: relative; display: grid; justify-items: center; gap: 3.4cqb; padding: 0 10cqi; }
+  .foil { background: var(--gold); background-size: 220% 100%; background-position: 0 0; transition: background-position 2.4s var(--out); filter: drop-shadow(0 1px 0 rgba(0,0,0,.6)); }
+  .book:hover .foil, .reading .foil { background-position: 100% 0; }
+  .foil-logo {
+    width: min(50cqi, 320px); aspect-ratio: 640 / 129;
+    -webkit-mask: url("assets/logo-dorure.png") center / contain no-repeat; mask: url("assets/logo-dorure.png") center / contain no-repeat;
+  }
+  .foil-text { -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .pg-cover .t { font: italic 400 clamp(20px, min(6.6cqi, 10cqb), 46px)/1.1 var(--serif); padding: 0 .1em; }
+  .pg-cover .rule, .pg-back .rule { width: 9cqi; height: 1px; background: rgba(217,191,127,.45); }
+  .pg-cover .s, .pg-back .s { font-size: clamp(8px, 1.45cqi, 11px); letter-spacing: .5em; text-transform: uppercase; color: rgba(217,191,127,.7); padding-left: .5em; }
+  .pg-back .foil-logo { width: min(26cqi, 160px); }
+  .pg-back .blurb { max-width: 36ch; font: italic 400 clamp(13px, 2.6cqi, 18px)/1.35 var(--serif); color: rgba(233,223,198,.62); }
+
+  /* Page de garde */
+  .pg-endpaper { display: grid; place-items: center; text-align: center; color: #e9dfc6; background: var(--endpaper); }
+  .exlibris {
+    width: min(58cqi, 80cqb); aspect-ratio: 1.3; border-radius: 50%; display: grid; place-items: center; align-content: center; gap: 2cqb;
+    background: #f3ecdc; color: var(--ink); padding: 6cqi;
+    box-shadow: 0 0 0 1.2cqi #f3ecdc, 0 0 0 calc(1.2cqi + 1px) rgba(217,191,127,.7), 0 20px 40px -20px rgba(0,0,0,.8);
+  }
+  .exlibris small { font-size: clamp(7px, 1.3cqi, 10px); letter-spacing: .4em; text-transform: uppercase; color: var(--muted); padding-left: .4em; }
+  .exlibris img { width: 78%; height: auto; }
+  .exlibris em { font: italic 400 clamp(14px, 3.6cqi, 26px)/1 var(--serif); }
+
+  /* Sommaire */
+  .toc { position: absolute; inset: 0; padding: 13cqb 7.5cqi 11cqb; display: flex; flex-direction: column; }
+  .toc h2 { margin: 0 0 2.4cqb; font: 400 clamp(24px, min(8cqi, 12cqb), 58px)/1 var(--serif); letter-spacing: -.02em; }
+  .toc h2 em { color: var(--muted); }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+  .toc li { border-top: 1px solid var(--hair); }
+  .toc li:last-child { border-bottom: 1px solid var(--hair); }
+  .toc button {
+    width: 100%; display: grid; grid-template-columns: 2.1em auto auto 1fr auto; align-items: center; gap: 1em; text-align: left;
+    background: none; border: 0; padding: clamp(3px, 1cqb, 8px) 0; cursor: pointer; color: var(--ink);
+    font-size: clamp(11px, min(2.2cqi, 3.3cqb), 15px); transition: color .3s;
+  }
+  .toc .n { font: italic 400 1.2em/1 var(--serif); color: var(--muted); }
+  .toc .k { font-weight: 500; transition: transform .45s var(--out); white-space: nowrap; }
+  .toc .th { width: clamp(28px, 6.4cqi, 50px); aspect-ratio: 16/10; border-radius: 2px; background: #ddd center top / cover; box-shadow: 0 2px 6px -2px rgba(0,0,0,.4); }
+  .toc .th.blank { background: var(--ink); display: grid; place-items: center; color: var(--paper); font: italic 400 1em/1 var(--serif); }
+  .toc .p { font: italic 400 1.1em/1 var(--serif); color: var(--muted); }
+  .toc .dots { height: 1px; background: repeating-linear-gradient(90deg, rgba(22,19,14,.3) 0 1px, transparent 1px 5px); }
+  .toc button:hover { color: var(--blue); }
+  .toc button:hover .k { transform: translateX(4px); }
+
+  /* Page création : le site en pleine page */
+  .pg-project {
+    --shade: linear-gradient(0deg, rgba(7,7,10,.93), rgba(7,7,10,.66) 22%, rgba(7,7,10,.18) 42%, transparent 56%);
+    --gloss: linear-gradient(112deg, rgba(255,255,255,.12), rgba(255,255,255,0) 30%, rgba(255,255,255,0) 72%, rgba(255,255,255,.05));
+    background: #0b0b0d; color: #fff;
+  }
+  .pg-project .art { position: absolute; inset: 0; background-position: 0 0, 0 0, top center; background-size: 100% 100%, 100% 100%, cover; background-repeat: no-repeat; }
+  .pg-project .poster, .pg-project .clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+  .pg-project .clip { opacity: 0; transition: opacity .45s; }
+  .pg-project .clip.on { opacity: 1; }
+  .pg-project .shade { position: absolute; inset: 0; z-index: 2; background: var(--shade); }
+  .pg-project .gloss { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: var(--gloss); }
+  .pg-project.side-r > .gut { background: linear-gradient(90deg, rgba(0,0,0,.6), rgba(0,0,0,.2) 3%, rgba(0,0,0,.05) 8%, transparent 14%); }
+  .pg-project.side-l > .gut { background: linear-gradient(270deg, rgba(0,0,0,.6), rgba(0,0,0,.2) 3%, rgba(0,0,0,.05) 8%, transparent 14%); }
+  .cap { position: absolute; left: 6cqi; right: 5cqi; bottom: 5.5cqb; z-index: 4; display: flex; align-items: flex-end; gap: 2.6cqi; }
+  .cap .num { font: italic 400 clamp(26px, min(9cqi, 15cqb), 64px)/.78 var(--serif); color: #f1e3c4; }
+  .cap .txt { min-width: 0; display: grid; gap: .3em; }
+  .cap b { font-weight: 600; font-size: clamp(13px, min(2.6cqi, 4.2cqb), 20px); letter-spacing: -.01em; line-height: 1.15; }
+  .cap .txt > span { font-size: clamp(8px, 1.35cqi, 10.5px); letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.66); }
+  /* description + bouton : repliés, ils se déplient au survol de la page */
+  .cap .more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .55s var(--out), opacity .4s; }
+  .cap .more > div { overflow: hidden; display: grid; gap: .6em; justify-items: start; }
+  .slot:hover .cap .more, .cap .more:focus-within { grid-template-rows: 1fr; opacity: 1; }
+  .cap em { display: block; padding-top: .25em; font-style: normal; font-size: clamp(11px, min(1.9cqi, 3cqb), 14px); line-height: 1.5; color: rgba(255,255,255,.82); max-width: 46ch; }
+  .cap .view {
+    display: inline-flex; align-items: center; gap: .45em; text-decoration: none;
+    font-size: clamp(10px, 1.7cqi, 12.5px); font-weight: 600; color: #16130e; background: rgba(246,242,233,.94);
+    border-radius: 999px; padding: .6em 1.05em; margin-bottom: .1em; box-shadow: 0 10px 24px -10px rgba(0,0,0,.7); transition: background .25s;
+  }
+  .cap .view:hover { background: #fff; }
+  @container (max-aspect-ratio: 1/1) {
+    .pg-project .shade, .pg-project .art { --shade: linear-gradient(0deg, rgba(8,8,11,.97), rgba(8,8,11,.9) 30%, rgba(8,8,11,.55) 45%, transparent 62%); }
+    .cap { flex-wrap: wrap; left: 7cqi; right: 7cqi; bottom: 6cqb; gap: 3cqi; }
+    .cap .num { font-size: 15cqi; }
+    .cap .txt { flex: 1 1 60%; }
+    .cap b { font-size: 5.8cqi; }
+    .cap .txt > span { font-size: 2.9cqi; }
+    .cap .more { grid-template-rows: 1fr; opacity: 1; }
+    .cap em { font-size: 3.4cqi; }
+    .cap .view { font-size: 3.5cqi; }
+  }
+
+  /* Pages de texte */
+  .txtpage { position: absolute; inset: 0; padding: 13cqb 7.5cqi 10cqb; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 3cqb, 22px); }
+  .txtpage h2 { margin: 0; font: 400 clamp(28px, min(9.6cqi, 15cqb), 72px)/.92 var(--serif); letter-spacing: -.02em; }
+  .txtpage h2 em { font-style: italic; color: #9a7a35; }
+  .txtpage p { margin: 0; color: var(--ink-2); font-size: clamp(12px, min(2.3cqi, 3.5cqb), 15.5px); line-height: 1.6; max-width: 40ch; }
+  .txtpage .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .txtpage.center { align-items: center; text-align: center; }
+  .txtpage.center .row { justify-content: center; }
+  .sign { font: italic 400 clamp(14px, 2.8cqi, 20px)/1 var(--serif); color: var(--muted); }
+  .go {
+    display: inline-flex; align-items: center; gap: .9em; text-decoration: none; font-weight: 600;
+    font-size: clamp(12px, min(2.2cqi, 3.4cqb), 14.5px); color: var(--paper); background: var(--ink); border-radius: 999px; padding: .5em .5em .5em 1.3em;
+    box-shadow: 0 14px 26px -14px rgba(0,0,0,.7); transition: background .3s, transform .35s var(--out);
+  }
+  .go .arr { display: grid; place-items: center; width: 2.1em; height: 2.1em; border-radius: 50%; background: var(--paper); color: var(--ink); transition: transform .45s var(--out); }
+  .go .arr svg { width: 1em; height: 1em; }
+  .go:hover { background: #000; transform: translateY(-1px); }
+  .go:hover .arr { transform: rotate(-45deg); }
+  .soft {
+    display: inline-flex; align-items: center; gap: .5em; text-decoration: none; font-weight: 500; cursor: pointer;
+    font-size: clamp(12px, min(2.15cqi, 3.3cqb), 14px); color: var(--ink); background: transparent;
+    border: 1px solid var(--hair); border-radius: 999px; padding: .8em 1.2em; transition: border-color .3s, background .3s;
+  }
+  .soft:hover { border-color: var(--ink); background: rgba(255,255,255,.5); }
+
+  /* ================= Barre de lecture ================= */
+  .controls {
+    position: fixed; z-index: 30; left: 50%; bottom: max(20px, env(safe-area-inset-bottom));
+    display: flex; align-items: center; gap: 2px; padding: 6px;
+    background: rgba(18, 15, 12, .6); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 24px 50px -20px rgba(0,0,0,.9);
+    transform: translate(-50%, 30px); opacity: 0; pointer-events: none; transition: opacity .6s .5s, transform .9s .5s var(--out);
+  }
+  .reading .controls { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .viewing .controls { opacity: 0; pointer-events: none; transition-delay: 0s; }
+  .controls button { display: inline-grid; place-items: center; height: 40px; min-width: 40px; border: 0; border-radius: 999px; cursor: pointer; background: transparent; color: #efe9de; transition: background .25s, opacity .25s; }
+  .controls button:hover { background: rgba(255,255,255,.09); }
+  .controls button:disabled { opacity: .28; cursor: default; background: transparent; }
+  .controls svg { width: 17px; height: 17px; }
+  .controls .txt { padding: 0 14px; font-size: .78rem; font-weight: 500; color: rgba(239,233,222,.8); }
+  .now { display: grid; gap: 6px; padding: 0 14px; width: 250px; }
+  .now span { font-size: .78rem; white-space: nowrap; color: #efe9de; overflow: hidden; text-overflow: ellipsis; }
+  .now span i { font: italic 400 1.1em/1 var(--serif); color: rgba(239,233,222,.5); margin-right: .45em; }
+  .bar { height: 2px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden; }
+  .bar b { display: block; height: 100%; width: 0; background: var(--gold); transition: width 1s var(--ease); }
+  .sep { width: 1px; height: 20px; background: rgba(255,255,255,.1); margin: 0 4px; }
+
+  .toast {
+    position: fixed; z-index: 35; left: 50%; bottom: calc(max(20px, env(safe-area-inset-bottom)) + 64px); transform: translate(-50%, 10px);
+    padding: .7em 1.1em; border-radius: 999px; background: rgba(246,242,233,.95); color: #16130e; font-size: .78rem; font-weight: 600; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity .4s, transform .6s var(--out); box-shadow: 0 16px 30px -12px rgba(0,0,0,.7);
+  }
+  .toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ================= Visionneuse : le site en direct ================= */
+  .viewer { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; }
+  .viewer[hidden] { display: none; }
+  .v-back { position: absolute; inset: 0; background: rgba(5, 4, 3, .74); opacity: 0; transition: opacity .5s; }
+  .viewer.on .v-back { opacity: 1; }
+  .v-win {
+    position: relative; width: min(1320px, 94vw); height: min(830px, 88vh); display: flex; flex-direction: column;
+    border-radius: 14px; overflow: hidden; background: #0b0b0d; transform-origin: 0 0;
+    box-shadow: 0 40px 120px -20px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.06);
+    transition: transform .65s var(--out);
+  }
+  .v-bar { flex: none; height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 8px 0 16px; background: #15120f; color: #efe9de; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .v-dots { display: flex; gap: 7px; }
+  .v-dots i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.14); }
+  .v-title { flex: 1; min-width: 0; font-size: .86rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .v-title small { font-weight: 400; color: rgba(239,233,222,.5); margin-left: .6em; font-size: .92em; }
+  .v-open { display: inline-flex; align-items: center; gap: .4em; text-decoration: none; font-size: .78rem; font-weight: 600; color: #16130e; background: #efe9de; border-radius: 999px; padding: .55em 1em; white-space: nowrap; }
+  .v-close { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer; background: rgba(255,255,255,.08); color: #efe9de; }
+  .v-close:hover { background: rgba(255,255,255,.16); }
+  .v-close svg { width: 16px; height: 16px; }
+  .v-body { position: relative; flex: 1; background: #fff; }
+  .v-body img, .v-body iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .v-body img { object-fit: cover; object-position: top center; transition: opacity .5s; }
+  .v-body iframe { opacity: 0; transition: opacity .5s; background: #fff; }
+  .viewer.ready .v-body iframe { opacity: 1; }
+  .viewer.ready .v-body img { opacity: 0; }
+  .v-load { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; animation: spin .8s linear infinite; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+  .viewer.ready .v-load { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ================= Curseur ================= */
+  .cursor {
+    position: fixed; left: 0; top: 0; z-index: 55; pointer-events: none; width: 76px; height: 76px; margin: -38px 0 0 -38px;
+    display: grid; place-items: center; border-radius: 50%; background: rgba(246,242,233,.94); color: #16130e;
+    font-size: .64rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+    transform: translate3d(-200px, -200px, 0); scale: 0; opacity: 0; transition: scale .4s var(--out), opacity .3s;
+    box-shadow: 0 14px 30px -12px rgba(0,0,0,.6);
+  }
+  .cursor.on { opacity: 1; scale: 1; }
+  .cursor.on.small { scale: .2; color: transparent; }
+  @media (hover: hover) and (pointer: fine) {
+    .has-cursor .book, .has-cursor .book * { cursor: none !important; }
+    .has-cursor .book a, .has-cursor .book button { cursor: pointer !important; }
+  }
+
+  /* ================= Téléphone ================= */
+  @media (max-width: 760px) {
+    .head-links .ghost { display: none; }
+    .logo img { height: 21px; }
+    .pill { font-size: .74rem; padding: .62em 1em; }
+    .intro { top: 88px; right: 18px; }
+    .eyebrow { margin-bottom: 12px; }
+    .intro h1 { font-size: 2.3rem; margin-bottom: 12px; }
+    .now { width: 160px; padding: 0 8px; }
+    .controls .opt { display: none; }
+    .v-win { width: 100vw; height: 100%; border-radius: 0; }
+    .v-dots { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body class="desk-mode">
+
+  <div class="desk" aria-hidden="true"></div>
+  <div class="light" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header>
+    <a class="logo" href="../" aria-label="KingDream Digital — Créations & démos"><img src="../assets/kingdream-digital.png" alt="KingDream Digital"></a>
+    <nav class="head-links">
+      <a class="ghost" href="../">Version classique</a>
+      <a class="pill" href="mailto:contact@kingdream.fr">Nous contacter</a>
+    </nav>
+  </header>
+
+  <section class="intro reveal">
+    <p class="eyebrow">KingDream Digital — Portfolio</p>
+    <h1>Un portfolio interactif à <em>explorer.</em></h1>
+    <p class="sub" id="sub">Cliquez sur les pages pour découvrir nos créations, survolez-les pour les voir en mouvement.</p>
+  </section>
+
+  <button class="open-btn" type="button" id="open">Ouvrir le livre <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+
+  <main class="stage" aria-label="Livre des créations">
+    <div class="cam">
+      <div class="tilt">
+        <div class="pos" id="pos">
+          <div class="book" id="book" role="region" aria-roledescription="livre" aria-label="Créations & démos KingDream Digital">
+            <div class="shadow"></div>
+            <div class="board"></div>
+            <div class="stack stack-l" id="stackL"></div>
+            <div class="stack stack-r" id="stackR"></div>
+            <div class="slot left"><div class="content"></div><i class="cast"></i></div>
+            <div class="slot right"><div class="content"></div><i class="cast"></i></div>
+            <div class="ribbon"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="controls" aria-label="Navigation dans le livre">
+    <button type="button" id="prev" aria-label="Page précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="now"><span id="now" aria-live="polite">Couverture</span><div class="bar"><b id="bar"></b></div></div>
+    <button type="button" id="next" aria-label="Page suivante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    <span class="sep"></span>
+    <button type="button" class="txt opt" id="toToc">Sommaire</button>
+    <button type="button" class="txt" id="close" aria-label="Refermer le livre">Fermer</button>
+  </nav>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vTitle" hidden>
+    <div class="v-back" data-vclose></div>
+    <div class="v-win">
+      <div class="v-bar">
+        <span class="v-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="v-title" id="vTitle"></span>
+        <a class="v-open" id="vOpen" href="#" target="_blank" rel="noopener">Ouvrir le site ↗</a>
+        <button class="v-close" type="button" data-vclose aria-label="Fermer l’aperçu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="v-body"><img id="vPoster" alt=""><iframe id="vFrame" title="Aperçu du site"></iframe><span class="v-load" aria-hidden="true"></span></div>
+    </div>
+  </div>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="curtain" aria-hidden="true"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---------- Créations : une entrée par démo ----------
+  // Pour en ajouter une : un objet ici + ses fichiers dans assets/ (id.jpg 1200×750, id-m.jpg 700×1000,
+  // id-t.jpg 240×150, id.mp4 et id-m.mp4) ; le livre se recompose tout seul.
+  const PROJETS = [
+    { id: "p1", court: "KingDream Control", type: "Tableau de bord", format: "Démo interactive", href: "../dashboard/",
+      texte: "Clients, serveurs, factures et alertes réunis dans un tableau de bord façon Apple. Données fictives : tout est cliquable." },
+    { id: "p2", court: "Le Bon Degré", type: "Page d’accueil", format: "Chauffage & clim", href: "../le-bon-degre/",
+      texte: "Pompe à chaleur et climatisation réversible : aides simulées en 1 minute, un seul artisan RGE rappelle." },
+    { id: "p3", court: "Deep Clean — La Plongée", type: "Site vitrine", format: "Proposition V2", href: "../deep-clean/v2/",
+      texte: "Proposition V2 du site vitrine : nettoyage, entretien et conciergerie à Manosque." },
+    { id: "p4", court: "Deep Clean", type: "Site vitrine", format: "Site actuel", href: "../deep-clean/site/",
+      texte: "Site vitrine : nettoyage haut de gamme, conciergerie et entretien à Manosque." },
+    { id: "p5", court: "Délice Market — La visite", type: "Expérience 3D", format: "V2 immersive", href: "../delice-market/v2/",
+      texte: "Poussez la porte du magasin en 3D, puis visite rayon par rayon, avec vidéos." },
+    { id: "p6", court: "Délice Market", type: "Multi-boutiques", format: "Manosque · Digne · Gap", href: "../delice-market/",
+      texte: "Site multi-boutiques : supermarchés, boucheries et primeur halal à Manosque, Digne-les-Bains et Gap." }
+  ];
+
+  // Pages du livre, dans l'ordre. Sur ordinateur, la feuille i porte la page 2i (à droite) et 2i+1 (au verso).
+  const PAGES = [
+    { kind: "cover", hard: true },
+    { kind: "endpaper" },
+    { kind: "toc" },
+    ...PROJETS.map((p, k) => ({ kind: "project", k })),
+    { kind: "contact" },
+    { kind: "end" },
+    { kind: "back", hard: true }
+  ];
+  const NP = PAGES.length;
+  const P_FIRST = 3;                                         // première page création
+  const P_CONTACT = P_FIRST + PROJETS.length;
+
+  const YEAR = new Date().getFullYear();
+  const pad = n => String(n).padStart(2, "0");
+  const ARR = '<span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>';
+
+  // ---------- État ----------
+  const $ = s => document.querySelector(s);
+  const body = document.body;
+  const book = $("#book"), pos = $("#pos");
+  const slotL = book.querySelector(".slot.left"), slotR = book.querySelector(".slot.right");
+  const castL = slotL.querySelector(".cast"), castR = slotR.querySelector(".cast");
+  const stackL = $("#stackL"), stackR = $("#stackR");
+  const nowEl = $("#now"), bar = $("#bar"), btnPrev = $("#prev"), btnNext = $("#next");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const DUR = reduce ? 1 : 1050, HARD = reduce ? 1 : 1250, FAST = reduce ? 1 : 560;
+  const EDGE = .085;                                        // marge du bord qui fait tourner la page
+
+  let single = false, pw = 600, ph = 375;
+  let view = 0;                                              // vue visée (après les tournages en cours)
+  let reading = false, viewerOpen = false;
+  let drag = null, ptr = null, peekS = null, suppressClick = false;
+  const active = [];                                         // tournages en cours
+  const queue = [];
+  let pumping = false;
+  const idleWaiters = [];
+
+  const nViews = () => single ? NP : NP / 2 + 1;
+  const leftOf = v => single || v === 0 ? null : 2 * v - 1;
+  const rightOf = v => single ? v : (v === NP / 2 ? null : 2 * v);
+  const viewOfPage = p => single ? p : (p === 0 ? 0 : Math.floor((p + 1) / 2));
+  const poster = k => `assets/${PROJETS[k].id}${single ? "-m" : ""}.jpg`;
+  const clipSrc = k => `assets/${PROJETS[k].id}${single ? "-m" : ""}.mp4`;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const el = e => (e && e.target instanceof Element ? e.target : null);
+
+  // ---------- Contenu des pages ----------
+  function pageHTML(i, side, live) {
+    const P = PAGES[i];
+    let h = "";
+    if (P.kind === "cover") {
+      h = `<div class="emboss"></div><div class="cover-in"><div class="foil foil-logo" role="img" aria-label="KingDream Digital"></div>
+        <div class="rule"></div><div class="t foil foil-text">Créations &amp; démos</div><div class="s">Édition ${YEAR}</div></div>`;
+    } else if (P.kind === "endpaper") {
+      h = `<div class="exlibris"><small>Ex libris</small><img src="../assets/kingdream-digital.png" alt="KingDream Digital" draggable="false"><em>Créations &amp; démos</em></div>`;
+    } else if (P.kind === "toc") {
+      h = `<div class="runhead"><span>Sommaire</span><i></i><span>${pad(PROJETS.length)} créations</span></div>
+        <div class="toc"><h2>Au <em>sommaire</em></h2><ol>${PROJETS.map((p, k) => `
+          <li><button type="button" data-page="${P_FIRST + k}"><span class="n">${pad(k + 1)}</span><span class="th" style="background-image:url('assets/${p.id}-t.jpg')"></span><span class="k">${p.court}</span><span class="dots"></span><span class="p">${P_FIRST + k}</span></button></li>`).join("")}
+          <li><button type="button" data-page="${P_CONTACT}"><span class="n">${pad(PROJETS.length + 1)}</span><span class="th blank">+</span><span class="k">Votre projet</span><span class="dots"></span><span class="p">${P_CONTACT}</span></button></li>
+        </ol></div><span class="folio">${i}</span>`;
+    } else if (P.kind === "project") {
+      const p = PROJETS[P.k];
+      // dans la page qui tourne, image et dégradés ne forment qu'un seul calque (sinon des lignes apparaissent entre les bandes)
+      h = live
+        ? `<img class="poster" src="${poster(P.k)}" alt="Aperçu : ${p.court}" draggable="false">
+           <video class="clip" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" data-src="${clipSrc(P.k)}"></video>
+           <span class="shade"></span><span class="gloss"></span>`
+        : `<span class="art" style="background-image:var(--gloss),var(--shade),url('${poster(P.k)}')"></span>`;
+      h += `
+        <div class="cap"><span class="num">${pad(P.k + 1)}</span>
+          <div class="txt"><b>${p.court}</b><span>${p.type} · ${p.format}</span>
+            <div class="more"><div><em>${p.texte}</em><a class="view" href="${p.href}" data-proj="${P.k}">Voir le projet <span aria-hidden="true">↗</span></a></div></div>
+          </div></div>`;
+    } else if (P.kind === "contact") {
+      h = `<div class="runhead"><span>Et ensuite ?</span><i></i><span>Votre projet</span></div>
+        <div class="txtpage"><h2>La prochaine page,<br><em>c’est la vôtre.</em></h2>
+          <p>Site vitrine, expérience immersive, tableau de bord sur mesure : racontez-nous votre projet.</p>
+          <div class="row"><a class="go" href="mailto:contact@kingdream.fr">contact@kingdream.fr ${ARR}</a><a class="soft" href="tel:+33627205597">06 27 20 55 97</a></div>
+        </div><span class="folio">${i}</span>`;
+    } else if (P.kind === "end") {
+      h = `<div class="txtpage center"><span class="sign">— fin —</span><h2>Merci d’avoir<br><em>feuilleté.</em></h2>
+          <p>Toutes nos créations sont aussi listées sur la version classique.</p>
+          <div class="row"><button type="button" class="soft" data-close>Refermer le livre</button><a class="soft" href="../">Version classique</a><a class="soft" href="https://kingdream.fr/">kingdream.fr ↗</a></div>
+        </div><span class="folio">${i}</span>`;
+    } else if (P.kind === "back") {
+      h = `<div class="emboss"></div><div class="cover-in"><div class="foil foil-logo" role="img" aria-label="KingDream Digital"></div><div class="rule"></div>
+        <div class="blurb">Sites, démos et outils sur mesure, pensés et réalisés par KingDream Digital.</div><div class="s">kingdream.fr</div></div>`;
+    }
+    return `<div class="pg pg-${P.kind} side-${side}"${P.kind === "project" ? ` data-k="${P.k}"` : ""}>${h}<i class="gut"></i></div>`;
+  }
+
+  // ---------- Pages posées (à gauche et à droite) ----------
+  function setSlot(slot, idx, force) {
+    if (!force && slot._idx === idx) return;
+    slot._idx = idx;
+    const c = slot.querySelector(".content");
+    stopSlot(slot);
+    c.innerHTML = idx == null ? "" : pageHTML(idx, slot === slotL ? "l" : "r", true);
+    slot.classList.toggle("blank", idx == null);
+    const v = c.querySelector("video");
+    if (v) v.addEventListener("playing", () => v.classList.add("on"));
+  }
+
+  function playSlot(slot) {
+    const v = slot.querySelector("video.clip");
+    if (!v || !reading || viewerOpen || active.length) return;
+    if (!v.getAttribute("src")) { v.src = v.dataset.src; v.preload = "auto"; }
+    const p = v.play();
+    if (p) p.catch(() => {});
+  }
+  function stopSlot(slot) {
+    const v = slot.querySelector("video.clip");
+    if (!v) return;
+    v.pause();
+    v.classList.remove("on");
+    if (v.getAttribute("src")) { try { v.currentTime = 0; } catch (e) {} }
+  }
+  const pauseAll = () => { stopSlot(slotL); stopSlot(slotR); };
+
+  // Décor du livre selon la vue : position, couverture, épaisseur des pages, barre
+  function chrome(v) {
+    const S = NP / 2, last = nViews() - 1;
+    book.classList.toggle("open", !single && v > 0 && v < S);
+    book.classList.toggle("back", !single && v === S);
+    const sh = single ? 0 : v === 0 ? -pw / 2 : v === S ? pw / 2 : 0;
+    pos.style.transform = `translateX(${sh}px)`;
+    const t = n => Math.min(n * 1.4, 9);
+    const l = single ? 0 : v - 1, r = single ? NP - 1 - v : S - v - 1;
+    stackL.style.opacity = l > 0 ? 1 : 0;
+    stackR.style.opacity = r > 0 ? 1 : 0;
+    stackL.style.transform = `translate(${-t(l)}px, ${t(l) * .6}px)`;
+    stackR.style.transform = `translate(${t(r)}px, ${t(r) * .6}px)`;
+    nowEl.innerHTML = label(v);
+    bar.style.width = (v / last * 100) + "%";
+    btnPrev.disabled = v === 0;
+    btnNext.disabled = v === last;
+  }
+
+  function label(v) {
+    const proj = p => { const k = p - P_FIRST; return k >= 0 && k < PROJETS.length ? k : -1; };
+    if (single) {
+      const k = proj(v);
+      if (k >= 0) return `<i>${pad(k + 1)}</i>${PROJETS[k].court}`;
+      return ["Couverture", "Ex-libris", "Sommaire"][v] || (v === P_CONTACT ? "Votre projet" : v === NP - 1 ? "Quatrième de couverture" : "Fin");
+    }
+    if (v === 0) return "Couverture";
+    if (v === NP / 2) return "Quatrième de couverture";
+    const ks = [proj(2 * v - 1), proj(2 * v)].filter(k => k >= 0);
+    if (ks.length) return `<i>${ks.map(k => pad(k + 1)).join("–")}</i>${ks.map(k => PROJETS[k].court).join(" · ")}`;
+    return v === 1 ? "Sommaire" : "Votre projet";
+  }
+
+  function renderAll() {
+    setSlot(slotL, leftOf(view), true);
+    setSlot(slotR, rightOf(view), true);
+    chrome(view);
+  }
+
+  // Les images des pages voisines sont chargées (et décodées) à l'avance
+  const warmed = new Map();
+  function preloadAround(v) {
+    for (let d = -2; d <= 2; d++) {
+      const w = v + d;
+      if (w < 0 || w >= nViews()) continue;
+      [leftOf(w), rightOf(w)].forEach(i => {
+        if (i == null || PAGES[i].kind !== "project") return;
+        const src = poster(PAGES[i].k);
+        if (warmed.has(src)) return;
+        const im = new Image();
+        im.src = src;
+        if (im.decode) im.decode().catch(() => {});
+        warmed.set(src, im);
+      });
+    }
+  }
+
+  // ---------- Tourner une page ----------
+  // Ce qui change quand on tourne depuis la vue v (dir = 1 : en avant, -1 : en arrière).
+  // undefined : la page posée ne change pas ; null : plus de page de ce côté.
+  function flipSpec(v, dir) {
+    const nv = v + dir;
+    if (single) {
+      const sheet = dir > 0 ? v : v - 1;
+      return { nv, front: sheet, back: null, hard: !!PAGES[sheet].hard,
+               startL: undefined, startR: dir > 0 ? nv : undefined, endL: undefined, endR: dir > 0 ? undefined : nv };
+    }
+    const leaf = dir > 0 ? v : v - 1, front = 2 * leaf, back = 2 * leaf + 1;
+    return { nv, front, back, hard: !!(PAGES[front].hard || PAGES[back].hard),
+             startL: dir > 0 ? undefined : leftOf(nv), startR: dir > 0 ? rightOf(nv) : undefined,
+             endL: dir > 0 ? leftOf(nv) : undefined, endR: dir > 0 ? undefined : rightOf(nv) };
+  }
+
+  function startFlip(dir, interactive) {
+    const v = view, spec = flipSpec(v, dir);
+    view = spec.nv;
+    const N = spec.hard ? 1 : (single ? 8 : 12);
+    const w = pw / N;
+    const root = document.createElement("div");
+    root.className = "flipper";
+    root.setAttribute("aria-hidden", "true");
+    root.inert = true;
+    const strips = [];
+    let parent = root;
+    for (let i = 0; i < N; i++) {
+      const s = document.createElement("div");
+      s.className = "strip";
+      s.style.width = w + "px";
+      s.style.left = (i ? w : 0) + "px";
+      // chaque bande déborde un peu sur ses voisines, pour qu'aucun jour ne passe entre elles
+      const e1 = N > 1 ? 1 : 0, e2 = N > 1 ? 2 : 0;
+      const fs = `left:${-e1}px;width:${w + e1 + e2}px`;
+      const front = `<div class="sf f" style="${fs}"><div class="wrap" style="left:${-i * w + e1}px">${pageHTML(spec.front, "r", false)}</div><i class="sh"></i></div>`;
+      let back;
+      if (spec.back != null) back = `<div class="sf b" style="${fs}"><div class="wrap" style="left:${-(N - 1 - i) * w + e2}px">${pageHTML(spec.back, "l", false)}</div><i class="sh"></i></div>`;
+      else if (spec.hard) back = `<div class="sf b boardback" style="${fs}"><i class="sh"></i></div>`;
+      else back = `<div class="sf b paper" style="${fs}"><div class="mir"><div class="wrap" style="left:${-i * w + e1}px">${pageHTML(spec.front, "r", false)}</div></div><i class="sh"></i></div>`;
+      s.innerHTML = front + back;
+      parent.appendChild(s);
+      strips.push({ el: s, f: s.children[0], b: s.children[1], shf: s.children[0].lastElementChild, shb: s.children[1].lastElementChild });
+      parent = s;
+    }
+    book.appendChild(root);
+    const S = { dir, v, spec, el: root, strips, N, t: dir > 0 ? 0 : 1, interactive, committed: !interactive, raf: 0, waiters: [] };
+    S.done = new Promise(r => { S.resolve = r; });
+    if (spec.startL !== undefined) setSlot(slotL, spec.startL);
+    if (spec.startR !== undefined) setSlot(slotR, spec.startR);
+    if (!interactive) chrome(spec.nv);
+    active.push(S);
+    pauseAll();
+    apply(S);
+    return S;
+  }
+
+  // Dessine la feuille à l'avancement t (0 : posée à droite, 1 : posée à gauche). Chaque bande a son angle :
+  // le bord libre mène au début du geste puis traîne à la fin, ce qui courbe la feuille comme du papier.
+  function apply(S) {
+    const t = S.t, A = -180 * t;
+    const B = S.N === 1 ? 0 : (single ? 40 : 50);
+    const D = B * Math.sin(Math.PI * t) * Math.cos(Math.PI * t * .9);
+    let prev = 0;
+    const sh = S.sh || (S.sh = new Array(S.N));
+    for (let i = 0; i < S.N; i++) {
+      const f = S.N === 1 ? 0 : Math.pow((i + .5) / S.N, 1.4);
+      const C = clamp(A - D * f, -180, 0);
+      const st = S.strips[i];
+      st.el.style.transform = `rotateY(${(C - prev).toFixed(2)}deg)`;
+      prev = C;
+      st.front = C > -90;
+      st.f.style.visibility = st.front ? "visible" : "hidden";
+      st.b.style.visibility = st.front ? "hidden" : "visible";
+      sh[i] = (1 - Math.abs(Math.cos(C * Math.PI / 180))) * .5;
+    }
+    for (let i = 0; i < S.N; i++) {
+      const a = ((i ? sh[i - 1] : sh[i]) + sh[i]) / 2, b = ((i < S.N - 1 ? sh[i + 1] : sh[i]) + sh[i]) / 2;
+      const st = S.strips[i];
+      // le verso est retourné : son bord gauche est le bord extérieur de la bande
+      const [l, r] = st.front ? [a, b] : [b, a];
+      (st.front ? st.shf : st.shb).style.background = `linear-gradient(90deg, rgba(0,0,0,${l.toFixed(3)}), rgba(0,0,0,${r.toFixed(3)}))`;
+    }
+    S.el.style.zIndex = 100 + Math.round(100 * Math.min(t, 1 - t));
+    castR.style.opacity = (t < .5 ? .5 * (1 - 2 * t) : 0).toFixed(3);
+    castL.style.opacity = (t > .5 ? .5 * (2 * t - 1) : 0).toFixed(3);
+    const pr = S.dir > 0 ? t : 1 - t;
+    S.waiters = S.waiters.filter(wt => (pr >= wt.p ? (wt.r(), false) : true));
+  }
+
+  function animate(S, to, dur, ease) {
+    cancelAnimationFrame(S.raf);
+    const from = S.t;
+    let t0 = null;                                           // horloge des images (rAF) uniquement
+    return new Promise(res => {
+      const step = now => {
+        if (S.ended) return res();
+        if (t0 === null) t0 = now;
+        const k = dur <= 1 ? 1 : clamp((now - t0) / dur, 0, 1);
+        S.t = from + (to - from) * (ease || easeInOut)(k);
+        apply(S);
+        if (k < 1) S.raf = requestAnimationFrame(step);
+        else { S.raf = 0; res(); }
+      };
+      S.raf = requestAnimationFrame(step);
+    });
+  }
+
+  const reach = (S, p) => new Promise(r => {
+    const pr = S.dir > 0 ? S.t : 1 - S.t;
+    if (pr >= p || S.ended) r(); else S.waiters.push({ p, r });
+  });
+
+  async function finish(S, dur, ease) {
+    if (!S.committed) { S.committed = true; chrome(S.spec.nv); }
+    if (S === peekS) peekS = null;
+    await animate(S, S.dir > 0 ? 1 : 0, dur, ease);
+    if (S.ended) return;
+    if (S.spec.endL !== undefined) setSlot(slotL, S.spec.endL);
+    if (S.spec.endR !== undefined) setSlot(slotR, S.spec.endR);
+    teardown(S);
+  }
+
+  async function cancel(S, dur) {
+    if (S === peekS) peekS = null;
+    await animate(S, S.dir > 0 ? 0 : 1, dur, easeOut);
+    if (S.ended) return;
+    rollback(S);
+    teardown(S);
+  }
+
+  function rollback(S) {
+    view = S.v;
+    if (S.spec.startL !== undefined) setSlot(slotL, leftOf(S.v));
+    if (S.spec.startR !== undefined) setSlot(slotR, rightOf(S.v));
+    chrome(S.v);
+  }
+
+  function teardown(S) {
+    if (S.ended) return;
+    S.ended = true;
+    cancelAnimationFrame(S.raf);
+    S.el.remove();
+    const i = active.indexOf(S);
+    if (i >= 0) active.splice(i, 1);
+    S.waiters.forEach(wt => wt.r());
+    S.waiters = [];
+    S.resolve();
+    if (!active.length) { castL.style.opacity = 0; castR.style.opacity = 0; }
+    onIdle();
+  }
+
+  function onIdle() {
+    if (active.length || queue.length) return;
+    preloadAround(view);
+    if (reading && !viewerOpen && !document.hidden) {
+      if (!fine) { playSlot(slotR); if (!single) playSlot(slotL); }
+      else [slotL, slotR].forEach(s => { if (s.matches(":hover")) playSlot(s); });
+    }
+    idleWaiters.splice(0).forEach(r => r());
+  }
+  const idle = () => active.length || queue.length ? new Promise(r => idleWaiters.push(r)) : Promise.resolve();
+
+  // File des tournages : les pages s'enchaînent dans un même sens ; au changement de sens, on attend
+  function request(dir, fast) {
+    if (viewerOpen || drag) return;
+    queue.push({ dir, fast });
+    pump();
+  }
+  async function pump() {
+    if (pumping) return;
+    pumping = true;
+    while (queue.length) {
+      const job = queue[0];
+      if (peekS) {
+        const s = peekS;
+        if (s.dir === job.dir) { queue.shift(); finish(s, DUR * .85); await reach(s, .5); continue; }
+        await cancel(s, 200);
+      }
+      const last = active[active.length - 1];
+      if (last) { if (last.dir !== job.dir) await last.done; else await reach(last, job.fast ? .38 : .5); }
+      if (queue[0] !== job) continue;                        // la file a été vidée entre-temps
+      queue.shift();
+      if (view + job.dir < 0 || view + job.dir > nViews() - 1) continue;
+      const S = startFlip(job.dir, false);
+      finish(S, job.fast ? FAST : S.N === 1 ? HARD : DUR);
+    }
+    pumping = false;
+    onIdle();
+  }
+
+  const busy = () => active.length > 0 || queue.length > 0;
+  function next() { if (!reading) return openBook(); request(1, busy()); }
+  function prev() { if (reading) request(-1, busy()); }
+  function goTo(target) {
+    target = clamp(target, 0, nViews() - 1);
+    const pending = view + queue.reduce((a, j) => a + j.dir, 0);
+    const diff = target - pending;
+    for (let i = 0; i < Math.abs(diff); i++) request(Math.sign(diff), true);
+  }
+
+  // ---------- Ouvrir / refermer ----------
+  let toastDone = false;
+  function openBook() {
+    if (reading) return;
+    reading = true;
+    body.classList.remove("desk-mode");
+    body.classList.add("reading");
+    setTimeout(() => { if (reading && view === 0) request(1, false); }, reduce ? 0 : 650);
+    if (!fine && !toastDone) { toastDone = true; setTimeout(() => toast("Glissez pour tourner · touchez une création pour l’ouvrir"), 1900); }
+  }
+  async function closeBook() {
+    if (!reading || viewerOpen) return;
+    goTo(0);
+    await idle();
+    reading = false;
+    body.classList.remove("reading");
+    body.classList.add("desk-mode");
+    document.documentElement.style.setProperty("--rx", "0deg");
+    document.documentElement.style.setProperty("--ry", "0deg");
+    pauseAll();
+  }
+
+  const toastEl = $("#toast");
+  function toast(text) {
+    toastEl.textContent = text;
+    toastEl.classList.add("on");
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => toastEl.classList.remove("on"), 3400);
+  }
+
+  // ---------- Visionneuse : la création s'ouvre en grand, en direct ----------
+  const viewer = $("#viewer"), vWin = viewer.querySelector(".v-win"), vFrame = $("#vFrame"), vPoster = $("#vPoster");
+  let viewerFrom = null, lastFocus = null;
+  const rectMap = (from, to) =>
+    `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`;
+  function openViewer(k, fromEl) {
+    const p = PROJETS[k];
+    viewerOpen = true;
+    lastFocus = document.activeElement;
+    body.classList.add("viewing");
+    setPeek(0);
+    pauseAll();
+    $("#vTitle").innerHTML = `${p.court}<small>${p.type}</small>`;
+    $("#vOpen").href = p.href;
+    vPoster.src = poster(k);
+    viewer.classList.remove("ready", "on", "closing");
+    viewer.hidden = false;
+    viewerFrom = fromEl;
+    const to = vWin.getBoundingClientRect(), from = fromEl.getBoundingClientRect();
+    vWin.style.transition = "none";
+    vWin.style.transform = rectMap(from, to);
+    vWin.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      viewer.classList.add("on");
+      vWin.style.transition = "";
+      vWin.style.transform = "none";
+    });
+    setTimeout(() => { if (viewerOpen) vFrame.setAttribute("src", p.href); }, reduce ? 0 : 450);
+    viewer.querySelector(".v-close").focus({ preventScroll: true });
+  }
+  vFrame.addEventListener("load", () => {
+    const src = vFrame.getAttribute("src");
+    if (viewerOpen && src && src !== "about:blank") viewer.classList.add("ready");
+  });
+  function closeViewer() {
+    if (!viewerOpen || viewer.classList.contains("closing")) return;
+    viewer.classList.add("closing");
+    viewer.classList.remove("on");
+    if (viewerFrom && document.contains(viewerFrom)) vWin.style.transform = rectMap(viewerFrom.getBoundingClientRect(), vWin.getBoundingClientRect());
+    else vWin.style.transform = "scale(.96)";
+    setTimeout(() => {
+      viewer.hidden = true;
+      viewer.classList.remove("closing", "ready");
+      vFrame.setAttribute("src", "about:blank");
+      vWin.style.transform = "";
+      viewerOpen = false;
+      body.classList.remove("viewing");
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+      onIdle();
+    }, reduce ? 0 : 560);
+  }
+  viewer.addEventListener("click", e => { if (el(e) && el(e).closest("[data-vclose]")) closeViewer(); });
+
+  // ---------- Souris, doigt, clavier ----------
+  const bookRect = () => book.getBoundingClientRect();
+  function zoneAt(x, y) {
+    // 1 / -1 : bord droit / gauche d'une double page (fait tourner) ; 0 : ailleurs
+    const r = bookRect();
+    if (single || x < r.left || x > r.right || y < r.top || y > r.bottom) return 0;
+    const half = r.width / 2;
+    if (x > r.right - EDGE * half && view < nViews() - 1) return 1;
+    if (x < r.left + EDGE * half && view > 0) return -1;
+    return 0;
+  }
+
+  // Coin de page soulevé au survol du bord
+  function setPeek(dir) {
+    if (peekS && peekS.dir === dir) return;
+    if (peekS) { const s = peekS; peekS = null; if (!s.committed) cancel(s, 220); }
+    if (!dir || !reading || viewerOpen || busy() || drag) return;
+    if (view + dir < 0 || view + dir > nViews() - 1) return;
+    peekS = startFlip(dir, true);
+    animate(peekS, dir > 0 ? .07 : .93, 420, easeOut);
+  }
+
+  // un geste peut commencer n'importe où, même sur un lien : s'il glisse, il tourne la page ;
+  // sinon c'est un simple clic, laissé au lien ou au bouton
+  book.addEventListener("pointerdown", e => {
+    if (!reading || viewerOpen || e.button > 0) return;
+    const t = el(e);
+    ptr = { id: e.pointerId, x0: e.clientX, y0: e.clientY, lx: e.clientX, lt: performance.now(), vx: 0, onLink: !!(t && t.closest("a, button")) };
+  });
+  book.addEventListener("dragstart", e => e.preventDefault());
+
+  addEventListener("pointermove", e => {
+    if (fine) moveCursor(e);
+    if (ptr && e.pointerId === ptr.id) {
+      const now = performance.now(), dx = e.clientX - ptr.x0, dy = e.clientY - ptr.y0;
+      ptr.vx = .6 * ptr.vx + .4 * ((e.clientX - ptr.lx) / Math.max(1, now - ptr.lt));
+      ptr.lx = e.clientX; ptr.lt = now;
+      if (!drag && !ptr.dead && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) beginDrag(e, dx);
+      if (drag) {
+        drag.S.t = clamp(drag.t0 - (e.clientX - ptr.x0) / drag.span, 0, 1);
+        apply(drag.S);
+      }
+      return;
+    }
+    if (fine && reading && !viewerOpen) {
+      const t = el(e);
+      setPeek(t && t.closest("#book a, #book button") ? 0 : zoneAt(e.clientX, e.clientY));
+    }
+  });
+
+  function beginDrag(e, dx) {
+    const r = bookRect();
+    let dir;
+    if (single) dir = dx < 0 ? 1 : -1;
+    else {
+      const right = ptr.x0 > r.left + r.width / 2;
+      dir = right && dx < 0 ? 1 : !right && dx > 0 ? -1 : 0;
+    }
+    if (!dir || view + dir < 0 || view + dir > nViews() - 1) { ptr.dead = true; return; }
+    let S = peekS && peekS.dir === dir ? peekS : null;
+    if (!S) {
+      if (peekS) { rollback(peekS); teardown(peekS); peekS = null; }
+      if (busy()) { ptr.dead = true; return; }
+      S = startFlip(dir, true);
+    }
+    peekS = null;
+    cancelAnimationFrame(S.raf);
+    drag = { S, t0: S.t, span: single ? r.width * 1.05 : r.width / 2 * 1.7 };
+    try { book.setPointerCapture(e.pointerId); } catch (err) {}
+  }
+
+  function endPointer(e, cancelled) {
+    const p = ptr;
+    ptr = null;
+    if (drag) {
+      const S = drag.S;
+      drag = null;
+      const prog = S.dir > 0 ? S.t : 1 - S.t, vx = p ? p.vx : 0;
+      const fling = S.dir > 0 ? vx < -.3 : vx > .3, back = S.dir > 0 ? vx > .3 : vx < -.3;
+      if (!cancelled && (prog > .32 || fling) && !back) finish(S, 240 + 560 * (1 - prog), easeOut);
+      else cancel(S, 180 + 420 * prog);
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; }, 0);
+      return;
+    }
+    if (!p || p.dead || cancelled || p.onLink) return;
+    tap(e);
+  }
+  addEventListener("pointerup", e => { if (ptr && e.pointerId === ptr.id) endPointer(e, false); });
+  addEventListener("pointercancel", e => { if (ptr && e.pointerId === ptr.id) endPointer(e, true); });
+
+  function tap(e) {
+    if (peekS) { finish(peekS, DUR * .85); return; }
+    const x = e.clientX, r = bookRect();
+    const proj = el(e) && el(e).closest(".slot .pg-project");
+    if (single) {
+      if (x < innerWidth * .18) return prev();
+      if (x > innerWidth * .82) return next();
+      if (proj && !busy()) return openViewer(+proj.dataset.k, proj);
+      return next();
+    }
+    if (proj && !zoneAt(x, e.clientY) && !busy()) return openViewer(+proj.dataset.k, proj);
+    x > r.left + r.width / 2 ? next() : prev();
+  }
+
+  book.addEventListener("click", e => {
+    if (!reading) { openBook(); return; }
+    if (suppressClick) { e.preventDefault(); e.stopPropagation(); return; }
+    const t = el(e);
+    if (!t) return;
+    const go = t.closest("[data-page]");
+    if (go) { e.preventDefault(); goTo(viewOfPage(+go.dataset.page)); return; }
+    if (t.closest("[data-close]")) { e.preventDefault(); closeBook(); return; }
+    const link = t.closest("a.view");
+    if (link && !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
+      e.preventDefault();
+      if (!busy()) openViewer(+link.dataset.proj, link.closest(".pg"));
+    }
+  });
+
+  [slotL, slotR].forEach(s => {
+    s.addEventListener("pointerenter", () => { if (fine) playSlot(s); });
+    s.addEventListener("pointerleave", () => { if (fine) stopSlot(s); });
+  });
+
+  $("#open").addEventListener("click", openBook);
+  $("#close").addEventListener("click", closeBook);
+  $("#toToc").addEventListener("click", () => goTo(viewOfPage(2)));
+  btnNext.addEventListener("click", next);
+  btnPrev.addEventListener("click", prev);
+
+  addEventListener("keydown", e => {
+    if (viewerOpen) { if (e.key === "Escape") closeViewer(); return; }
+    if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
+    else if (e.key === "Escape") closeBook();
+  });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) pauseAll(); else onIdle(); });
+
+  // ---------- Curseur, lumière, léger mouvement du livre ----------
+  const cursor = $("#cursor"), light = document.querySelector(".light");
+  let mx = -200, my = -200, cx = -200, cy = -200, raf = 0;
+  function follow() {
+    cx += (mx - cx) * .22; cy += (my - cy) * .22;
+    cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+    raf = Math.abs(mx - cx) + Math.abs(my - cy) > .3 ? requestAnimationFrame(follow) : 0;
+  }
+  if (fine) body.classList.add("has-cursor");
+  function moveCursor(e) {
+    mx = e.clientX; my = e.clientY;
+    if (!raf) raf = requestAnimationFrame(follow);
+    const t = el(e);
+    const overBook = t && t.closest("#book");
+    const overLink = !!(t && t.closest("#book a, #book button"));
+    let text = "";
+    if (overBook && !viewerOpen && !drag) {
+      if (!reading) text = "Ouvrir";
+      else if (!overLink) {
+        const z = zoneAt(mx, my), r = bookRect(), right = mx > r.left + r.width / 2;
+        if (z) text = z > 0 ? "Tourner" : "Retour";
+        else if (t.closest(".slot .pg-project")) text = "Voir";
+        else text = right ? (view < nViews() - 1 ? "Tourner" : "") : (view > 0 ? "Retour" : "");
+      }
+    }
+    if (text) cursor.textContent = text;
+    cursor.classList.toggle("on", !!text || (!!overBook && reading && overLink && !viewerOpen));
+    cursor.classList.toggle("small", overLink);
+    light.style.transform = `translate3d(${(mx - innerWidth / 2) * .22}px, ${(my - innerHeight * .46) * .22}px, 0)`;
+    if (reading && !reduce && !single) {
+      const root = document.documentElement.style;
+      root.setProperty("--ry", ((mx / innerWidth - .5) * 4).toFixed(2) + "deg");
+      root.setProperty("--rx", ((.5 - my / innerHeight) * 3).toFixed(2) + "deg");
+    }
+  }
+  document.documentElement.addEventListener("pointerleave", () => { cursor.classList.remove("on"); setPeek(0); });
+
+  // ---------- Mise en page ----------
+  function layout() {
+    const W = innerWidth, H = innerHeight, was = single;
+    single = W < 760 || H > W * 1.05;
+    if (single) { pw = Math.min(W - 36, (H - 196) * .7, 520); ph = pw / .7; }
+    else { pw = Math.min(W * .44, (H - 180) * 1.6, 780); ph = pw / 1.6; }
+    pw = Math.round(pw); ph = Math.round(ph);
+    document.documentElement.style.setProperty("--pw", pw + "px");
+    document.documentElement.style.setProperty("--ph", ph + "px");
+    body.classList.toggle("single", single);
+    // tournages en cours : on les termine d'un coup avant de recomposer
+    queue.length = 0;
+    active.slice().forEach(S => { if (!S.committed) rollback(S); teardown(S); });
+    peekS = null; drag = null; ptr = null;
+    if (was !== single) view = single ? (view === 0 ? 0 : 2 * view - 1) : viewOfPage(view);
+    $("#sub").textContent = fine ? "Cliquez sur les pages pour découvrir nos créations, survolez-les pour les voir en mouvement."
+                                 : "Touchez une page pour découvrir la création, glissez pour tourner les pages.";
+    renderAll();
+  }
+  let rt = 0;
+  addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(layout, 120); });
+  layout();
+  preloadAround(0);
+
+  // Entrée en scène : la lampe s'allume quand le bureau est chargé
+  let started = false;
+  const start = () => { if (!started) { started = true; requestAnimationFrame(() => body.classList.add("loaded")); } };
+  const bg = new Image();
+  bg.onload = bg.onerror = start;
+  bg.src = matchMedia("(max-aspect-ratio: 1/1)").matches ? "assets/bureau-m.jpg" : "assets/bureau.jpg";
+  setTimeout(start, 1500);
+})();
+</script>
+</body>
+</html>
