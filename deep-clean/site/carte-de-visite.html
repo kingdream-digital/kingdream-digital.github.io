@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Deep Clean — Carte de visite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #17161a;
+    --charcoal-3: #121114;
+    --gold: #b8935a;
+    --gold-light: #d4b483;
+    --gold-dark: #85632f;
+    --cream: #f3eee4;
+    --taupe: #8c8375;
+    --font-display: "Manrope", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+
+    --trim-w: 85mm;
+    --trim-h: 55mm;
+    --bleed: 3mm;
+    --art-w: calc(var(--trim-w) + var(--bleed) * 2);
+    --art-h: calc(var(--trim-h) + var(--bleed) * 2);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #d9d5cb;
+    font-family: var(--font-body);
+    padding: 14mm;
+    color: #2b2620;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #55524a;
+    margin: 0 0 3mm 1mm;
+  }
+
+  .page-note {
+    font-size: 10.5px;
+    color: #6b6355;
+    margin: 0 0 8mm 1mm;
+    max-width: 175mm;
+    line-height: 1.5;
+  }
+  .page-note b { color: #2b2620; }
+
+  .sheet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10mm;
+  }
+
+  .card {
+    width: var(--art-w);
+    height: var(--art-h);
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(120% 140% at 20% -10%, #221f24, var(--charcoal) 55%, var(--charcoal-3) 100%);
+    box-shadow: 0 3px 16px rgba(0,0,0,0.3);
+  }
+
+  .content {
+    position: absolute;
+    inset: var(--bleed);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- RECTO ---------- */
+  .card--recto .content {
+    align-items: center;
+    justify-content: center;
+    gap: 2.6mm;
+  }
+
+  .card--recto .mark {
+    width: 21mm;
+    height: 21mm;
+    -webkit-mask-image: url("logo.png");
+            mask-image: url("logo.png");
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+            mask-size: contain;
+    -webkit-mask-position: center;
+            mask-position: center;
+    background: var(--cream);
+  }
+
+  .card--recto .word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19pt;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    line-height: 1;
+    margin-top: 1mm;
+  }
+
+  .card--recto .tagline {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 6.6pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  .card--recto .rule {
+    width: 9mm;
+    height: 0.5mm;
+    background: var(--gold);
+    margin-top: 1.5mm;
+  }
+
+  /* ---------- VERSO ---------- */
+  .card--verso .content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5mm;
+    padding: 0 2mm;
+  }
+
+  .qr-chip {
+    flex-shrink: 0;
+    width: 17mm;
+    height: 17mm;
+    background: var(--cream);
+    border-radius: 0.8mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6mm;
+  }
+  .qr-chip img { width: 100%; height: 100%; display: block; }
+
+  .verso__main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.6mm;
+    min-width: 0;
+  }
+
+  .verso__brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 15pt;
+    letter-spacing: 0.03em;
+    color: var(--gold-light);
+    margin-bottom: 0.8mm;
+  }
+
+  .verso__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3mm;
+  }
+
+  .verso__label {
+    font-size: 6.2pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--taupe);
+  }
+
+  .verso__value {
+    font-weight: 600;
+    font-size: 9pt;
+    color: var(--cream);
+    word-break: break-word;
+  }
+
+  .verso__qr-caption {
+    margin-top: 1.6mm;
+    text-align: center;
+    font-size: 5.6pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    width: 19mm;
+  }
+
+  .qr-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---------- Fiche production (écran uniquement) ---------- */
+  .specs-box {
+    margin-top: 12mm;
+    max-width: 175mm;
+    border: 1px solid #c9c2ae;
+    background: #efece2;
+    padding: 5mm 6mm;
+  }
+  .specs-box h2 {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 3mm;
+    color: #2b2620;
+  }
+  .specs-box ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #3a352c;
+  }
+  .specs-box li b { color: #000; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page-title, .page-note, .specs-box { display: none; }
+    .sheet { gap: 6mm; }
+    .card { box-shadow: none; }
+    @page { size: A4; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+
+  <p class="page-title">Deep Clean — Carte de visite (85 × 55 mm, fond perdu 3 mm) — recto / verso</p>
+  <p class="page-note">
+    QR code <b>fictif</b> (pointe vers un domaine provisoire) — à remplacer par l'URL définitive dès que le site sera en ligne.
+  </p>
+
+  <div class="sheet">
+
+    <div class="card card--recto">
+      <div class="content">
+        <div class="mark"></div>
+        <div class="word">DEEP CLEAN</div>
+        <div class="tagline">Nettoyage · Conciergerie · Entretien</div>
+        <div class="rule"></div>
+      </div>
+    </div>
+
+    <div class="card card--verso">
+      <div class="content">
+        <div class="qr-col">
+          <div class="qr-chip"><img src="assets/img/qr-code-fictif.svg" alt="QR code vers le site Deep Clean" /></div>
+          <div class="verso__qr-caption">Notre site</div>
+        </div>
+
+        <div class="verso__main">
+          <span class="verso__brand">DEEP CLEAN</span>
+
+          <div class="verso__row">
+            <span class="verso__label">Téléphone</span>
+            <span class="verso__value">06 81 70 07 51</span>
+          </div>
+
+          <div class="verso__row">
+            <span class="verso__label">Email</span>
+            <span class="verso__value">deepclean.contact.pro@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deuxième exemplaire pour remplir la feuille d'impression -->
+    <div class="card card--recto">
+      <div class="content">
+        <div class="mark"></div>
+        <div class="word">DEEP CLEAN</div>
+        <div class="tagline">Nettoyage · Conciergerie · Entretien</div>
+        <div class="rule"></div>
+      </div>
+    </div>
+
+    <div class="card card--verso">
+      <div class="content">
+        <div class="qr-col">
+          <div class="qr-chip"><img src="assets/img/qr-code-fictif.svg" alt="QR code vers le site Deep Clean" /></div>
+          <div class="verso__qr-caption">Notre site</div>
+        </div>
+
+        <div class="verso__main">
+          <span class="verso__brand">DEEP CLEAN</span>
+
+          <div class="verso__row">
+            <span class="verso__label">Téléphone</span>
+            <span class="verso__value">06 81 70 07 51</span>
+          </div>
+
+          <div class="verso__row">
+            <span class="verso__label">Email</span>
+            <span class="verso__value">deepclean.contact.pro@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="specs-box">
+    <h2>Fiche de production — à donner à l'imprimeur</h2>
+    <ul>
+      <li>Format fini : <b>85 × 55 mm</b>, fond perdu 3 mm inclus (traits pointillés = ligne de coupe, à retirer avant envoi final).</li>
+      <li>Fond : <b>noir charbon</b> (#17161a) sur les deux faces, recto et verso.</li>
+      <li>Recto : goutte en <b>blanc cassé</b> (ou blanc opaque / vernis blanc selon l'imprimeur), "DEEP CLEAN" en blanc cassé, phrase en or clair.</li>
+      <li>Verso : QR code (actuellement fictif — <b>à remplacer par l'URL du site une fois en ligne</b>), téléphone et email en blanc cassé.</li>
+      <li>Grammage conseillé : 400–450 g ou duplex, pelliculage mat pour la tenue en main et éviter les traces de doigts sur le noir.</li>
+      <li>Ce fichier HTML est un gabarit d'aperçu ; exporter chaque face en PDF/CMJN haute résolution avant l'envoi à l'imprimeur.</li>
+    </ul>
+  </div>
+
+</body>
+</html>

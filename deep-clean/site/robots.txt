@@ -1,0 +1,7 @@
+# Léa, audit SEO — 15/09/2026.
+# IMPORTANT : remplacer DOMAINE-A-CONFIRMER.fr par le vrai domaine avant
+# la mise en ligne (Marc).
+User-agent: *
+Allow: /
+
+Sitemap: https://DOMAINE-A-CONFIRMER.fr/sitemap.xml

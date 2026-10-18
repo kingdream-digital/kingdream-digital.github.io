@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Léa, audit SEO — 15/09/2026.
+  IMPORTANT : le nom de domaine final n'est pas encore connu. Remplacer
+  https://DOMAINE-A-CONFIRMER.fr/ par le vrai domaine avant la mise en ligne
+  (Marc). legal.html est volontairement absent de ce sitemap car la page
+  porte <meta name="robots" content="noindex, follow">.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://DOMAINE-A-CONFIRMER.fr/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
