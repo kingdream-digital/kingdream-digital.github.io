@@ -1,0 +1,8 @@
+# En-têtes de cache (Netlify, Cloudflare Pages). Les fichiers de assets/ ont un nom unique à
+# chaque version : ils peuvent être gardés un an. Les médias changent rarement : une semaine.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/media/*
+  Cache-Control: public, max-age=604800
+/brand/*
+  Cache-Control: public, max-age=604800

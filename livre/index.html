@@ -468,6 +468,8 @@
   // Pour en ajouter une : un objet ici + ses captures dans assets/ (id.jpg 1200×750, id-m.jpg 700×1000,
   // id-t.jpg 240×150) ; le livre se recompose tout seul.
   const PROJETS = [
+    { id: "p7", court: "Aurénov", type: "Site immersif", format: "Le chantier en film", href: "../aurenov/",
+      texte: "Électricité, plomberie, chauffage : le défilement fait entrer dans le chantier, jusqu’à l’intérieur terminé." },
     { id: "p1", court: "KingDream Control", type: "Tableau de bord", format: "Démo interactive", href: "../dashboard/",
       texte: "Clients, serveurs, factures et alertes réunis dans un tableau de bord façon Apple. Données fictives : tout est cliquable." },
     { id: "p2", court: "Le Bon Degré", type: "Page d’accueil", format: "Chauffage & clim", href: "../le-bon-degre/",
@@ -490,6 +492,8 @@
     ...PROJETS.map((p, k) => ({ kind: "project", k })),
     { kind: "contact" },
     { kind: "end" },
+    // Le livre doit compter un nombre pair de pages : page de garde finale si besoin.
+    ...(PROJETS.length % 2 ? [{ kind: "endpaper" }] : []),
     { kind: "back", hard: true }
   ];
   const NP = PAGES.length;
@@ -602,13 +606,14 @@
     if (single) {
       const k = proj(v);
       if (k >= 0) return `<i>${pad(k + 1)}</i>${PROJETS[k].court}`;
+      if (PAGES[v].kind === "endpaper") return "Page de garde";
       return ["Couverture", "Page de garde", "Sommaire"][v] || (v === P_CONTACT ? "Votre projet" : v === NP - 1 ? "Quatrième de couverture" : "Fin");
     }
     if (v === 0) return "Couverture";
     if (v === NP / 2) return "Quatrième de couverture";
     const ks = [proj(2 * v - 1), proj(2 * v)].filter(k => k >= 0);
     if (ks.length) return `<i>${ks.map(k => pad(k + 1)).join("–")}</i>${ks.map(k => PROJETS[k].court).join(" · ")}`;
-    return v === 1 ? "Sommaire" : "Votre projet";
+    return v === 1 ? "Sommaire" : v === viewOfPage(P_CONTACT) ? "Votre projet" : "Fin";
   }
 
   function renderAll() {
