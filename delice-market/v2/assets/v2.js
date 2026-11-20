@@ -32,8 +32,9 @@
   /* ---- En-tête qui se remplit au défilement --------------------------------- */
   const top = document.querySelector("[data-top]");
   const entreeEl = document.querySelector("[data-entree]");
+  const ouvertureEl = entreeEl || document.querySelector("[data-survol]");  // V3 : la maquette 3D
   function majTop() {
-    const seuil = entreeEl ? entreeEl.offsetTop + entreeEl.offsetHeight - 170 : 40;
+    const seuil = ouvertureEl ? ouvertureEl.offsetTop + ouvertureEl.offsetHeight - 170 : 40;
     top && top.classList.toggle("is-plein", window.scrollY > seuil);
   }
   window.addEventListener("scroll", majTop, { passive: true });

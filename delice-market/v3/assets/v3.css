@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Délice — V3 « La maquette du réseau » (complète v2.css)
+   ========================================================================== */
+
+.survol { position: relative; height: 620svh; background: #b9d3e6; }
+.survol__stage { position: sticky; top: 0; height: 100svh; min-height: 540px; overflow: hidden; }
+.survol__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.survol__canvas.is-survol { cursor: pointer; }
+
+/* Étiquettes projetées sur la maquette */
+.survol__labels { position: absolute; inset: 0; pointer-events: none; }
+.lbl { position: absolute; left: 0; top: 0; will-change: transform, opacity; white-space: nowrap; }
+.lbl--ville {
+  transform-origin: 0 0; text-align: center;
+  font-family: var(--font); font-weight: 800; letter-spacing: -.02em; font-size: 26px; color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .5);
+}
+.lbl--ville small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
+.lbl--lieu { font: italic 600 14px var(--font); color: rgba(255, 255, 255, .92); text-shadow: 0 1px 6px rgba(0, 0, 0, .55); }
+.lbl--riviere { color: #e6f4ff; }
+
+.repere {
+  pointer-events: auto; cursor: pointer; border: 0; padding: 0; background: none; font: inherit; color: inherit;
+  display: grid; justify-items: center; gap: 0;
+}
+.repere__bulle {
+  display: grid; place-items: center; height: 44px; padding: 0 14px; border-radius: 12px;
+  background: var(--fronton, #2c2e33); box-shadow: 0 10px 24px -8px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .9);
+  transition: transform .25s var(--ease), box-shadow .25s;
+}
+.t-market .repere__bulle { background: #232528; }
+.repere__bulle img { height: 26px; width: auto; max-width: 150px; }
+.t-primeur .repere__bulle img { height: 32px; }
+.repere__nom {
+  margin-top: 6px; padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, .95); color: #151515;
+  font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px -4px rgba(0, 0, 0, .4);
+}
+.repere__new { position: absolute; top: -9px; right: -10px; padding: 2px 7px; border-radius: 5px; background: var(--acc-2); color: #1a1a1a; font-size: 10.5px; font-weight: 800; text-transform: uppercase; transform: rotate(6deg); }
+.repere__tige { width: 2px; height: 26px; background: linear-gradient(rgba(255, 255, 255, .95), rgba(255, 255, 255, 0)); }
+.repere:hover .repere__bulle, .repere.is-on .repere__bulle, .repere:focus-visible .repere__bulle { transform: translateY(-4px) scale(1.06); box-shadow: 0 16px 30px -10px rgba(0, 0, 0, .6), 0 0 0 3px var(--acc-2); }
+
+/* Panneaux d'étapes */
+.etapes { position: absolute; inset: 0; pointer-events: none; }
+.etape {
+  position: absolute; left: var(--gut); top: 50%; width: min(430px, calc(100% - 2 * var(--gut)));
+  transform: translateY(-46%); opacity: 0; visibility: hidden;
+  padding: 28px 28px 24px; border-radius: 24px; color: #fff;
+  background: linear-gradient(160deg, rgba(20, 21, 24, .78), rgba(20, 21, 24, .6));
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), inset 0 0 0 1px rgba(255, 255, 255, .1);
+  transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s .45s;
+}
+.etape.is-active { opacity: 1; visibility: visible; transform: translateY(-50%); pointer-events: auto; transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s; }
+.etape h1, .etape h2 { font-size: clamp(34px, 3.6vw, 50px); margin-bottom: 10px; }
+.etape .lead { font-size: 16.5px; margin-bottom: 0; }
+.etape__meta { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .75; margin-bottom: 18px; }
+.etape__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.etape__actions .btn { height: 48px; padding: 0 20px; font-size: 15px; }
+.etape .kicker { margin-bottom: 10px; }
+.etape--intro { background: linear-gradient(160deg, rgba(20, 21, 24, .72), rgba(20, 21, 24, .45)); }
+
+.escales { display: grid; gap: 10px; }
+.escale {
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: center;
+  padding: 12px; border-radius: 16px; text-decoration: none; color: #fff;
+  background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+  transition: background .2s, box-shadow .2s, transform .2s var(--ease);
+}
+.escale:hover, .escale.is-on, .escale:focus-visible { background: rgba(255, 255, 255, .14); box-shadow: inset 0 0 0 2px var(--acc-2); transform: translateX(3px); }
+.escale__logo { grid-row: span 2; width: 78px; height: 58px; border-radius: 12px; display: grid; place-items: center; background: var(--fronton, #232528); }
+.t-market .escale__logo { background: #232528; }
+.escale__logo img { max-width: 84%; max-height: 64%; }
+.escale__txt { display: grid; gap: 2px; min-width: 0; }
+.escale__txt b { font-size: 16.5px; }
+.escale__txt small { font-size: 13px; opacity: .72; line-height: 1.35; }
+.escale__txt .statut { font-size: 13px; }
+.escale__new { font-style: normal; margin-left: 4px; padding: 1px 6px; border-radius: 4px; background: var(--acc-2); color: #1a1a1a; font-size: 10.5px; font-weight: 800; text-transform: uppercase; vertical-align: 2px; }
+.escale__go { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; color: var(--acc-2); }
+
+/* Itinéraire (où en est-on dans le survol) */
+.itineraire {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+  display: flex; gap: 0; padding: 8px 10px; border-radius: 999px;
+  background: rgba(20, 21, 24, .66); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .6);
+}
+.itineraire__ligne { position: absolute; left: 44px; right: 44px; top: 19px; height: 2px; background: rgba(255, 255, 255, .2); }
+.itineraire__ligne span { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--acc-2); }
+.itineraire button {
+  position: relative; display: grid; justify-items: center; gap: 5px; width: 88px; padding: 2px 0;
+  border: 0; background: none; color: rgba(255, 255, 255, .7); cursor: pointer; font-size: 12px; font-weight: 700;
+}
+.itineraire i { width: 12px; height: 12px; border-radius: 50%; background: #3a3c40; box-shadow: 0 0 0 2px rgba(255, 255, 255, .5); transition: background .3s, transform .3s; }
+.itineraire button.is-passe i { background: var(--acc-2); box-shadow: none; }
+.itineraire button.is-ici { color: #fff; }
+.itineraire button.is-ici i { background: var(--acc-2); transform: scale(1.35); box-shadow: 0 0 0 4px rgba(255, 212, 0, .25); }
+
+.survol__aide {
+  position: absolute; right: var(--gut); bottom: 30px; margin: 0; padding: 8px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .9); color: #151515; font-size: 13px; font-weight: 600;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, .5); opacity: 0; transition: opacity .4s;
+}
+.survol__aide.is-on { opacity: 1; }
+
+.survol__chargement {
+  position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 16px;
+  background: radial-gradient(circle at 50% 40%, #2b2e33, #121314); color: #fff; font-weight: 600;
+  transition: opacity .7s, visibility 0s .7s;
+}
+.survol__chargement.is-fini { opacity: 0; visibility: hidden; }
+.survol__roue { width: 42px; height: 42px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .2); border-top-color: var(--acc-2); animation: roue 1s linear infinite; }
+@keyframes roue { to { transform: rotate(1turn); } }
+
+.fondu { position: absolute; inset: 0; z-index: 6; background: #0d0e10; opacity: 0; pointer-events: none; transition: opacity .35s; }
+.fondu.is-on { opacity: 1; pointer-events: auto; }
+
+.is-plongee .etape, .is-plongee .itineraire, .is-plongee .survol__aide { opacity: 0 !important; visibility: hidden; transition: opacity .3s; }
+
+/* Sans 3D (WebGL indisponible) : la liste des boutiques suffit */
+.sans-3d .survol { display: none; }
+.boutiques__liste--seule { max-width: 980px; }
+
+@media (max-width: 760px) {
+  .survol { height: 560svh; }
+  .etape {
+    left: 10px; right: 10px; width: auto; top: auto; bottom: 84px; transform: translateY(16px);
+    padding: 18px 18px 16px; border-radius: 20px; max-height: 52svh; overflow-y: auto;
+  }
+  .etape.is-active { transform: none; }
+  .etape h1, .etape h2 { font-size: 30px; }
+  .etape .lead { font-size: 15px; }
+  .etape__meta { margin-bottom: 12px; }
+  .etape__actions { margin-top: 14px; }
+  .escale { padding: 9px; gap: 4px 10px; }
+  .escale__logo { width: 62px; height: 46px; }
+  .escale__txt small { display: none; }
+  .itineraire { bottom: 14px; padding: 6px 6px; }
+  .itineraire button { width: 64px; font-size: 11px; }
+  .itineraire__ligne { left: 32px; right: 32px; top: 17px; }
+  .survol__aide { display: none; }
+  .lbl--ville { font-size: 20px; }
+  .repere__bulle { height: 36px; padding: 0 10px; }
+  .repere__bulle img { height: 20px; max-width: 110px; }
+  .t-primeur .repere__bulle img { height: 26px; }
+  .repere__nom, .repere__tige { display: none; }
+}
