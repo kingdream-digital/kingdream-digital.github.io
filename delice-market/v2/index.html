@@ -1,370 +1,248 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Délice Market — La visite du magasin</title>
-<meta name="description" content="Poussez la porte de Délice Market à Manosque : une visite immersive du magasin, rayon par rayon.">
+<title>Délice — Les boutiques Délice à Manosque, Digne-les-Bains et Gap</title>
+<meta name="description" content="Poussez la porte du réseau Délice : supermarchés, boucheries et primeur halal à Manosque, Digne-les-Bains et Gap, ouverts 7 jours sur 7.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#16130f">
-<meta property="og:title" content="Délice Market — La visite du magasin">
-<meta property="og:description" content="Poussez la porte : primeur, boucherie, rôtisserie, épicerie fine, fromagerie, surgelés.">
-<meta property="og:image" content="assets/video/film-magasin.jpg">
+<meta name="theme-color" content="#121314">
+<meta property="og:title" content="Délice — Les boutiques Délice à Manosque, Digne-les-Bains et Gap">
+<meta property="og:description" content="Poussez la porte du réseau Délice : supermarchés, boucheries et primeur halal à Manosque, Digne-les-Bains et Gap, ouverts 7 jours sur 7.">
+<meta property="og:image" content="../assets/img/market/image_60_1x.webp">
 <link rel="icon" href="../assets/img/logos/favicon-market.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter+Tight:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter+Tight:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/v2.css">
+<script>document.documentElement.classList.replace('no-js','js')</script>
 </head>
-<body>
-<div class="demo-bar">Maquette de démonstration réalisée par <strong>KingDream Digital</strong> · site non officiel, en cours de conception</div>
-
-<header class="top" id="top">
-  <a class="top__brand" href="#entree" aria-label="Délice Market — retour à l'entrée">
-    <img src="../assets/img/logos/logo_delice_market.svg" alt="Délice Market">
-  </a>
-  <span class="top__visit">La visite</span>
-  <nav class="top__actions" aria-label="Accès rapide">
-    <a class="pill" href="https://www.google.com/maps/dir/?api=1&amp;destination=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque" target="_blank" rel="noopener">Itinéraire</a>
-    <a class="pill pill--solid" href="tel:+33486905452">Appeler</a>
+<body class="page-accueil t-groupe">
+<div class="demo">Maquette<span class="demo__long">&nbsp;de démonstration réalisée</span>&nbsp;par <strong>KingDream Digital</strong> · site non officiel<span class="demo__long">, en cours de conception</span></div><header class="top" data-top>
+  <a class="top__logo" href="index.html" aria-label="Délice — accueil du réseau"><img src="../assets/img/logos/logo_web_delicemarket_1.svg" alt="Délice"></a>
+  <span class="top__ville">Le réseau</span>
+  <nav class="top__nav" aria-label="Accès rapide">
+    
+    <button class="pill pill--menu" type="button" data-menu-open aria-haspopup="dialog" aria-controls="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span><span class="pill__long">Nos </span>boutiques</span></button>
   </nav>
 </header>
-
-<!-- « Vous êtes ici » : position dans le magasin, mise à jour pendant la visite -->
-<nav class="gps" aria-label="Votre position dans le magasin">
-  <button class="gps__btn" type="button" data-gps="prev" aria-label="Rayon précédent">‹</button>
-  <a class="gps__here" href="#plan"><span class="gps__pin" aria-hidden="true"></span><span class="gps__txt">Plan du magasin</span></a>
-  <button class="gps__btn" type="button" data-gps="next" aria-label="Rayon suivant">›</button>
-  <div class="gps__bar" aria-hidden="true"></div>
-</nav>
-
 <main>
-
-<!-- 1. ENTRÉE ============================================================ -->
-<section id="entree" class="entree" data-zone="entree" data-label="Devant le magasin">
+<section class="entree t-groupe" data-entree="scroll" aria-label="Entrée du magasin">
   <div class="entree__stage">
-  <div class="entree__sky" aria-hidden="true"><span class="entree__sun"></span><span class="entree__stars"></span></div>
-  <div class="entree__title">
-    <p class="entree__hours">Ouverture non stop · 8h30 — 21h · 7j/7</p>
-    <h1>Poussez la porte.</h1>
-    <p class="entree__lead"><span class="js-greeting">Bonjour</span> ! Faites le tour de Délice Market, rayon par rayon.</p>
-    <p class="entree__status"><span class="status" data-hours="08:30-21:00">Ouvert 7j/7</span></p>
-  </div>
-  <div class="entree__store">
-    <img src="../assets/img/market/delicemarket_3D.webp" alt="Le magasin Délice Market, avenue Frédéric Mistral à Manosque" fetchpriority="high">
-  </div>
-  <p class="scroll-hint" aria-hidden="true"><span>Faites défiler pour entrer</span><i></i></p>
-  </div>
-  <div class="entree__inside">
-    <video class="entree__film" muted loop playsinline autoplay preload="auto" poster="assets/video/film-magasin.jpg" aria-hidden="true">
-      <source src="assets/video/film-magasin.mp4" type="video/mp4">
-    </video>
-    <div class="entree__welcome">
-      <p class="kicker">Bienvenue chez</p>
-      <h2>Délice Market</h2>
-      <p>Le supermarché halal de proximité de Manosque, depuis 2021. Tous vos produits frais au même endroit.</p>
-      <ul class="chips">
-        <li>+5 000 produits</li><li>4,7/5 sur Google</li><li>Parking gratuit</li>
-      </ul>
-    </div>
-  </div>
-  <div class="entree__doors" aria-hidden="true">
-    <div class="door door--l"><span class="door__sticker">Entrée</span></div>
-    <div class="door door--r"><span class="door__sticker door__sticker--logo">Bienvenue</span></div>
-  </div>
-</section>
-
-<!-- 2. PLAN ============================================================== -->
-<section id="plan" class="plan" data-zone="plan" data-label="Plan du magasin">
-  <div class="wrap plan__grid">
-    <div class="plan__txt rv">
-      <span class="tag tag--slate">plan du magasin.</span>
-      <h2>Votre parcours</h2>
-      <p class="lead">Six rayons, plus de 5 000 produits, un seul passage. Suivez le guide : le petit repère en bas de l'écran vous dit toujours où vous êtes.</p>
-      <ol class="plan__list">
-        <li><a href="#primeur"><span class="tag tag--green">primeur.</span>Fruits &amp; légumes</a></li>
-        <li><a href="#boucherie"><span class="tag tag--red">boucherie.</span>Viande halal</a></li>
-        <li><a href="#rotisserie"><span class="tag tag--orange">rôtisserie.</span>Ven · sam · dim</a></li>
-        <li><a href="#epicerie"><span class="tag tag--black">épicerie fine.</span>Saveurs d'Orient</a></li>
-        <li><a href="#fromagerie"><span class="tag tag--yellow">fromagerie.</span>&amp; charcuterie halal</a></li>
-        <li><a href="#surgeles"><span class="tag tag--cyan">surgelés.</span>&amp; le quotidien</a></li>
-      </ol>
-    </div>
-    <div class="plan__map rv">
-      <svg viewBox="0 0 600 440" role="img" aria-label="Plan simplifié du magasin et parcours de la visite">
-        <rect class="pm-wall" x="12" y="12" width="576" height="396" rx="18"/>
-        <a href="#boucherie"><rect class="pm-zone pm-red" x="36" y="34" width="290" height="70" rx="10"/><text x="181" y="76">BOUCHERIE</text></a>
-        <a href="#rotisserie"><rect class="pm-zone pm-orange" x="340" y="34" width="110" height="70" rx="10"/><text x="395" y="76">RÔTISSERIE</text></a>
-        <a href="#fromagerie"><rect class="pm-zone pm-yellow" x="468" y="34" width="96" height="190" rx="10"/><text x="516" y="134" transform="rotate(-90 516 134)">FROMAGERIE</text></a>
-        <a href="#epicerie">
-          <rect class="pm-aisle" x="196" y="140" width="22" height="160" rx="6"/>
-          <rect class="pm-aisle" x="252" y="140" width="22" height="160" rx="6"/>
-          <rect class="pm-aisle" x="308" y="140" width="22" height="160" rx="6"/>
-          <rect class="pm-aisle" x="364" y="140" width="22" height="160" rx="6"/>
-          <text class="pm-small" x="291" y="128">ÉPICERIE FINE</text>
-        </a>
-        <a href="#primeur"><rect class="pm-zone pm-green" x="36" y="132" width="132" height="200" rx="10"/><text x="102" y="238" transform="rotate(-90 102 238)">PRIMEUR</text></a>
-        <a href="#surgeles"><rect class="pm-zone pm-cyan" x="468" y="244" width="96" height="88" rx="10"/><text x="516" y="294">SURGELÉS</text></a>
-        <rect class="pm-zone pm-slate" x="250" y="344" width="170" height="40" rx="8"/><text x="335" y="370">CAISSES</text>
-        <text class="pm-door" x="476" y="430">ENTRÉE ▲</text>
-        <text class="pm-door" x="64" y="430">▼ SORTIE</text>
-        <path class="pm-route" d="M505 410 L505 380 L190 380 L190 340 L110 340 L110 120 L180 120 L395 120 L440 120 L440 230 L450 230 L520 236 L520 340 L430 340 L430 364 L250 364 L120 364 L95 410"/>
-        <circle class="pm-you" cx="505" cy="410" r="9"/>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- 3. PRIMEUR =========================================================== -->
-<section id="primeur" class="zone zone--primeur" data-zone="primeur" data-label="primeur." data-color="green">
-  <div class="wrap zone__head">
-    <div class="rv">
-      <span class="tag tag--green">primeur.</span>
-      <h2>Le marché, tous les jours.</h2>
-      <p class="lead">Fruits et légumes frais, arrivages quotidiens, prix justes. Ici, on choisit à la main, comme au marché.</p>
-    </div>
-    <div class="sign-gold rv" aria-hidden="true"><span>Fruits<br>et<br>Légumes</span></div>
-  </div>
-  <div class="etal" aria-label="L'étal du primeur">
-    <div class="etal__track">
-      <figure class="etal__item"><img src="../assets/img/market/rayon-leg-2.webp" alt="Poivrons rouges, jaunes et verts sur l'étal" loading="lazy"><figcaption class="ardoise">Poivrons tricolores</figcaption></figure>
-      <figure class="etal__item"><img src="../assets/img/market/image_primeur_1x.webp" alt="Tomates charnues" loading="lazy"><figcaption class="ardoise">Tomates bien mûres</figcaption></figure>
-      <figure class="etal__item etal__item--video">
-        <video class="lazy-video" muted loop playsinline preload="none" poster="assets/video/primeur.jpg" data-src="assets/video/primeur.mp4" aria-hidden="true"></video>
-        <figcaption class="ardoise">Toutes les couleurs de la saison</figcaption>
-      </figure>
-      <figure class="etal__item"><img src="../assets/img/market/rayon-leg.webp" alt="Oignons nouveaux, poireaux et herbes fraîches" loading="lazy"><figcaption class="ardoise">Herbes &amp; légumes verts</figcaption></figure>
-      <figure class="etal__item"><img src="../assets/img/market/rayon_fruits.webp" alt="Le rayon fruits et légumes" loading="lazy"><figcaption class="ardoise">Fruits de saison</figcaption></figure>
-      <div class="etal__end">
-        <span class="stamp">Arrivage<br><b>du jour</b></span>
-        <p>Chaque matin, l'étal se remplit à nouveau. On continue ?</p>
-        <a class="next-link" href="#boucherie">Direction la boucherie →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. BOUCHERIE ========================================================= -->
-<section id="boucherie" class="zone zone--boucherie" data-zone="boucherie" data-label="boucherie." data-color="red">
-  <div class="zone__bg" aria-hidden="true"><img src="../assets/img/market/delicemarket_bg_11.webp" alt="" loading="lazy"></div>
-  <div class="wrap">
-    <div class="sign-wood rv" aria-hidden="true"><span>La Boucherie</span></div>
-    <div class="bouch__grid">
-      <div class="rv">
-        <span class="tag tag--red">boucherie.</span>
-        <h2>Au comptoir des bouchers.</h2>
-        <p class="lead">Viande française fraîche, préparations bouchères et conseils en magasin. 100 % halal, découpée à la demande.</p>
-        <ul class="badges"><li>100 % halal</li><li>Viande française</li><li>Découpe à la demande</li></ul>
-      </div>
-      <div class="ticket-zone rv">
-        <div class="ticket" aria-live="polite">
-          <small>Votre numéro</small>
-          <strong class="ticket__num" data-ticket>038</strong>
-          <span class="ticket__call">C'est à vous !</span>
+    <div class="entree__scene" data-scene>
+      <div class="ciel" aria-hidden="true"></div>
+      <div class="facade" aria-hidden="true">
+        <div class="facade__mur"></div>
+        
+        <div class="facade__fronton"><img class="facade__logo" src="../assets/img/logos/logo_web_delicemarket_1.svg" alt=""></div>
+        <div class="facade__enseignes"><ul><li class="ens--red">boucherie.</li><li class="ens--green">primeur.</li><li class="ens--black">épicerie fine.</li><li class="ens--yellow">fromagerie.</li></ul><p>Ouverture<br>non stop<br>8h30<br>21h<br>7j/7</p></div>
+        
+        <div class="vitrine vitrine--g"><img src="../assets/img/market/rayon_fruits.webp" alt=""><span class="vitrine__reflet"></span><span class="vitrine__allege"></span></div>
+        <div class="vitrine vitrine--d"><img src="../assets/img/market/rayon_epicerie.webp" alt=""><span class="vitrine__reflet"></span><span class="vitrine__allege"></span></div>
+        <div class="porte" data-porte>
+          <div class="porte__auvent"><span>Entrée</span></div>
+          <div class="porte__imposte"><span class="capteur" data-capteur><i></i></span></div>
+          <div class="porte__baie" data-baie>
+            <div class="porte__dedans"><img src="../assets/img/market/rayons.webp" alt="" fetchpriority="high"></div>
+            <span class="porte__lumiere"></span>
+            <span class="fixe fixe--g"><span class="vinyl-r">Bienvenue</span></span>
+            <span class="fixe fixe--d"><span class="vinyl-h"><b>Ouvert 7j/7</b>dans nos 5 boutiques</span></span>
+            <span class="vantail vantail--g" data-vantail="g"><span class="bande"><img src="../assets/img/logos/logo_web_delicemarket_1.svg" alt=""></span><span class="vinyl-e">Entrée</span></span>
+            <span class="vantail vantail--d" data-vantail="d"><span class="bande"><img src="../assets/img/logos/logo_web_delicemarket_1.svg" alt=""></span><span class="vinyl-h"><b>Ouvert 7j/7</b>dans nos 5 boutiques</span></span>
+          </div>
         </div>
-        <figure class="bouch__photo"><img src="../assets/img/market/rayon_boucherie.webp" alt="Poulet et brochettes marinés au comptoir boucherie" loading="lazy"><figcaption>Brochettes et marinades, prêtes à griller</figcaption></figure>
+      </div>
+      <div class="sol" aria-hidden="true"><span class="sol__tapis"></span><span class="sol__halo"></span></div>
+    </div>
+    <div class="entree__dedans" data-dedans>
+      <img src="../assets/img/market/rayons.webp" alt="">
+    </div>
+    <div class="entree__flash" aria-hidden="true"></div>
+    <div class="entree__intro" data-intro><p class="intro__kicker">Le réseau des boutiques Délice</p>
+<div class="intro__bas">
+  <button class="btn-entrer" type="button" data-entrer>Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+  <p class="intro__hint">ou faites défiler</p>
+</div></div>
+    <div class="entree__hero" data-hero><div class="hero__txt">
+  <p class="kicker">Bienvenue chez Délice</p>
+  <h1>Le goût du frais,<br>près de chez vous.</h1>
+  <p class="lead">Supermarchés, boucheries et primeur halal : 5 boutiques Délice à Manosque, Digne-les-Bains et Gap, ouvertes 7 jours sur 7 avec des produits frais et des prix justes.</p>
+  <div class="hero__actions">
+    <a class="btn btn--plein" href="#boutiques">Choisir ma boutique <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <ul class="chips"><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>5 boutiques · 3 villes</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>Ouvert 7j/7</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-2.9-5.4 2.9 1.1-6L3.2 9.4l6.1-.8z"/></svg>4,7 à 4,9/5 sur Google</li></ul>
+</div></div>
+  </div>
+</section>
+<section class="sec sec--boutiques" id="boutiques">
+  <div class="wrap">
+    <div class="sec__head rv">
+      <p class="eyebrow">Nos boutiques</p>
+      <h2>Choisissez votre Délice</h2>
+      <p class="lead">Cinq boutiques, trois villes. Chaque boutique a sa page, son univers et ses horaires, avec l'ouverture en temps réel.</p>
+    </div>
+    <div class="boutiques">
+      <div class="boutiques__carte rv"><svg class="region" viewBox="0 0 560 680" role="img" aria-label="Carte des boutiques Délice : Manosque, Digne-les-Bains et Gap">
+  <defs>
+    <radialGradient id="rel1" cx="70%" cy="20%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <g class="region__courbes">
+    <path d="M330 150 c60-40 170-30 200 30 s-20 120-100 130 -150-20-160-70 20-60 60-90z"/>
+    <path d="M360 170 c40-24 110-18 130 20 s-14 76-64 82 -96-12-102-44 12-40 36-58z"/>
+    <path d="M390 190 c22-12 60-8 70 12 s-8 40-34 44 -52-6-56-24 8-22 20-32z"/>
+    <path d="M330 360 c50-30 140-20 160 30 s-30 100-100 100 -110-30-110-70 20-40 50-60z"/>
+    <path d="M360 380 c30-16 84-10 96 18 s-18 60-60 60 -66-18-66-42 12-24 30-36z"/>
+    <path d="M90 520 c40-30 120-30 140 10 s-20 80-80 84 -90-20-90-50 10-30 30-44z"/>
+  </g>
+  <path class="region__riviere" d="M509.6 76.8 L442.0 147.2 L338.0 198.4 L296.4 262.4 L254.8 371.2 L286.0 441.6 L244.4 512.0 L182.0 601.6 L140.4 678.4"/>
+  <text class="region__lbl" x="250" y="390" transform="rotate(-62 250 390)">la Durance</text>
+  <text class="region__dep-lbl" x="380" y="96">Hautes-Alpes</text>
+  <text class="region__dep-lbl" x="300" y="560">Alpes-de-Haute-Provence</text>
+  <a class="pin" href="#ville-gap" data-pin="gap" aria-label="Gap : 1 boutique"><circle class="pin__halo" cx="327.1" cy="141.4" r="22"/><circle class="pin__pt" cx="327.1" cy="141.4" r="8"/><text x="345.1" y="139.4" text-anchor="start">Gap</text><text class="pin__n" x="345.1" y="157.4" text-anchor="start">1 boutique</text></a><a class="pin" href="#ville-digne" data-pin="digne" aria-label="Digne-les-Bains : 1 boutique"><circle class="pin__halo" cx="408.7" cy="440.3" r="22"/><circle class="pin__pt" cx="408.7" cy="440.3" r="8"/><text x="390.7" y="438.3" text-anchor="end">Digne-les-Bains</text><text class="pin__n" x="390.7" y="456.3" text-anchor="end">1 boutique</text></a><a class="pin" href="#ville-manosque" data-pin="manosque" aria-label="Manosque : 3 boutiques"><circle class="pin__halo" cx="174.7" cy="606.1" r="22"/><circle class="pin__pt" cx="174.7" cy="606.1" r="8"/><text x="192.7" y="604.1" text-anchor="start">Manosque</text><text class="pin__n" x="192.7" y="622.1" text-anchor="start">3 boutiques</text></a>
+</svg></div>
+      <div class="boutiques__liste"><div class="ville rv" id="ville-manosque" data-ville-groupe="manosque">
+  <div class="ville__head"><h3>Manosque</h3><span>3 boutiques · Alpes-de-Haute-Provence</span></div>
+  <div class="ville__cards ville__cards--3"><a class="dcard t-market " href="boutiques/delice-market-manosque.html" data-passage data-ville="manosque">
+  <span class="dcard__front">
+    <span class="dcard__fronton"><img src="../assets/img/logos/logo_delice_market.svg" alt=""></span>
+    <span class="dcard__baie">
+      <img class="dcard__dedans" src="../assets/img/market/rayons.webp" alt="" loading="lazy">
+      <span class="dcard__v dcard__v--g"><i></i></span><span class="dcard__v dcard__v--d"><i></i></span>
+      <span class="dcard__entrer">Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+    
+  </span>
+  <span class="dcard__info">
+    <span class="dcard__type">Supermarché · Manosque</span>
+    <b class="dcard__nom">Délice Market</b>
+    <span class="dcard__adr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>544 Av. Frédéric Mistral, 04100 Manosque</span>
+    <span class="dcard__h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span class="statut js-statut" data-open="08:30" data-close="21:00">Ouvert 7j/7 · 8h30 – 21h</span></span>
+  </span>
+</a><a class="dcard t-boucherie v-red " href="boutiques/boucherie-delice-manosque.html" data-passage data-ville="manosque">
+  <span class="dcard__front">
+    <span class="dcard__fronton"><img src="../assets/img/logos/logo_boucherie_delice-1.svg" alt=""></span>
+    <span class="dcard__baie">
+      <img class="dcard__dedans" src="../assets/img/market/delicemarket_bg_11.webp" alt="" loading="lazy">
+      <span class="dcard__v dcard__v--g"><i></i></span><span class="dcard__v dcard__v--d"><i></i></span>
+      <span class="dcard__entrer">Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+    
+  </span>
+  <span class="dcard__info">
+    <span class="dcard__type">Boucherie · Manosque</span>
+    <b class="dcard__nom">Boucherie Délice</b>
+    <span class="dcard__adr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>14 bis Av. du Majoral Raoul Arnaud, 04100 Manosque</span>
+    <span class="dcard__h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span class="statut js-statut" data-open="08:00" data-close="19:00">Ouvert 7j/7 · 8h – 19h</span></span>
+  </span>
+</a><a class="dcard t-primeur " href="boutiques/delice-primeur-manosque.html" data-passage data-ville="manosque">
+  <span class="dcard__front">
+    <span class="dcard__fronton"><img src="../assets/img/logos/logo_delice_primeur-1.svg" alt=""></span>
+    <span class="dcard__baie">
+      <img class="dcard__dedans" src="../assets/img/market/rayon-leg.webp" alt="" loading="lazy">
+      <span class="dcard__v dcard__v--g"><i></i></span><span class="dcard__v dcard__v--d"><i></i></span>
+      <span class="dcard__entrer">Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+    
+  </span>
+  <span class="dcard__info">
+    <span class="dcard__type">Primeur · Manosque</span>
+    <b class="dcard__nom">Délice Primeur</b>
+    <span class="dcard__adr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>327 Av. Frédéric Mistral, 04100 Manosque</span>
+    <span class="dcard__h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span class="statut js-statut" data-open="06:00" data-close="21:00">Ouvert 7j/7 · 6h – 21h</span></span>
+  </span>
+</a></div>
+</div><div class="ville rv" id="ville-digne" data-ville-groupe="digne">
+  <div class="ville__head"><h3>Digne-les-Bains</h3><span>1 boutique · Alpes-de-Haute-Provence</span></div>
+  <div class="ville__cards ville__cards--1"><a class="dcard t-boucherie " href="boutiques/delice-boucherie-digne.html" data-passage data-ville="digne">
+  <span class="dcard__front">
+    <span class="dcard__fronton"><img src="../assets/img/logos/Logo-delice-boucherie-blanc.svg" alt=""></span>
+    <span class="dcard__baie">
+      <img class="dcard__dedans" src="../assets/img/boucherie/galerie_10.webp" alt="" loading="lazy">
+      <span class="dcard__v dcard__v--g"><i></i></span><span class="dcard__v dcard__v--d"><i></i></span>
+      <span class="dcard__entrer">Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+    
+  </span>
+  <span class="dcard__info">
+    <span class="dcard__type">Boucherie · Digne-les-Bains</span>
+    <b class="dcard__nom">Délice Boucherie</b>
+    <span class="dcard__adr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>7 Rue André Honnorat, 04000 Digne-les-Bains</span>
+    <span class="dcard__h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span class="statut js-statut" data-open="08:30" data-close="19:00">Ouvert 7j/7 · 8h30 – 19h</span></span>
+  </span>
+</a></div>
+</div><div class="ville rv" id="ville-gap" data-ville-groupe="gap">
+  <div class="ville__head"><h3>Gap</h3><span>1 boutique · Hautes-Alpes</span></div>
+  <div class="ville__cards ville__cards--1"><a class="dcard t-market " href="boutiques/delice-market-gap.html" data-passage data-ville="gap">
+  <span class="dcard__front">
+    <span class="dcard__fronton"><img src="../assets/img/logos/logo_delice_market.svg" alt=""></span>
+    <span class="dcard__baie">
+      <img class="dcard__dedans" src="../assets/img/market/rayon-leg-2.webp" alt="" loading="lazy">
+      <span class="dcard__v dcard__v--g"><i></i></span><span class="dcard__v dcard__v--d"><i></i></span>
+      <span class="dcard__entrer">Entrer <svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+    <span class="dcard__new">Nouveau</span>
+  </span>
+  <span class="dcard__info">
+    <span class="dcard__type">Supermarché · Gap</span>
+    <b class="dcard__nom">Délice Market</b>
+    <span class="dcard__adr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>Rue des Mimosas, ZAC de Fontreyne, 05000 Gap</span>
+    <span class="dcard__h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span class="statut js-statut" data-open="08:30" data-close="21:00">Ouvert 7j/7 · 8h30 – 21h</span></span>
+  </span>
+</a></div>
+</div></div>
+    </div>
+  </div>
+</section><section class="sec sec--sombre">
+  <div class="wrap">
+    <div class="sec__head rv"><p class="eyebrow">Nos savoir-faire</p><h2>Un réseau, plusieurs métiers de bouche</h2></div>
+    <div class="metiers"><a class="metier rv" href="boutiques/delice-boucherie-digne.html" data-passage>
+  <img src="../assets/img/boucherie/galerie_10.webp" alt="" loading="lazy">
+  <span class="metier__txt"><img class="metier__ico" src="../assets/img/logos/icone_boucherie-1.svg" alt=""><b>Boucheries halal</b><span>Viande française, préparations maison et conseils du boucher.</span></span>
+</a><a class="metier rv" href="boutiques/delice-primeur-manosque.html" data-passage>
+  <img src="../assets/img/market/rayon_fruits.webp" alt="" loading="lazy">
+  <span class="metier__txt"><img class="metier__ico" src="../assets/img/logos/icone_primeur-1.svg" alt=""><b>Primeur</b><span>Arrivages chaque matin, ouvert dès 6h à Manosque.</span></span>
+</a><a class="metier rv" href="boutiques/delice-market-manosque.html" data-passage>
+  <img src="../assets/img/market/rayon-olive.webp" alt="" loading="lazy">
+  <span class="metier__txt"><img class="metier__ico" src="../assets/img/logos/icone_epicerie-1.svg" alt=""><b>Épicerie orientale</b><span>Épices, huiles, olives et saveurs de Méditerranée.</span></span>
+</a><a class="metier rv" href="boutiques/delice-market-manosque.html" data-passage>
+  <img src="../assets/img/market/image_rotisserie_1x.webp" alt="" loading="lazy">
+  <span class="metier__txt"><img class="metier__ico" src="../assets/img/logos/icone_rotisserie-1.svg" alt=""><b>Rôtisserie</b><span>Poulets rôtis du vendredi au dimanche.</span></span>
+</a></div>
+  </div>
+</section><section class="sec">
+  <div class="wrap histoire">
+    <div class="histoire__txt rv">
+      <p class="eyebrow">Qui sommes-nous</p>
+      <h2>Une enseigne familiale des Alpes du Sud</h2>
+      <p class="lead">Depuis 2021, Délice Market est le supermarché halal de proximité de Manosque : un commerce propre, moderne et familial, pensé pour les courses de tous les jours.</p>
+      <p>Autour du supermarché, la famille Délice compte aujourd'hui Boucherie Délice et Délice Primeur à Manosque, Délice Boucherie à Digne-les-Bains et, nouveauté 2026, Délice Market à Gap. Partout, la même promesse : la qualité du commerce de proximité, à des prix accessibles.</p>
+      <div class="notes">
+        <div><b>4,7<small>/5</small></b><span>Délice Market Manosque<br>+500 avis Google</span></div>
+        <div><b>4,9<small>/5</small></b><span>Délice Boucherie Digne<br>109 avis Google</span></div>
       </div>
     </div>
+    <div class="histoire__avis"><blockquote class="rv"><p>« Des bouchers très gentils et accueillants, même à l&#x27;heure de fermeture. Ils sont très professionnels et vous servent toujours avec le sourire. La viande est de qualité, le magasin est très propre. »</p><cite>Jakatro</cite></blockquote><blockquote class="rv"><p>« Magasin très bien, rangé et organisé. Un large choix, une large gamme halal. Personnel très accueillant et sympathique. »</p><cite>Mehdi Azedine</cite></blockquote><blockquote class="rv"><p>« Wahoo la propreté, les rayons bien rangés. Une vitrine à ne plus savoir quoi choisir. Une viande excellente à prix abordable et des bouchers souriants. Ça manquait à Digne-les-Bains. »</p><cite>Yazid</cite></blockquote></div>
   </div>
-  <div class="etal-boucher">
-    <p class="wrap etal-boucher__hint">L'étal du jour — faites glisser →</p>
-    <ul class="etal-boucher__list" tabindex="0" aria-label="Les pièces de l'étal">
-      <li><img src="../assets/img/boucherie/cote_de_boeuf_3_2x.webp" alt="" loading="lazy"><b>Côte de bœuf</b><span>France</span></li>
-      <li><img src="../assets/img/boucherie/ac1fsv804_cote_d_agneau_65e84b112bc7c_2x.webp" alt="" loading="lazy"><b>Côtelettes d'agneau</b><span>France</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_6.webp" alt="" loading="lazy"><b>Gigot d'agneau</b><span>France</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_13.webp" alt="" loading="lazy"><b>Épaule d'agneau</b><span>France</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_4.webp" alt="" loading="lazy"><b>Rôti de veau</b><span>France</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_11.webp" alt="" loading="lazy"><b>Poulet prêt à cuire</b><span>Europe</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_3.webp" alt="" loading="lazy"><b>Rôti de volaille farci</b><span>Europe</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_14.webp" alt="" loading="lazy"><b>Magret de canard</b><span>Europe</span></li>
-      <li><img src="../assets/img/boucherie/rectangle_12.webp" alt="" loading="lazy"><b>Canette</b><span>Europe</span></li>
-    </ul>
-  </div>
-</section>
-
-<!-- 5. RÔTISSERIE ======================================================== -->
-<section id="rotisserie" class="zone zone--rotisserie" data-zone="rotisserie" data-label="rôtisserie." data-color="orange">
-  <video class="zone__video lazy-video" muted loop playsinline preload="none" poster="assets/video/flammes.jpg" data-src="assets/video/flammes.mp4" aria-hidden="true"></video>
-  <div class="wrap rot__grid">
-    <div class="rv">
-      <span class="tag tag--orange">rôtisserie.</span>
-      <h2>Ça sent bon le week-end.</h2>
-      <p class="lead">Poulets rôtis et accompagnements, le vendredi, le samedi et le dimanche. Le parfum qui vous accueille dès l'entrée.</p>
-      <p class="rot__live" data-rotisserie>La rôtisserie tourne du vendredi au dimanche.</p>
-    </div>
-    <div class="rot__four rv">
-      <div class="rot__glow" aria-hidden="true"></div>
-      <img class="rot__photo" src="../assets/img/market/image_rotisserie_1x.webp" alt="Poulets rôtis dorés à la broche" loading="lazy">
-      <img class="rot__icon" src="../assets/img/logos/icone_rotisserie-1.svg" alt="" aria-hidden="true">
-    </div>
-  </div>
-</section>
-
-<!-- 6. ÉPICERIE FINE ===================================================== -->
-<section id="epicerie" class="zone zone--epicerie" data-zone="epicerie" data-label="épicerie fine." data-color="black">
-  <div class="wrap zone__head">
-    <div class="rv">
-      <span class="tag tag--black">épicerie fine.</span>
-      <h2>Un voyage de saveurs.</h2>
-      <p class="lead">Huiles, sauces, épices, produits orientaux et méditerranéens : des rayons entiers pour cuisiner comme à la maison.</p>
-    </div>
-  </div>
+</section></main>
+<footer class="pied">
   <div class="wrap">
-    <div class="loupe rv" data-img="../assets/img/market/rayon-epi.webp">
-      <img src="../assets/img/market/rayon-epi.webp" alt="Les rayons de l'épicerie : huiles, sauces, conserves" loading="lazy">
-      <span class="loupe__lens" aria-hidden="true"></span>
-      <span class="loupe__hint">Promenez le doigt ou la souris : regardez de plus près</span>
+    <div class="pied__top">
+      <a href="index.html"><img class="pied__logo" src="../assets/img/logos/logo_web_delicemarket_1.svg" alt="Délice"></a>
+      <p class="pied__valeurs"><span>Sourire</span><span>Partage</span><span>Générosité</span><span>Saveurs</span><span>Convivialité</span></p>
     </div>
+    <ul class="pied__shops"><li><a href="boutiques/delice-market-manosque.html" data-passage><b>Délice Market Manosque</b><span>544 Av. Frédéric Mistral, 04100 Manosque</span><span>7j/7 · 8h30 – 21h</span></a></li><li><a href="boutiques/delice-market-gap.html" data-passage><b>Délice Market Gap</b><span>Rue des Mimosas, ZAC de Fontreyne, 05000 Gap</span><span>7j/7 · 8h30 – 21h</span></a></li><li><a href="boutiques/boucherie-delice-manosque.html" data-passage><b>Boucherie Délice Manosque</b><span>14 bis Av. du Majoral Raoul Arnaud, 04100 Manosque</span><span>7j/7 · 8h – 19h</span></a></li><li><a href="boutiques/delice-boucherie-digne.html" data-passage><b>Délice Boucherie Digne-les-Bains</b><span>7 Rue André Honnorat, 04000 Digne-les-Bains</span><span>7j/7 · 8h30 – 19h</span></a></li><li><a href="boutiques/delice-primeur-manosque.html" data-passage><b>Délice Primeur Manosque</b><span>327 Av. Frédéric Mistral, 04100 Manosque</span><span>7j/7 · 6h – 21h</span></a></li></ul>
+    <p class="pied__v1"><a href="../index.html">Voir la version classique du site</a></p>
+    <p class="pied__demo">Maquette de démonstration réalisée par KingDream Digital · site non officiel, en cours de conception</p>
   </div>
-  <div class="spices" aria-hidden="true">
-    <div class="spices__track"><span>Cumin</span><span>Ras el hanout</span><span>Paprika</span><span>Curcuma</span><span>Cannelle</span><span>Harissa</span><span>Gingembre</span><span>Coriandre</span><span>Safran</span><span>Piment</span><span>Cumin</span><span>Ras el hanout</span><span>Paprika</span><span>Curcuma</span><span>Cannelle</span><span>Harissa</span><span>Gingembre</span><span>Coriandre</span><span>Safran</span><span>Piment</span></div>
-  </div>
-  <div class="wrap epi__grid">
-    <figure class="epi__olives rv"><img src="../assets/img/market/rayon-olive.webp" alt="Olives vertes et noires au détail" loading="lazy"><figcaption class="ardoise">Olives au détail</figcaption></figure>
-    <figure class="rv"><img src="../assets/img/market/rayon_epicerie.webp" alt="Allée de l'épicerie" loading="lazy"></figure>
-    <figure class="rv"><img src="../assets/img/market/rayons-epi-2.webp" alt="Allée centrale du magasin" loading="lazy"></figure>
-  </div>
-</section>
-
-<!-- 7. FROMAGERIE & CHARCUTERIE ========================================== -->
-<section id="fromagerie" class="zone zone--fromagerie" data-zone="fromagerie" data-label="fromagerie." data-color="yellow">
-  <div class="wrap fro__grid">
-    <div class="fro__media rv">
-      <img class="fro__big" src="../assets/img/market/rayon-charcu.webp" alt="Charcuterie halal en rayon frais" loading="lazy">
-      <img class="fro__small" src="../assets/img/market/rayon_fromagerie.webp" alt="Charcuterie halal et fromages" loading="lazy">
-    </div>
-    <div class="rv">
-      <span class="tag tag--yellow">fromagerie.</span>
-      <h2>Fromages &amp; charcuterie halal.</h2>
-      <p class="lead">Fromages variés et charcuterie halal pour vos repas, vos sandwichs et vos plateaux du soir.</p>
-      <ul class="checks">
-        <li>Charcuterie halal</li>
-        <li>Fromages pour tous les goûts</li>
-        <li>Le rayon frais, du matin jusqu'à 21h</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 8. SURGELÉS ========================================================== -->
-<section id="surgeles" class="zone zone--surgeles" data-zone="surgeles" data-label="surgelés." data-color="cyan">
-  <video class="zone__video lazy-video" muted loop playsinline preload="none" poster="assets/video/froid.jpg" data-src="assets/video/froid.mp4" aria-hidden="true"></video>
-  <canvas class="snow" aria-hidden="true"></canvas>
-  <div class="wrap surg__grid">
-    <div class="rv">
-      <span class="tag tag--cyan">surgelés.</span>
-      <h2>Brrr… vous entrez dans le froid.</h2>
-      <div class="thermo" aria-hidden="true"><strong data-thermo>20</strong><span>°C</span></div>
-      <p class="lead">Surgelés, glaces, et tout ce qu'il faut au quotidien : boulangerie, hygiène, beauté, produits ménagers. Toutes vos courses en un seul passage.</p>
-    </div>
-    <div class="surg__photos rv">
-      <img src="../assets/img/market/image_surgele_1x.webp" alt="Le rayon surgelés" loading="lazy">
-      <img src="assets/img/rayons-surgeles.webp" alt="Les bacs de surgelés au centre du magasin" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- 9. NOUVEAUTÉS ======================================================== -->
-<section id="nouveautes" class="zone zone--nouveautes" data-zone="nouveautes" data-label="nouveautés." data-color="purple">
-  <div class="wrap zone__head">
-    <div class="rv">
-      <span class="tag tag--purple">nouveautés.</span>
-      <h2>En tête de gondole.</h2>
-      <p class="lead">Les nouveautés de la semaine, à découvrir en magasin.</p>
-    </div>
-  </div>
-  <ul class="gondole" tabindex="0" aria-label="Nouveautés de la semaine">
-    <li><img src="../assets/img/market/d_lice_market_post_359_1x.webp" alt="Tartinables frais" loading="lazy"><b>Tartinables frais</b><span>Houmous, caviar d'aubergine, tzatziki…</span></li>
-    <li><img src="../assets/img/market/d_lice_market_post_364_1x.webp" alt="Smoothie by Soofty" loading="lazy"><b>Smoothie by Soofty</b><span>5 parfums à découvrir</span></li>
-    <li><img src="../assets/img/market/d_lice_market_post_381_1x.webp" alt="Mr.Freeze Classic" loading="lazy"><b>Mr.Freeze Classic</b><span>Le format géant de l'été</span></li>
-    <li><img src="../assets/img/market/produit-parfum-lpb.webp" alt="Eau de parfum by LPB" loading="lazy"><b>Eau de parfum by LPB</b><span>Plusieurs fragrances</span></li>
-  </ul>
-</section>
-
-<!-- 10. CAISSE =========================================================== -->
-<section id="caisse" class="zone zone--caisse" data-zone="caisse" data-label="caisse." data-color="slate">
-  <div class="wrap caisse__grid">
-    <div class="rv">
-      <span class="tag tag--slate">caisse.</span>
-      <h2>Merci de votre visite !</h2>
-      <p class="lead">Voici votre ticket. Rassurez-vous : la visite est offerte. Le reste vous attend en magasin, 7 jours sur 7.</p>
-      <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque" target="_blank" rel="noopener">Y aller pour de vrai →</a>
-    </div>
-    <div class="receipt" aria-label="Ticket de caisse de la visite">
-      <div class="receipt__paper">
-        <p class="r-c"><strong>DÉLICE MARKET</strong><br>544 Av. Frédéric Mistral<br>04100 Manosque</p>
-        <p class="r-c r-date" data-date>Visite virtuelle</p>
-        <ul class="r-lines">
-          <li data-line="primeur"><span>1 × Fruits &amp; légumes</span><b>—</b></li>
-          <li data-line="boucherie"><span>1 × Boucherie halal</span><b>—</b></li>
-          <li data-line="rotisserie"><span>1 × Rôtisserie</span><b>—</b></li>
-          <li data-line="epicerie"><span>1 × Épicerie fine</span><b>—</b></li>
-          <li data-line="fromagerie"><span>1 × Fromagerie</span><b>—</b></li>
-          <li data-line="surgeles"><span>1 × Surgelés</span><b>—</b></li>
-        </ul>
-        <p class="r-total"><span>TOTAL</span><span>VISITE OFFERTE</span></p>
-        <p class="r-c r-count" data-count>Rayons visités : 0/6</p>
-        <div class="barcode" aria-hidden="true"></div>
-        <p class="r-c">Ouvert 7j/7 · 8h30 – 21h<br>Parking gratuit<br><b>À très vite !</b></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 11. VENIR ============================================================ -->
-<section id="venir" class="zone zone--venir" data-zone="venir" data-label="infos pratiques." data-color="slate">
-  <div class="wrap venir__grid">
-    <div class="avis rv">
-      <p class="avis__note"><b>4,7</b><span class="stars" aria-hidden="true">★★★★★</span><small>+500 avis Google</small></p>
-      <blockquote>« Des bouchers très gentils et accueillants, même à l'heure de fermeture. La viande est de qualité, le magasin est très propre. »<cite>Jakatro</cite></blockquote>
-      <blockquote>« Magasin très bien rangé et organisé. Un large choix, une large gamme halal. Personnel très accueillant. »<cite>Mehdi Azedine</cite></blockquote>
-      <blockquote>« Très bon accueil. Magasin ouvert le dimanche et bien achalandé. »<cite>Carine Peloux</cite></blockquote>
-    </div>
-    <div class="infos rv">
-      <h2>Venir chez nous</h2>
-      <p><b>544 Av. Frédéric Mistral, 04100 Manosque</b></p>
-      <p>Ouvert 7j/7 de 8h30 à 21h · <span class="status" data-hours="08:30-21:00">Ouvert 7j/7</span></p>
-      <p>Parking gratuit · Rôtisserie du vendredi au dimanche</p>
-      <p><a href="tel:+33486905452">04 86 90 54 52</a></p>
-      <div class="map"><iframe title="Plan d'accès Délice Market" loading="lazy" src="https://maps.google.com/maps?q=D%C3%A9lice%20Market%2C%20544%20Av.%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque&amp;z=15&amp;output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-    </div>
-  </div>
-</section>
-
-<!-- 12. LES AUTRES BOUTIQUES ============================================= -->
-<section id="boutiques" class="zone zone--boutiques">
-  <div class="wrap">
-    <div class="rv">
-      <span class="tag tag--slate">la famille délice.</span>
-      <h2>La visite continue…</h2>
-      <p class="lead">Quatre autres boutiques Délice à Manosque, Digne-les-Bains et Gap.</p>
-    </div>
-    <div class="shops">
-      <a class="shop rv" href="../boutiques/delice-market-gap.html"><img src="../assets/img/market/rayon-leg.webp" alt="" loading="lazy"><span class="shop__new">Nouveau</span><b>Délice Market</b><span>Gap · ZAC de Fontreyne</span></a>
-      <a class="shop rv" href="../boutiques/boucherie-delice-manosque.html"><img src="../assets/img/market/delicemarket_bg_11.webp" alt="" loading="lazy"><b>Boucherie Délice</b><span>Manosque · 8h – 19h</span></a>
-      <a class="shop rv" href="../boutiques/delice-boucherie-digne.html"><img src="../assets/img/boucherie/delice-boucherie-magasin.webp" alt="" loading="lazy"><b>Délice Boucherie</b><span>Digne-les-Bains · 8h30 – 19h</span></a>
-      <a class="shop rv" href="../boutiques/delice-primeur-manosque.html"><img src="../assets/img/market/image_primeur_1x.webp" alt="" loading="lazy"><b>Délice Primeur</b><span>Manosque · dès 6h</span></a>
-    </div>
-    <p class="v1-link"><a href="../index.html">Voir le site complet du réseau Délice →</a></p>
-  </div>
-</section>
-
-</main>
-
-<footer class="foot">
-  <img src="../assets/img/logos/logo_delice_market.svg" alt="Délice Market">
-  <p>Délice Market — 544 Av. Frédéric Mistral, 04100 Manosque · Ouvert 7j/7 de 8h30 à 21h</p>
-  <p class="foot__values"><span>Sourire</span><span>Partage</span><span>Générosité</span><span>Saveurs</span><span>Convivialité</span></p>
-  <p class="foot__demo">Maquette de démonstration réalisée par KingDream Digital · Vidéos d'ambiance : Mixkit (licence libre)</p>
 </footer>
-
-<!-- Effet de chaleur de la rôtisserie -->
-<svg class="sr-only" aria-hidden="true" focusable="false">
-  <filter id="heat"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.06" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="6s" values="0.012 0.06;0.016 0.09;0.012 0.06" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="9"/></filter>
-</svg>
-
-<script src="assets/vendor/gsap.min.js"></script>
-<script src="assets/vendor/ScrollTrigger.min.js"></script>
-<script src="assets/v2.js"></script>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Nos boutiques" hidden>
+  <div class="menu__panel">
+    <div class="menu__head"><p>Nos 5 boutiques</p><button class="menu__close" type="button" data-menu-close aria-label="Fermer"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <a class="menu__home" href="index.html">Accueil du réseau Délice</a>
+    <div class="menu__ville"><h3>Manosque<small>Alpes-de-Haute-Provence</small></h3><ul><li><a class="menu__shop t-market" href="boutiques/delice-market-manosque.html" data-passage><span class="menu__logo"><img src="../assets/img/logos/logo_delice_market.svg" alt=""></span><span class="menu__txt"><b>Délice Market</b><small>Supermarché · Le supermarché halal complet</small><span class="statut js-statut" data-open="08:30" data-close="21:00">Ouvert 7j/7 · 8h30 – 21h</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a class="menu__shop t-boucherie v-red" href="boutiques/boucherie-delice-manosque.html" data-passage><span class="menu__logo"><img src="../assets/img/logos/logo_boucherie_delice-1.svg" alt=""></span><span class="menu__txt"><b>Boucherie Délice</b><small>Boucherie · Boucherie &amp; charcuterie halal</small><span class="statut js-statut" data-open="08:00" data-close="19:00">Ouvert 7j/7 · 8h – 19h</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a class="menu__shop t-primeur" href="boutiques/delice-primeur-manosque.html" data-passage><span class="menu__logo"><img src="../assets/img/logos/logo_delice_primeur-1.svg" alt=""></span><span class="menu__txt"><b>Délice Primeur</b><small>Primeur · Fruits, légumes &amp; herbes</small><span class="statut js-statut" data-open="06:00" data-close="21:00">Ouvert 7j/7 · 6h – 21h</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul></div><div class="menu__ville"><h3>Digne-les-Bains<small>Alpes-de-Haute-Provence</small></h3><ul><li><a class="menu__shop t-boucherie" href="boutiques/delice-boucherie-digne.html" data-passage><span class="menu__logo"><img src="../assets/img/logos/Logo-delice-boucherie-blanc.svg" alt=""></span><span class="menu__txt"><b>Délice Boucherie</b><small>Boucherie · Boucherie halal · épicerie</small><span class="statut js-statut" data-open="08:30" data-close="19:00">Ouvert 7j/7 · 8h30 – 19h</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul></div><div class="menu__ville"><h3>Gap<small>Hautes-Alpes</small></h3><ul><li><a class="menu__shop t-market" href="boutiques/delice-market-gap.html" data-passage><span class="menu__logo"><img src="../assets/img/logos/logo_delice_market.svg" alt=""></span><span class="menu__txt"><b>Délice Market</b><em>Nouveau</em><small>Supermarché · Nouveau supermarché halal</small><span class="statut js-statut" data-open="08:30" data-close="21:00">Ouvert 7j/7 · 8h30 – 21h</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul></div>
+  </div>
+</div>
+<div class="passage" aria-hidden="true"><span class="passage__l"></span><span class="passage__r"></span></div>
+<script src="assets/v2.js" defer></script>
 </body>
 </html>
